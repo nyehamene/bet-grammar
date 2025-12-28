@@ -1,0 +1,12 @@
+lit = @import("util/literals.grammar");
+
+Work = Dir { Dir };
+
+// Ex:
+// dir "."
+// dir "component"
+// dir "another/component"
+// dir "yet/another/component"
+Dir    = dir string ";";
+string = lit.string;
+dir    = "dir";

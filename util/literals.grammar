@@ -1,0 +1,21 @@
+// Literal
+string        = /"/ /[^\n]*/ /"/;
+string_line   = "\\" /[^\n]*/ [ "\n" ];
+number_any    = number_dec
+              | number_hex
+              | number_bin
+              ;
+number_bin    = ( "0b" | "0B" ) digit_bin { digit_bin };
+number_hex    = ( "0x" | "0X" ) digit_hex { digit_hex };
+number_dec    = "0" | integer [ "." ( "0" | integer ) ];
+number        = number_dec;
+integer       = /[1-9]/;
+digit_hex     = /[0-9a-fA-F]/;
+digit_bin     = "0" | "1";
+//
+member_access = ident "." ident { "." ident };
+ident         = /[a-zA-Z_][a-zA-Z0-9_]*/;
+true          = "true";
+false         = "false";
+//
+comment       = "//" /[^\n]*/ [ "\n" ];
