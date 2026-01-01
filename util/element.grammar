@@ -1,0 +1,47 @@
+literal           = @import("literals.grammar");
+// Element
+Element           = string_element
+                  | if_element
+                  | cond_element
+                  | component_element
+                  ;
+// String element
+string_element    = literal.string
+                  | literal.string_t
+                  | literal.string_group
+                  ;
+// If element
+if_element        = "(" "if" expr Element [ Element ] ")";
+// Cond element
+cond_element      = "(" "cond" basic_expr cond_case { cond_case } ")";
+cond_case         = basic_expr Element;
+// Component element
+component_element = "(" identq [ property_list ] [ attribute_list ] { Element } ")";
+property_list     = "[" [ properties ] "]";
+properties        = property { "," property };
+property          = ident property_value;
+property_value    = expr;
+// Attribute
+attribute_list    = "{" [ attrs ] "}";
+attrs             = attr { "," attr };
+attr              = ident attr_value;
+attr_value        = expr;
+// Expression
+expr              = basic_expr
+                  | literal.string_group
+                  | if_expr
+                  | cond_expr
+                  ;
+if_expr           = "(" "if" expr expr [ expr ] ")";
+cond_expr         = "(" "cond" basic_expr cond_expr_case { cond_expr_case } ")";
+cond_expr_case    = basic_expr expr;
+ident             = literal.ident;
+identq            = literal.ident_q;
+basic_expr        = literal.string
+                  | literal.string_t
+                  | literal.ident_d
+                  | literal.ident_q
+                  | literal.number
+                  | literal.true
+                  | literal.false
+                  ;

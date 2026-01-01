@@ -1,5 +1,7 @@
-# [editor]
-# trim_trailing_whiespace = true
+[editor]
+trim-trailing-whitespace = true
+auto-format = true
+insert-final-newline = true
 
 [editor.whitespace.render]
 space = "all"

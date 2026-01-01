@@ -1,0 +1,39 @@
+literals        = @import("util/literals.grammar");
+elements        = @import("util/element.grammar");
+styles          = @import("util/style.grammar");
+//
+Bet             = { Decl };
+Decl            = ident ":" ident_q ":" expr stmt_separator;
+// Expression
+expr            = Import
+                | Enum
+                | Component
+                | Style
+                | basic_expr
+                ;
+// Enum
+Enum            = enum "{" enum_member [ stmt_separator ] "}";
+enum_member     = ident { stmt_separator ident };
+// Component
+Component       = component "{" component_body "}";
+component_body  = { component_field } { Element };
+component_field = ident ":" ident_q [ "=" basic_expr ] stmt_separator;
+// Alias
+Style           = styles.Style;
+basic_expr      = literals.basic_expr;
+ident_d         = literals.ident_d;
+ident_q         = literals.ident_q;
+ident           = literals.ident;
+member_access   = literals.member_access;
+string          = literals.string;
+// Element
+Element         = elements.Element;
+// Keyword
+stmt_separator  = ";" | "\n";
+Import          = "@import" "(" string ")"
+                | "@import" "(" package ")"
+                ;
+component       = "component";
+package         = "package";
+style           = "style";
+enum            = "enum";

@@ -1,21 +1,64 @@
-// Literal
-string        = /"/ /[^\n]*/ /"/;
-string_line   = "\\" /[^\n]*/ [ "\n" ];
-number_any    = number_dec
-              | number_hex
-              | number_bin
-              ;
-number_bin    = ( "0b" | "0B" ) digit_bin { digit_bin };
-number_hex    = ( "0x" | "0X" ) digit_hex { digit_hex };
-number_dec    = "0" | integer [ "." ( "0" | integer ) ];
-number        = number_dec;
-integer       = /[1-9]/;
-digit_hex     = /[0-9a-fA-F]/;
-digit_bin     = "0" | "1";
+// Basic expression
+literal              = string
+                     | number
+                     | true
+                     | false
+                     | ident_d
+                     ;
+composite_literal    = string_t
+                     | string_t_l
+                     ;
+basic_expr           = literal
+                     | string_l
+                     | ident_q
+                     ;
+expr                 = basic_expr
+                     | composite_literal
+                     ;
+// Keyword
+true                 = "true";
+false                = "false";
 //
-member_access = ident "." ident { "." ident };
-ident         = /[a-zA-Z_][a-zA-Z0-9_]*/;
-true          = "true";
-false         = "false";
+// Identifier
+ident                = /[a-zA-Z_][a-zA-Z0-9_]*/;
+ident_d              = "." ident;
+ident_q              = ident | member_access;
+member_access        = ident { "." ident };
 //
-comment       = "//" /[^\n]*/ [ "\n" ];
+// String and String line
+string               = "\"" { string_content } "\"";
+string_l             = "\\" { string_content } [ "\n" ];
+string_content       = /[^\n\\]*/ [ string_escape_char ];
+string_escape_char   = "\\" escape_char;
+// String template and String template line
+string_t             = "\"" { string_t_content } "\"";
+string_t_l           = "\\" { string_t_content } [ "\n" ];
+string_t_content     = /[^\n\\]*/ [ string_t_escape_char ];
+string_t_escape_char = "\\" ( escape_char | string_t_expr );
+string_t_expr        = "{" basic_expr "}";
+// String group
+string_group         = string_l_any { string_l_any };
+string_l_any         = string_l | string_t_l;
+// Escape character
+escape_char          = "\\"
+                     | "\""
+                     | "t"
+                     | "r"
+                     | "s"
+                     | "f"
+                     | "v"
+                     | "n"
+                     ;
+// Number
+digit_hex            = /[a-fA-F0-9]/;
+digit_bin            = "0" | "1";
+integer              = /[1-9]/;
+number_bin           = ( "0b" | "0B" ) digit_bin { digit_bin };
+number_hex           = ( "0x" | "0X" ) digit_hex { digit_hex };
+number_dec           = "0" | integer [ "." ( "0" | integer ) ];
+number               = number_dec
+                     | number_hex
+                     | number_bin
+                     ;
+// Comment
+comment              = "//" /[^\n]*/ [ "\n" ];
