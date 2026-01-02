@@ -42,6 +42,5 @@ basic_expr        = literal.string
                   | literal.ident_d
                   | literal.ident_q
                   | literal.number
-                  | literal.true
-                  | literal.false
+                  | literal.bool
                   ;

@@ -1,19 +1,16 @@
 // Basic expression
-literal              = string
+basic_expr           = string
                      | number
                      | bool
                      | ident_d
-                     ;
-basic_expr           = literal
                      | string_l
                      | ident_q
                      ;
 // Keyword
-true                 = "true";
-false                = "false";
-bool                 = true | false;
+bool                 = "true" | "false";
 //
 // Identifier
+//
 ident                = /[a-zA-Z_][a-zA-Z0-9_]*/;
 ident_d              = "." ident;
 ident_q              = ident | member_access;
@@ -25,12 +22,19 @@ string_l             = "\\" { string_content } [ "\n" ];
 string_content       = /[^\n\\]*/ [ string_escape_char ];
 string_escape_char   = "\\" escape_char;
 // String template and String template line
+//
+// Hide the following symbol in tree-sitter grammar so they do not
+// appear in the syntax tree:
+// string_t_content, string_t_escape_char.
+//
+// Rename string_t_* to string_template_* in the tree-sitter grammar
 string_t             = "\"" { string_t_content } "\"";
 string_t_l           = "\\" { string_t_content } [ "\n" ];
 string_t_content     = /[^\n\\]*/ [ string_t_escape_char ];
 string_t_escape_char = "\\" ( escape_char | string_t_expr );
 string_t_expr        = "{" basic_expr "}";
 // String group
+// Hide string_l_any in tree-sitter grammar
 string_group         = string_l_any { string_l_any };
 string_l_any         = string_l | string_t_l;
 // Escape character
@@ -44,6 +48,9 @@ escape_char          = "\\"
                      | "n"
                      ;
 // Number
+//
+// The following should be hidden in tree-sitter grammar:
+// digit_bin, digit_hex, number_bin, number_dec, number_hex.
 digit_hex            = /[a-fA-F0-9]/;
 digit_bin            = "0" | "1";
 integer              = /[1-9]/;
