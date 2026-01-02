@@ -1,14 +1,26 @@
 literal = @import("util/literals.grammar");
 //
 Work    = { stmt };
-stmt    = dir | comment;
-dir     = "dir" string ";";
-//
+stmt    = dir
+        | var
+        | comment
+        ;
 // Ex:
 // dir "."
 // dir "component"
 // dir "another/component"
 // dir "yet/another/component"
-//
-string  = literal.string;
-comment = literal.comment;
+dir     = "dir" expr sep;
+var     = ident "::" expr;
+expr    = string
+        | literal.number
+        | literal.member_access
+        | literal.bool
+        ;
+ident   = literal.ident;
+string  = literal.string
+        | literal.string_t
+        | literal.string_l_group
+        ;
+comment = literal.Comment;
+sep     = ";" | "\n";

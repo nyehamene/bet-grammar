@@ -2,33 +2,37 @@ literals        = @import("util/literals.grammar");
 elements        = @import("util/element.grammar");
 styles          = @import("util/style.grammar");
 //
-Bet             = { Decl };
-Decl            = ident ":" ident_q ":" expr stmt_separator;
+Bet             = { stmt };
+stmt            = decl sep
+                | style_decl
+                ;
+// Declaration
+decl            = const_decl;
+const_decl      = ident ":" member_access ":" expr;
 // Expression
-expr            = Import
-                | Enum
-                | Component
-                | Style
+expr            = import
+                | enum_expr
+                | component_expr
                 | basic_expr
                 ;
 // Enum
-Enum            = enum "{" enum_member [ stmt_separator ] "}";
-enum_member     = ident { stmt_separator ident };
+enum_expr       = enum "{" { enum_member } [ sep ] "}";
+enum_member     = ident { sep ident };
 // Component
-Component       = component "{" component_body "}";
-component_body  = { component_field } { Element };
-component_field = ident ":" ident_q [ "=" basic_expr ] stmt_separator;
+component_expr  = component "{" component_body "}";
+component_body  = { component_field } element { element };
+component_field = ident ":" member_access [ "=" basic_expr ] sep;
 // Alias
-Style           = styles.Style;
+style_decl      = styles.Style;
 basic_expr      = literals.basic_expr;
-ident_q         = literals.ident_q;
+member_access   = literals.member_access;
 ident           = literals.ident;
 string          = literals.string;
 // Element
-Element         = elements.Element;
+element         = elements.Element;
 // Keyword
-stmt_separator  = ";" | "\n";
-Import          = "@import" "(" string ")"
+sep             = ";" | "\n";
+import          = "@import" "(" string ")"
                 | "@import" "(" package ")"
                 ;
 component       = "component";

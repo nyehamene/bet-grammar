@@ -8,7 +8,7 @@ Element           = string_element
 // String element
 string_element    = literal.string
                   | literal.string_t
-                  | literal.string_group
+                  | literal.string_l_group
                   ;
 // If element
 if_element        = "(" "if" expr Element [ Element ] ")";
@@ -16,7 +16,7 @@ if_element        = "(" "if" expr Element [ Element ] ")";
 cond_element      = "(" "cond" basic_expr cond_case { cond_case } ")";
 cond_case         = basic_expr Element;
 // Component element
-component_element = "(" identq [ property_list ] [ attribute_list ] { Element } ")";
+component_element = "(" member_access [ property_list ] [ attribute_list ] { Element } ")";
 property_list     = "[" [ properties ] "]";
 properties        = property { "," property };
 property          = ident property_value;
@@ -28,7 +28,7 @@ attr              = ident attr_value;
 attr_value        = expr;
 // Expression
 expr              = basic_expr
-                  | literal.string_group
+                  | literal.string_l_group
                   | if_expr
                   | cond_expr
                   ;
@@ -36,11 +36,10 @@ if_expr           = "(" "if" expr expr [ expr ] ")";
 cond_expr         = "(" "cond" basic_expr cond_expr_case { cond_expr_case } ")";
 cond_expr_case    = basic_expr expr;
 ident             = literal.ident;
-identq            = literal.ident_q;
+member_access     = literal.member_access;
 basic_expr        = literal.string
                   | literal.string_t
                   | literal.ident_d
-                  | literal.ident_q
                   | literal.number
                   | literal.bool
                   ;

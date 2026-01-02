@@ -1,11 +1,14 @@
 literals                = @import("literals.grammar");
 // Style
-Style                   = style rule;
+Style                   = decl sep;
+decl                    = ident "::" style rule
+                        | ident ":" style ":" style rule
+                        ;
 rule                    = style_block | at_rule;
 // StyleRule
 style_block             = "{" ( comment | style_rule ) "}";
-style_rule              = decl ";";
-decl                    = style_decl
+style_rule              = stmt ";";
+stmt                    = property
                         | at_rule
                         | style_nesting
                         ;
@@ -50,8 +53,8 @@ pseudo_class_selector   = ":" ident [ "(" [ selector_list ] ")" ];
 pseudo_element_selector = "::" ident [ "(" [ selector_list ] ")" ];
 combinator              = ( ">" | "+" | "!" | "~" | " " );
 //
-style_decl              = ident ":" expr;
-paren_decl              = "(" decl { ( "," | ";" ) decl };
+property                = ident ":" expr;
+paren_decl              = "(" stmt { ( "," | ";" ) stmt };
 expr                    = basic_expr
                         | color
                         | calc
@@ -99,5 +102,7 @@ current_color           = "currentcolor";
 hsl                     = "hsl" | "hsla";
 rgb                     = "rgb" | "rgba";
 // Comment
-comment                 = "/" /[\*]+/ { comment_content } /[\*]+/ "/";
-comment_content         = /[^\*]*[^\*\\]/;
+// Tree-sitter: use an external scanner to scan comment
+comment                 = "/*" /[\*]*/ { comment_content } /[\*]*/ "*/";
+comment_content         = /[^\*]*[^\*]/;
+sep                     = ";" | "\n";
