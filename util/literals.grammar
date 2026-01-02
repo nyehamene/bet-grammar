@@ -1,8 +1,7 @@
 // Basic expression
 literal              = string
                      | number
-                     | true
-                     | false
+                     | bool
                      | ident_d
                      ;
 basic_expr           = literal
@@ -12,6 +11,7 @@ basic_expr           = literal
 // Keyword
 true                 = "true";
 false                = "false";
+bool                 = true | false;
 //
 // Identifier
 ident                = /[a-zA-Z_][a-zA-Z0-9_]*/;
