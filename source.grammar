@@ -1,0 +1,8 @@
+work   = @import("work.grammar");
+mod    = @import("mod.grammar");
+bet    = @import("bet.grammar");
+// Source
+Source = work.Work
+       | mod.Mod
+       | bet.Bet
+       ;

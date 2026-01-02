@@ -21,10 +21,8 @@ component_field = ident ":" ident_q [ "=" basic_expr ] stmt_separator;
 // Alias
 Style           = styles.Style;
 basic_expr      = literals.basic_expr;
-ident_d         = literals.ident_d;
 ident_q         = literals.ident_q;
 ident           = literals.ident;
-member_access   = literals.member_access;
 string          = literals.string;
 // Element
 Element         = elements.Element;
@@ -35,5 +33,4 @@ Import          = "@import" "(" string ")"
                 ;
 component       = "component";
 package         = "package";
-style           = "style";
 enum            = "enum";

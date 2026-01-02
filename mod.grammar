@@ -1,30 +1,31 @@
-lit = @import("util/literals.grammar");
-
-Mod  = { Stmt };
-Stmt = stmt ";";
-stmt = PackageDecl
-     | VersionStmt
-     | RequireStmt
-     | ExportStmt
-     ;
-
+literal            = @import("util/literals.grammar");
+//
+Mod                = { ( Stmt | comment ) };
+Stmt               = stmt ";";
+stmt               = PackageDecl
+                   | VersionStmt
+                   | RequireStmt
+                   | ExportStmt
+                   | comment
+                   ;
+//
 // pkg : package : @package("github.com/my/package")
 //   _ : package : @package("github.com/my/package")
 //   _ ::          @package("github.com/my/package")
 // @package("github.com/my/package")
-PackageDecl = [ ident ":" [ package ] ":" ] package_builtin;
-
+PackageDecl        = [ ident ":" [ package ] ":" ] package_builtin;
+//
 // version "0.12.0"
-VersionStmt = version string;
-
+VersionStmt        = version string;
+//
 // require "github.com/org/repository/folder/another/folder"
 // require(
 //    "repo1"
 //    "repo3"
 //    "repo3"
 // )
-RequireStmt = require argument_list;
-
+RequireStmt        = require argument_list;
+//
 // export pkg.user.*
 // export pkg.user.decl
 // export(
@@ -32,24 +33,25 @@ RequireStmt = require argument_list;
 //    pkg.bar.decl1
 //    pkg.baz.decl1
 // )
-ExportStmt     = export argument_list;
-argument_list  = argument
-               | argument_group
-               ;
-argument_group = "(" arguments ")";
-arguments      = argument { ";" argument };
-argument       = member_access | many_member_access;
-
+ExportStmt         = export argument_list;
+argument_list      = argument
+                   | argument_group
+                   ;
+argument_group     = "(" arguments ")";
+arguments          = argument { ";" argument };
+argument           = member_access | many_member_access;
+// Alias
 // pkg.foo.*
 many_member_access = member_access "." "*";
 // pkg.bar.decl
-member_access      = lit.member_access;
-ident              = lit.ident;
-string             = lit.string;
-
+member_access      = literal.member_access;
+ident              = literal.ident;
+string             = literal.string;
+comment            = literal.comment;
+// Keywords
 // @package("github.com/my/package")
-package_builtin = "@package" "(" string ")";
-package         = "package";
-version         = "version";
-require         = "require";
-export          = "export";
+package_builtin    = "@package" "(" string ")";
+package            = "package";
+version            = "version";
+require            = "require";
+export             = "export";

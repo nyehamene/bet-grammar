@@ -1,16 +1,17 @@
 literals                = @import("literals.grammar");
 // Style
 Style                   = style rule;
-rule                    = style_rule | at_rule;
+rule                    = style_block | at_rule;
 // StyleRule
-style_rule              = "{" decl { ";" decl } "}";
+style_block             = "{" ( comment | style_rule ) "}";
+style_rule              = decl ";";
 decl                    = style_decl
                         | at_rule
                         | style_nesting
                         ;
-style_nesting           = ( selector_list | percentage ) style_rule;
+style_nesting           = ( selector_list | percentage ) style_block;
 // AtRule
-at_rule                 = "@" ident { prelude } [ style_rule ];
+at_rule                 = "@" ident { prelude } [ style_block ];
 prelude                 = prelude_value;
 prelude_value           = ident
                         | string
@@ -98,5 +99,5 @@ current_color           = "currentcolor";
 hsl                     = "hsl" | "hsla";
 rgb                     = "rgb" | "rgba";
 // Comment
-Comment                 = "/" /[\*]+/ { comment_content } /[\*]+/ "/";
+comment                 = "/" /[\*]+/ { comment_content } /[\*]+/ "/";
 comment_content         = /[^\*]*[^\*\\]/;

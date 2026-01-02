@@ -5,15 +5,9 @@ literal              = string
                      | false
                      | ident_d
                      ;
-composite_literal    = string_t
-                     | string_t_l
-                     ;
 basic_expr           = literal
                      | string_l
                      | ident_q
-                     ;
-expr                 = basic_expr
-                     | composite_literal
                      ;
 // Keyword
 true                 = "true";
