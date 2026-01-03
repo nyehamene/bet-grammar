@@ -1,7 +1,7 @@
 ==================
 Basic dir statement
 ==================
-dir "hello"
+@dir("hello")
 
 ---
 (source_file
@@ -11,7 +11,7 @@ dir "hello"
 ==================
 Dir statement with separator
 ==================
-dir "hello";
+@dir("hello");
 ---
 (source_file
   (dir_statement
@@ -20,7 +20,7 @@ dir "hello";
 ==================
 Dir statement with member access
 ==================
-dir hello.world
+@dir(hello.world)
 
 ---
 (source_file
@@ -60,7 +60,7 @@ Comment
 ==================
 Multiple statements
 ==================
-dir "hello"
+@dir("hello")
 my_var :: 123
 // comment
 ---

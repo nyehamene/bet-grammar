@@ -1,15 +1,15 @@
 // Basic dir statement
 //--------------------
-dir "hello"
+@dir("hello")
 // <- keyword
-//  ^ string
+//   ^ string
 
 // Dir statement with member access
 //---------------------------------
-dir hello.world
+@dir(hello.world)
 // <- keyword
-//  ^ identifier
-//        ^ identifier
+//   ^ identifier
+//         ^ identifier
 
 // Basic var statement
 //--------------------
@@ -32,7 +32,7 @@ my_var :: 123
 
 // Multiple statements
 //--------------------
-dir "hello"
+@dir("hello")
 // <- keyword
 //   ^ string
 my_var :: 123

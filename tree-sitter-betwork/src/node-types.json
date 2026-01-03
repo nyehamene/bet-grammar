@@ -226,6 +226,14 @@
     "named": false
   },
   {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
     "type": ".",
     "named": false
   },
@@ -235,6 +243,10 @@
   },
   {
     "type": ";",
+    "named": false
+  },
+  {
+    "type": "@dir",
     "named": false
   },
   {
@@ -277,10 +289,6 @@
     "type": "comment",
     "named": true,
     "extra": true
-  },
-  {
-    "type": "dir",
-    "named": false
   },
   {
     "type": "false",

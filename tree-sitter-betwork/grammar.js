@@ -25,15 +25,17 @@ export default grammar({
     _stmts: $ => choice(seq($._stmt, repeat(seq($._separator, $._stmt)))),
 
     _stmt: $ => seq(choice(
-        $.dir_statement,
-        $.var_statement,
-      ),
+      $.dir_statement,
+      $.var_statement,
+    ),
       optional($._separator)
     ),
 
     dir_statement: $ => seq(
-      "dir",
+      "@dir",
+      "(",
       $._expression,
+      ")"
     ),
 
     var_statement: $ => seq(

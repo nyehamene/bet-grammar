@@ -8,7 +8,7 @@ decl    = ( dir | var ) [ sep ];
 // dir "component"
 // dir "another/component"
 // dir "yet/another/component"
-dir     = "dir" expr sep;
+dir     = "@dir" "(" expr ")" sep;
 var     = ident "::" expr;
 expr    = string
         | literal.number

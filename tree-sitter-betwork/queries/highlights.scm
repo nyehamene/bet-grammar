@@ -1,5 +1,5 @@
 ; Keywords
-"dir" @keyword
+"@dir" @keyword
 "::" @operator
 
 ; Literals

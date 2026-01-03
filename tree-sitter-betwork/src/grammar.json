@@ -74,11 +74,19 @@
       "members": [
         {
           "type": "STRING",
-          "value": "dir"
+          "value": "@dir"
+        },
+        {
+          "type": "STRING",
+          "value": "("
         },
         {
           "type": "SYMBOL",
           "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },
