@@ -1,0 +1,43 @@
+// Basic dir statement
+//--------------------
+dir "hello"
+// <- keyword
+//  ^ string
+
+// Dir statement with member access
+//---------------------------------
+dir hello.world
+// <- keyword
+//  ^ identifier
+//        ^ identifier
+
+// Basic var statement
+//--------------------
+my_var :: "hello"
+//^ variable
+//      ^ operator
+//         ^ string
+
+// Var statement with number
+//--------------------------
+my_var :: 123
+// ^ variable
+//      ^ operator
+//         ^ number
+
+// Comment
+//--------
+// this is a comment
+// ^ comment
+
+// Multiple statements
+//--------------------
+dir "hello"
+// <- keyword
+//   ^ string
+my_var :: 123
+//^ variable
+//      ^ operator
+//         ^ number
+// this is a comment
+// ^ comment

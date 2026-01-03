@@ -3,14 +3,15 @@
   "grammars": [
     {
       "name": "betwork",
-      "camelcase": "Betwork",
-      "title": "Betwork",
+      "camelcase": "BetWork",
+      "title": "BetWork",
       "scope": "source.betwork",
       "file-types": [
         "bet.work"
       ],
       "injection-regex": "^betwork$",
-      "class-name": "TreeSitterBetwork"
+      "class-name": "TreeSitterBetWork",
+      "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
