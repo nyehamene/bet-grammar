@@ -1,66 +1,39 @@
 literal         = @import("util/literals.grammar");
 //
-Mod             = { ( stmt | comment ) };
-stmt            = decl sep;
-decl            = package_decl
-                | version_stmt
-                | require_stmt
-                | export_stmt
-                | var_decl
+Mod             = { decl | comment };
+decl            = decl { sep decl }
+                | const
+                | builtin
                 ;
-//
-// pkg : package : @package("github.com/my/package")
-//   _ : package : @package("github.com/my/package")
-//   _ ::          @package("github.com/my/package")
-// @package("github.com/my/package")
-package_decl    = [ ident ":" [ package ] ":" ] package_builtin;
-//
-// version "0.12.0"
-version_stmt    = version expr;
-//
-// require "github.com/org/repository/folder/another/folder"
-// require(
-//    "repo1"
-//    "repo3"
-//    "repo3"
-// )
-require_stmt    = require argument_list;
-//
-// export pkg.user.*
-// export pkg.user.decl
-// export(
-//    pkg.foo.*
-//    pkg.bar.decl1
-//    pkg.baz.decl1
-// )
-export_stmt     = export argument_list;
-argument_list   = argument
-                | argument_group
+// Variable
+const           = ident ":" [ member_access ] ":" expr;
+// Builtin
+builtin         = package_builtin
+                | version_builtin
+                | require_builtin
+                | export_builtin
                 ;
-argument_group  = "(" arguments ")";
-arguments       = argument { sep argument };
-argument        = member_access;
-// Variables
-var_decl        = ident "::" expr;
+// Expression
 expr            = string
-                | member_access
                 | literal.number
                 | literal.bool
+                | ident
+                | member_access
+                | builtin
                 ;
+package_builtin = "@package" "(" expr ")";
+version_builtin = "@version" "(" expr ")";
+require_builtin = "@require" "(" argument_list ")";
+export_builtin  = "@export" "(" argument_list ")";
+argument_list   = argument { sep argument };
+argument        = member_access;
 // Alias
 // pkg.foo.*
 // pkg.bar.decl
 member_access   = literal.member_access [ "." "*" ];
 ident           = literal.ident;
-string          = literal.string | literal.string_t
+string          = literal.string
                 | literal.string_l_group
                 ;
-comment         = literal.Comment;
-// Keywords
-// @package("github.com/my/package")
-package_builtin = "@package" "(" string ")";
-package         = "package";
-version         = "version";
-require         = "require";
-export          = "export";
 sep             = ";" | "\n";
+comment         = literal.Comment;

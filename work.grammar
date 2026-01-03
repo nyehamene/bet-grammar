@@ -12,6 +12,7 @@ dir     = "@dir" "(" expr ")" sep;
 var     = ident "::" expr;
 expr    = string
         | literal.number
+        | ident
         | literal.member_access
         | literal.bool
         ;

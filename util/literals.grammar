@@ -14,6 +14,7 @@ bool           = "true" | "false";
 //
 ident          = /[a-zA-Z_][a-zA-Z0-9_]*/;
 ident_d        = "." ident;
+// member_access is left-associative
 member_access  = ident { "." ident };
 //
 // String and String line

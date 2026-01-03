@@ -1,0 +1,101 @@
+==================
+Basic const declaration
+==================
+my_const : : "value"
+---
+(source_file
+  (const_declaration
+    (identifier)
+    (string)))
+
+==================
+Const declaration with member access
+==================
+my_const : parent.child : 123
+---
+(source_file
+  (const_declaration
+    (identifier)
+    (member_access
+      (identifier)
+      (identifier))
+    (number)))
+
+==================
+Package builtin
+==================
+@package("my-package")
+---
+(source_file
+  (package_builtin
+    (string)))
+
+==================
+Require builtin with single argument
+==================
+@require(pkg.foo)
+---
+(source_file
+  (require_builtin
+    (argument_list
+      (argument
+        (member_access
+          (identifier)
+          (identifier))))))
+
+==================
+Require builtin with multiple arguments
+==================
+@require(pkg.foo; pkg.bar)
+---
+(source_file
+  (require_builtin
+    (argument_list
+      (argument
+        (member_access
+          (identifier)
+          (identifier)))
+      (argument
+        (member_access
+          (identifier)
+          (identifier))))))
+
+==================
+Multiple declarations and comments
+==================
+my_const : : "hello"
+// a comment
+@package("my-app")
+---
+(source_file
+  (const_declaration
+    (identifier)
+    (string))
+  (comment)
+  (package_builtin
+    (string)))
+
+==================
+escape char
+:skip
+==================
+my_str :: "foo\nbar"
+---
+(source_file
+  (const_declaration
+    (identifier)
+    (string
+      (escape_char))))
+
+==================
+string template expression
+:skip
+==================
+my_str :: "foo\{bar}"
+---
+(source_file
+  (const_declaration
+    (identifier)
+    (string
+      (string_template_expr
+        (identifier)))))
