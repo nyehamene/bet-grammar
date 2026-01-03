@@ -16,7 +16,8 @@ export default grammar({
   ],
 
   inline: $ => [
-    $.string_content
+    $.string_content,
+    $._arguments,
   ],
 
   rules: {
@@ -58,17 +59,19 @@ export default grammar({
       $._builtin_declaration
     ),
 
-    package_builtin: $ => seq('@package', '(', $._expression, ')'),
-    version_builtin: $ => seq('@version', '(', $._expression, ')'),
-    require_builtin: $ => seq('@require', '(', $.argument_list, ')'),
-    export_builtin: $ => seq('@export', '(', $.argument_list, ')'),
+    package_builtin: $ => seq('@package', '(', $._expression, optional($._separator), ')'),
+    version_builtin: $ => seq('@version', '(', $._expression, optional($._separator), ')'),
+    require_builtin: $ => seq('@require', '(', $._arguments, optional($._separator), ')'),
+    export_builtin: $ => seq('@export', '(', $._arguments, optional($._separator), ')'),
 
-    argument_list: $ => seq(
-      $.argument,
-      repeat(seq($._separator, $.argument))
+    _arguments: $ => choice(
+      $._expression,
+      $.argument_list
     ),
 
-    argument: $ => $.member_access,
+    argument_list: $ => prec.left(
+      seq($._expression, repeat1(seq($._separator, $._expression)))
+    ),
 
     member_access: $ => choice(
       $.identifier,

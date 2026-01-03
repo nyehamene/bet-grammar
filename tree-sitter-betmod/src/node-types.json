@@ -1,20 +1,5 @@
 [
   {
-    "type": "argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "member_access",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "argument_list",
     "named": true,
     "fields": {},
@@ -23,7 +8,35 @@
       "required": true,
       "types": [
         {
-          "type": "argument",
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "export_builtin",
+          "named": true
+        },
+        {
+          "type": "member_access",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "package_builtin",
+          "named": true
+        },
+        {
+          "type": "require_builtin",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "version_builtin",
           "named": true
         }
       ]
@@ -96,6 +109,38 @@
       "types": [
         {
           "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "export_builtin",
+          "named": true
+        },
+        {
+          "type": "member_access",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "package_builtin",
+          "named": true
+        },
+        {
+          "type": "require_builtin",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "version_builtin",
           "named": true
         }
       ]
@@ -174,6 +219,38 @@
       "types": [
         {
           "type": "argument_list",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "export_builtin",
+          "named": true
+        },
+        {
+          "type": "member_access",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "package_builtin",
+          "named": true
+        },
+        {
+          "type": "require_builtin",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "version_builtin",
           "named": true
         }
       ]

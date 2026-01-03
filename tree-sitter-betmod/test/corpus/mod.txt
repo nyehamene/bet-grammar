@@ -31,17 +31,44 @@ Package builtin
     (string)))
 
 ==================
+Version builtin
+==================
+@version("0.1.2")
+---
+(source_file
+  (version_builtin
+    (string)))
+
+==================
+Version builtin multiline
+==================
+@version(
+  "0.1.2"
+)
+---
+(source_file
+  (version_builtin
+    (string)))
+
+==================
 Require builtin with single argument
 ==================
 @require(pkg.foo)
 ---
 (source_file
   (require_builtin
-    (argument_list
-      (argument
-        (member_access
-          (identifier)
-          (identifier))))))
+      (member_access
+        (identifier)
+        (identifier))))
+
+==================
+Require builtin with single string argument
+==================
+@require("pkg.foo")
+---
+(source_file
+  (require_builtin
+     (string)))
 
 ==================
 Require builtin with multiple arguments
@@ -51,14 +78,49 @@ Require builtin with multiple arguments
 (source_file
   (require_builtin
     (argument_list
-      (argument
-        (member_access
-          (identifier)
-          (identifier)))
-      (argument
-        (member_access
-          (identifier)
-          (identifier))))))
+       (member_access
+         (identifier)
+         (identifier))
+       (member_access
+         (identifier)
+         (identifier)))))
+
+==================
+Export builtin with multiple arguments separated
+==================
+@export(
+  pkg.foo;
+  pkg.baz;
+)
+---
+(source_file
+  (export_builtin
+    (argument_list
+       (member_access
+         (identifier)
+         (identifier))
+       (member_access
+         (identifier)
+         (identifier)))))
+
+
+==================
+Export builtin with multiple arguments
+==================
+@export(
+  pkg.foo;
+  pkg.baz;
+)
+---
+(source_file
+  (export_builtin
+    (argument_list
+       (member_access
+         (identifier)
+         (identifier))
+       (member_access
+         (identifier)
+         (identifier)))))
 
 ==================
 Multiple declarations and comments

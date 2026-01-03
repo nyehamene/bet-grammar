@@ -25,8 +25,7 @@ package_builtin = "@package" "(" expr ")";
 version_builtin = "@version" "(" expr ")";
 require_builtin = "@require" "(" argument_list ")";
 export_builtin  = "@export" "(" argument_list ")";
-argument_list   = argument { sep argument };
-argument        = member_access;
+argument_list   = expr { sep expr };
 // Alias
 // pkg.foo.*
 // pkg.bar.decl
