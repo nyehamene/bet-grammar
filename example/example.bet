@@ -1,0 +1,63 @@
+pkg :: package("example")
+
+html :: import("html")
+lib  :: import("path/to/lib")
+
+p       :: html.element.p
+div     :: html.element.div
+section :: html.element.section
+Tag     :: html.builtin.Tag
+Button  :: lib.button.Primary
+
+State :: enum {
+    pending
+    scheduled
+    running
+    succeeded
+    failed
+    cancelled
+}
+
+Page :: component {
+	title:     String
+	heading:   Tag
+	state:     State
+	error:     Bool
+	container: Tag = html.tag.div
+
+    (container
+	    100000000000001
+
+	    "Hello, World!"
+
+	    \\My name is Ozymandias, King of Heros;
+	    \\Look on my Works, ye Mighty, and despair!
+
+	    (title)
+
+	    (heading {color (rgba 127, 127, 255, 0.6)})
+
+	    (if error
+		    (div "fail to load content"))
+
+	    (section
+	        (cond state
+		        .pending   (p "Pending")
+		        .scheduled (p "Scheduled")
+		        .running   (p "Running")
+		        .succeeded (p "Succeeded")
+		        .failed    (p "Failed")
+		        .cancelled (p "Cancelled")))
+
+	    (Button [id "mainbutton"] "Click"))
+}
+
+Page :: style {
+	display: grid;
+	gap: 10px;
+	justify-items: center;
+	align-items: center;
+	background-color: rgb(127, 127, 255);
+	border: 1 px solid #ffffff;
+}
+

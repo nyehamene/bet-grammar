@@ -1,0 +1,41 @@
+//
+// A document presents a page. The content of a document file is compiled
+// directly into a page/document of the target platform (typically html page).
+//
+// A document enables file based routing and dynamic routing.
+//
+// Example, author and book in the package declaration below are dynamic variables
+// replaced with concrete values to create dynamic routes.
+//
+// The following declarations are allowed in a document:
+//
+// 1. package
+// 2. import
+// 3. enum
+// 4. let
+//
+// The following declaration are not allowed in a document:
+//
+// 1. component
+//
+
+pkg    :: document("page", "[author]/[?book]")
+author :: param(:author)
+book   :: param("book")
+
+html :: import("html")
+Tag  :: html.buildin.Tag
+
+head   :: html.head
+body   :: html.body
+div    :: html.div
+h1     :: html.h1
+button :: html.button
+
+(html.html {en "lang"}
+	(head
+		(title "Home"))
+	(body
+		(div
+			(h1 "Hello world!")
+			(button "Click Me!"))))
