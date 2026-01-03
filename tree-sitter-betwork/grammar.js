@@ -10,6 +10,8 @@
 export default grammar({
   name: "betwork",
 
+  word: $ => $.identifier,
+
   externals: $ => [
     // $._string_content,
   ],

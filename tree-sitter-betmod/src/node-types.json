@@ -16,6 +16,10 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "member_access",
           "named": true
         },
@@ -120,6 +124,10 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "member_access",
           "named": true
         },
@@ -183,6 +191,10 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "member_access",
           "named": true
         },
@@ -227,6 +239,10 @@
         },
         {
           "type": "export_builtin",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         },
         {
@@ -328,6 +344,10 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "member_access",
           "named": true
         },
@@ -368,6 +388,10 @@
         },
         {
           "type": "export_builtin",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         },
         {

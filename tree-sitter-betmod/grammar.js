@@ -10,6 +10,8 @@
 export default grammar({
   name: "betmod",
 
+  word: $ => $.identifier,
+
   extras: $ => [
     /\s/,
     $.comment
@@ -55,6 +57,7 @@ export default grammar({
       $.string,
       $.number,
       $.boolean,
+      $.identifier,
       $.member_access,
       $._builtin_declaration
     ),
@@ -73,13 +76,11 @@ export default grammar({
       seq($._expression, repeat1(seq($._separator, $._expression)))
     ),
 
-    member_access: $ => choice(
+    member_access: $ => seq(
       $.identifier,
-      seq(
-        $.identifier,
-        repeat(seq('.', $.identifier)),
-        optional(seq('.', '*'))
-      )),
+      repeat1(seq('.', $.identifier)),
+      optional(seq('.', '*'))
+    ),
 
     identifier: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
