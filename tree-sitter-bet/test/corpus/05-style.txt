@@ -1,0 +1,123 @@
+=================
+style declaration
+=================
+my_style : : style{};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style)))
+
+=================
+style property declaration
+=================
+my_style : : style{
+  --bar: "bar"
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (string)))))
+
+=================
+style property declaration - terminator
+=================
+my_style : : style{
+  --bar: "bar";
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (string)))))
+
+=================
+style with multiple property declarations
+=================
+my_style : : style{
+  --bar: "bar";
+  foo: "foo"
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (string))
+      (css_property_declaration
+        name: (css_identifier)
+        value: (string)))))
+
+=================
+style comment
+=================
+my_style :: style {
+  /* comment */
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style)))
+
+=================
+style comment before declaration
+=================
+my_style :: style {
+  /* comment */
+  foo: "bar";
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (string)))))
+
+=================
+style comment after declaration
+=================
+my_style :: style {
+  foo: "bar";
+  /* comment */
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (string)))))
+
+=================
+style comment between declarations
+=================
+my_style :: style {
+  --bar: "bar";
+  /* comment */
+  foo: "bar";
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (string))
+      (css_property_declaration
+        name: (css_identifier)
+        value: (string)))))
+

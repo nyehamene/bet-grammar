@@ -1,0 +1,36 @@
+==================
+Import builtin
+==================
+my_import: import_builtin: @import("package");
+---
+(source_file
+    (const_declaration
+      name: (identifier)
+      type: (identifier)
+      (import_builtin
+        (string))))
+
+==================
+String with escape char
+==================
+escaped_string: string: "hello\nworld";
+---
+(source_file
+    (const_declaration
+      name: (identifier)
+      type: (identifier)
+      (string
+        (escape_char))))
+
+==================
+String with template expression
+==================
+template_string: string: "value is \{my_var}";
+---
+(source_file
+    (const_declaration
+      name: (identifier)
+      type: (identifier)
+      (string
+        (string_template_expr
+          (identifier)))))

@@ -1,0 +1,59 @@
+=================
+component valueless attribute with trailing comma
+=================
+my_comp : : component {
+  (div {foo,})
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+          (component_element
+            tag: (identifier)
+            (attributes
+              (attribute
+                name: (identifier)))))))
+
+=================
+component attribute with trailing comma
+=================
+my_comp : : component {
+  (div {foo "foo",})
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+          (component_element
+            tag: (identifier)
+            (attributes
+              (attribute
+                name: (identifier)
+                value: (string)))))))
+
+
+=================
+component attributes with trailing comma
+=================
+my_comp : : component {
+  (div {foo "foo",
+        bar "bar",
+       })
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+          (component_element
+            tag: (identifier)
+            (attributes
+              (attribute
+                name: (identifier)
+                value: (string))
+              (attribute
+                name: (identifier)
+                value: (string)))))))
+

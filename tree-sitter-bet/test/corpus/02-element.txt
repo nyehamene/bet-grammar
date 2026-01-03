@@ -1,0 +1,109 @@
+=================
+component with string element
+=================
+my_comp : : component {
+  "hello world"
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+      (string_element
+        (string)))))
+
+=================
+component with simple component element
+=================
+my_comp : : component {
+  (MyComponent)
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+      (component_element
+        tag: (identifier)))))
+
+=================
+component with component element with properties
+=================
+my_comp : : component {
+  (MyComponent [prop1 1, prop2 "two"])
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+      (component_element
+        tag: (identifier)
+        (properties
+          (property
+            name: (identifier)
+            value: (number))
+          (property
+            name: (identifier)
+            value: (string)))))))
+
+=================
+component with if element
+=================
+my_comp : : component {
+  (if show_it (MyComponent) "Not shown")
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+      (if_element
+        cond: (identifier)
+        then: (component_element
+          tag: (identifier))
+        else: (string_element
+          (string))))))
+
+=================
+component with cond element
+=================
+my_comp : : component {
+  (cond state "loading" (Spinner) "loaded" (Content))
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+      (cond_element
+        selector: (identifier)
+        (case_list
+          (case
+            match: (string)
+            branch: (component_element
+              tag: (identifier)))
+          (case
+            match: (string)
+            branch: (component_element
+              tag: (identifier))))))))
+
+=================
+component with multiple elements
+=================
+my_comp : : component {
+  "A title"
+  (Divider)
+  (Content)
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+      (string_element
+        (string))
+      (component_element
+        tag: (identifier))
+      (component_element
+        tag: (identifier)))))

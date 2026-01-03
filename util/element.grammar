@@ -7,7 +7,6 @@ Element           = string_element
                   ;
 // String element
 string_element    = literal.string
-                  | literal.string_t
                   | literal.string_l_group
                   ;
 // If element
@@ -18,13 +17,13 @@ cond_case         = basic_expr Element;
 // Component element
 component_element = "(" member_access [ property_list ] [ attribute_list ] { Element } ")";
 property_list     = "[" [ properties ] "]";
-properties        = property { "," property };
+properties        = property { "," property } [ "," ];
 property          = ident property_value;
 property_value    = expr;
 // Attribute
 attribute_list    = "{" [ attrs ] "}";
-attrs             = attr { "," attr };
-attr              = ident attr_value;
+attrs             = attr { "," attr } [ "," ];
+attr              = ident [ attr_value ];
 attr_value        = expr;
 // Expression
 expr              = basic_expr
@@ -38,7 +37,6 @@ cond_expr_case    = basic_expr expr;
 ident             = literal.ident;
 member_access     = literal.member_access;
 basic_expr        = literal.string
-                  | literal.string_t
                   | literal.ident_d
                   | literal.number
                   | literal.bool

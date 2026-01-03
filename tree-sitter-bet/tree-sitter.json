@@ -1,0 +1,42 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "bet",
+      "camelcase": "Bet",
+      "title": "Better-template",
+      "scope": "source.bet",
+      "file-types": [
+        "bet"
+      ],
+      "injection-regex": "^bet$",
+      "class-name": "TreeSitterBet"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "Bet grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "nyehamene",
+        "email": "nhcdeveloper@gmail.com",
+        "url": ""
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/tree-sitter/tree-sitter-bet",
+      "funding": ""
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "java": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": true
+  }
+}

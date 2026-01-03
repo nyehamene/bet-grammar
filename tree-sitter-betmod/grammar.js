@@ -115,11 +115,18 @@ export default grammar({
     string_content: $ => choice(
       $.escape_char,
       $.string_template_expr,
-      token(/[^"\n]+/)
+      token(/[^"\n]/)
     ),
 
     escape_char: $ => choice(
-      '\\\\', '\\"', '\\t', '\\r', '\\s', '\\f', '\\v', '\\n'
+      '\\\\',
+      '\\"',
+      '\\t',
+      '\\r',
+      '\\s',
+      '\\f',
+      '\\v',
+      '\\n'
     ),
 
     string_template_expr: $ => seq('\\{', $._expression, '}'),

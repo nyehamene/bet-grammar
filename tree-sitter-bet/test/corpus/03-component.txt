@@ -1,0 +1,66 @@
+=================
+empty component declaration
+=================
+MyEmptyComponent : : component{};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component)))
+
+=================
+component with variables and elements
+=================
+MyComplexComponent : : component{
+  title_text: string = "Hello";
+  (Header)
+  (Text [content title_text])
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+      (var_declaration
+        name: (identifier)
+        type: (identifier)
+        (string))
+      (component_element
+        tag: (identifier))
+      (component_element
+        tag: (identifier)
+        (properties
+          (property
+            name: (identifier)
+            value: (identifier)))))))
+
+=================
+component with multiple variables and elements
+=================
+MyComplexComponent : : component{
+  title_text: string = "Hello";
+  show_header: bool = true;
+  (Header)
+  (Text [content title_text])
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+      (var_declaration
+        name: (identifier)
+        type: (identifier)
+        (string))
+      (var_declaration
+        name: (identifier)
+        type: (identifier)
+        (bool))
+      (component_element
+        tag: (identifier))
+      (component_element
+        tag: (identifier)
+        (properties
+          (property
+            name: (identifier)
+            value: (identifier)))))))

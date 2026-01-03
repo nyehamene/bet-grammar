@@ -1,14 +1,11 @@
 literals                = @import("literals.grammar");
 // Style
-Style                   = decl sep;
-decl                    = ident "::" style rule
-                        | ident ":" style ":" style rule
-                        ;
+Style                   = "style" rule sep;
 rule                    = style_block | at_rule;
 // StyleRule
 style_block             = "{" ( comment | style_rule ) "}";
-style_rule              = stmt ";";
-stmt                    = property
+style_rule              = decl ";";
+decl                    = property
                         | at_rule
                         | style_nesting
                         ;
@@ -16,12 +13,7 @@ style_nesting           = ( selector_list | percentage ) style_block;
 // AtRule
 at_rule                 = "@" ident { prelude } [ style_block ];
 prelude                 = prelude_value;
-prelude_value           = ident
-                        | string
-                        | number
-                        | size
-                        | percentage
-                        | function_call
+prelude_value           = basic_expr
                         | paren_prelude_value
                         | prelude_list
                         | paren_decl
@@ -29,6 +21,7 @@ prelude_value           = ident
 paren_prelude_value     = "(" prelude_value ")";
 prelude_list            = prelude_value { [ "," ] prelude_value };
 // Selector
+selector_list           = selector { "," selector };
 selector                = simple_selector { combinator simple_selector };
 simple_selector         = type_selector
                         | class_selector
@@ -38,7 +31,6 @@ simple_selector         = type_selector
                         | pseudo_element_selector
                         | nesting_selector
                         ;
-selector_list           = selector { "," selector };
 type_selector           = ident;
 class_selector          = literals.ident_d;
 id_selector             = "#" ident;
@@ -54,7 +46,7 @@ pseudo_element_selector = "::" ident [ "(" [ selector_list ] ")" ];
 combinator              = ( ">" | "+" | "!" | "~" | " " );
 //
 property                = ident ":" expr;
-paren_decl              = "(" stmt { ( "," | ";" ) stmt };
+paren_decl              = "(" decl { ( "," | ";" ) decl };
 expr                    = basic_expr
                         | color
                         | calc
@@ -74,7 +66,7 @@ calc                    = "calc" "(" calc_expr ")";
 calc_expr               = basic_expr | binary_expr | unary_expr;
 url                     = "url" "(" ( string | variable ) ")";
 variable                = "var" "(" ident ")";
-function_call           = ident "(" expr ")";
+function_call           = ident "(" [ expr ] ")";
 binary_expr             = basic_expr { ( "+" | "-" | "*" | "/" ) basic_expr };
 unary_expr              = ( "+" | "-" ) expr;
 paren_expr              = "(" expr ")";
@@ -97,7 +89,6 @@ string                  = literals.string;
 // Ident
 ident                   = /[a-zA-Z_-][a-zA-Z0-9_-]*/;
 // Keyword
-style                   = "style";
 current_color           = "currentcolor";
 hsl                     = "hsl" | "hsla";
 rgb                     = "rgb" | "rgba";

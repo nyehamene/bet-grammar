@@ -1,0 +1,41 @@
+=================
+component property with trailing comma
+=================
+my_comp : : component {
+  (div [foo "foo",])
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+          (component_element
+            tag: (identifier)
+            (properties
+              (property
+                name: (identifier)
+                value: (string)))))))
+
+=================
+multiple component properties with trailing comma
+=================
+my_comp : : component {
+  (div [foo "foo",
+        bar "bar",
+       ])
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component
+          (component_element
+            tag: (identifier)
+            (properties
+              (property
+                name: (identifier)
+                value: (string))
+              (property
+                name: (identifier)
+                value: (string)))))))
+

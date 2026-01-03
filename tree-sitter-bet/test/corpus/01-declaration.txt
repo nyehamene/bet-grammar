@@ -1,0 +1,121 @@
+=================
+const declaration
+=================
+my_val :: "foo";
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (string)))
+
+=================
+const declaration: spaced
+=================
+my_val : : "foo";
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (string)))
+
+=================
+const declaration with type
+=================
+my_val: string: "foo";
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    type: (identifier)
+    (string)))
+
+=================
+const declaration with member access type
+=================
+my_val: bet.builtin.Type: "foo";
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    type: (member_access
+      object: (member_access
+        object: (identifier)
+        member: (identifier))
+      member: (identifier))
+    (string)))
+
+=================
+var declaration
+=================
+my_val :string;
+---
+(source_file
+  (var_declaration
+    name: (identifier)
+    type: (identifier)))
+
+=================
+var declaration with intializer
+=================
+my_val : = "foo";
+---
+(source_file
+  (var_declaration
+    name: (identifier)
+    (string)))
+
+=================
+var declaration with type
+=================
+my_val: string = "foo";
+---
+(source_file
+  (var_declaration
+    name: (identifier)
+    type: (identifier)
+    (string)))
+
+=================
+var declaration with member access type
+=================
+my_val: bet.builtin.Type = "foo";
+---
+(source_file
+  (var_declaration
+    name: (identifier)
+    type: (member_access
+      object: (member_access
+        object: (identifier)
+        member: (identifier))
+      member: (identifier))
+    (string)))
+
+================
+enum declaration
+================
+my_enum : : enum{};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (enum)))
+
+================
+component declaration
+================
+my_component : : component{};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (component)))
+
+================
+style declaration
+================
+my_style : : style{};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style)))

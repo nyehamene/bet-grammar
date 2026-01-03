@@ -1,40 +1,37 @@
-literals        = @import("util/literals.grammar");
-elements        = @import("util/element.grammar");
-styles          = @import("util/style.grammar");
+literals       = @import("util/literals.grammar");
+elements       = @import("util/element.grammar");
+styles         = @import("util/style.grammar");
 //
-Bet             = { stmt };
-stmt            = decl sep
-                | style_decl
-                ;
+Bet            = { decl };
 // Declaration
-decl            = const_decl;
-const_decl      = ident ":" member_access ":" expr;
+decl           = const
+               | var
+               ;
+const          = ident ":" member_access ":" expr sep;
+var            = ident ":" member_access [ "=" expr ] sep;
 // Expression
-expr            = import
-                | enum_expr
-                | component_expr
-                | basic_expr
-                ;
+expr           = import
+               | enum
+               | component
+               | style
+               | basic_expr
+               ;
 // Enum
-enum_expr       = enum "{" { enum_member } [ sep ] "}";
-enum_member     = ident { sep ident };
+enum           = "enum" "{" { enum_member } "}";
+enum_member    = ident sep;
 // Component
-component_expr  = component "{" component_body "}";
-component_body  = { component_field } element { element };
-component_field = ident ":" member_access [ "=" basic_expr ] sep;
+component      = "component" "{" [ component_body ] "}";
+component_body = { var } element { element };
+// Builtin
+import         = "@import" "(" string ")"
+               | "@import" "(" "package" ")"
+               ;
 // Alias
-style_decl      = styles.Style;
-basic_expr      = literals.basic_expr;
-member_access   = literals.member_access;
-ident           = literals.ident;
-string          = literals.string;
-// Element
-element         = elements.Element;
+basic_expr     = literals.basic_expr;
+member_access  = literals.member_access;
+ident          = literals.ident;
+string         = literals.string;
+style          = styles.Style;
+element        = elements.Element;
 // Keyword
-sep             = ";" | "\n";
-import          = "@import" "(" string ")"
-                | "@import" "(" package ")"
-                ;
-component       = "component";
-package         = "package";
-enum            = "enum";
+sep            = ";" | "\n";

@@ -1,0 +1,63 @@
+=================
+empty enum
+=================
+MyEmptyEnum : : enum{};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (enum)))
+
+=================
+single member enum
+=================
+MySingleEnum : : enum{
+  FOO;
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (enum
+      (enum_member
+        (identifier)))))
+
+=================
+multiple member enum
+=================
+MyMultiEnum : : enum{
+  FOO;
+  BAR;
+  BAZ;
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (enum
+      (enum_member
+        (identifier))
+      (enum_member
+        (identifier))
+      (enum_member
+        (identifier)))))
+
+=================
+multiple member enum - newline separator
+=================
+MyMultiEnum : : enum{
+  FOO
+  BAR
+  BAZ
+};
+---
+(source_file
+  (const_declaration
+    name: (identifier)
+    (enum
+      (enum_member
+        (identifier))
+      (enum_member
+        (identifier))
+      (enum_member
+        (identifier)))))

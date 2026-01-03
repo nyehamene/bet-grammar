@@ -1,0 +1,169 @@
+=================
+style with simple property
+=================
+my_style : : style{
+  display: block;
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (css_identifier)))))
+
+=================
+style with number value
+=================
+my_style : : style{
+  z-index: 999;
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (number)))))
+
+=================
+style with size property
+=================
+my_style : : style{
+  width: 100px;
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (size)))))
+
+=================
+style with percentage property
+=================
+my_style : : style{
+  width: 50%;
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (percentage)))))
+
+=================
+style with hex color
+=================
+my_style : : style{
+  color: #ff0000;
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (color)))))
+
+=================
+style with function call
+=================
+my_style : : style{
+  transform: translate(10px);
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (function_call
+          (css_identifier)
+          (size))))))
+
+=================
+style with url
+=================
+my_style : : style{
+  background-image: url("http://example.com/bg.png");
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (url)))))
+
+=================
+style with css variable
+=================
+my_style : : style{
+  color: var(--primary-color);
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (variable
+          (css_identifier)
+          (css_identifier))))))
+
+=================
+style with unary expression
+=================
+my_style : : style{
+  margin: -10px;
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (unary
+          (css_size))))))
+
+=================
+style with binary expression
+=================
+my_style : : style{
+  width: calc(100% - 20px);
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    (style
+      (css_property_declaration
+        name: (css_identifier)
+        value: (function_call
+          (css_identifier)
+          (list
+            (percentage)
+            (unary
+              (css_size))))))))
