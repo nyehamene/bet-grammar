@@ -1,10 +1,8 @@
 literal = @import("util/literals.grammar");
 //
-Work    = { stmt };
-stmt    = dir
-        | var
-        | comment
-        ;
+Work    = { ( stmt | comment ) };
+stmt    = decl { sep decl };
+decl    = ( dir | var ) [ sep ];
 // Ex:
 // dir "."
 // dir "component"
@@ -19,7 +17,6 @@ expr    = string
         ;
 ident   = literal.ident;
 string  = literal.string
-        | literal.string_t
         | literal.string_l_group
         ;
 comment = literal.Comment;
