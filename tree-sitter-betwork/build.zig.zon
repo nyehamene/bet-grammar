@@ -1,6 +1,6 @@
 .{
     .name = .tree_sitter_betwork,
-    .fingerprint = 0xb05a7ca5fc598878,
+    .fingerprint = 0xb05a7ca5802625d4,
     .version = "0.1.0",
     .dependencies = .{
         .tree_sitter = .{

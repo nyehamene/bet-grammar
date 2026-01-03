@@ -12,7 +12,7 @@
   "author": {
     "name": "nyehamene",
     "email": "nhcdeveloper@gmail.com",
-    "url": "https://github.com/nyehamene"
+    "url": ""
   },
   "main": "bindings/node",
   "types": "bindings/node",

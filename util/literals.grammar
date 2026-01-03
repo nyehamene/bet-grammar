@@ -1,65 +1,56 @@
 // Basic expression
-basic_expr           = string
-                     | string_l_group
-                     | string_t
-                     | bool
-                     | number
-                     | ident
-                     | ident_d
-                     | member_access
-                     ;
+basic_expr     = string
+               | string_l_group
+               | bool
+               | number
+               | ident
+               | ident_d
+               | member_access
+               ;
 // Keyword
-bool                 = "true" | "false";
+bool           = "true" | "false";
 //
 // Identifier
 //
-ident                = /[a-zA-Z_][a-zA-Z0-9_]*/;
-ident_d              = "." ident;
-member_access        = ident { "." ident };
+ident          = /[a-zA-Z_][a-zA-Z0-9_]*/;
+ident_d        = "." ident;
+member_access  = ident { "." ident };
 //
 // String and String line
 // ===============================
 // Rename string_l to string_line.
+// Rename string_t_* to string_template_*
 // Tree-sitter: use external scanner to scan string_content.
-string               = "\"" { string_content } "\"";
-string_l             = "\\" { string_content } [ "\n" ];
-string_content       = /[^\n\\]*/ [ string_escape_char ];
-string_escape_char   = "\\" escape_char;
-// String template and String template line
-// ========================================
-// Rename string_t_* to string_template_* in the tree-sitter grammar
-// Tree-sitter: use external scanner to scan string_t_content
-string_t             = "\"" { string_t_content } "\"";
-string_t_l           = "\\" { string_t_content } [ "\n" ];
-string_t_content     = /[^\n\\]*/ [ string_t_escape_char ];
-string_t_escape_char = string_escape_char | string_t_expr;
-string_t_expr        = "\\{" basic_expr "}";
-// String group
-string_l_group       = string_l_any { string_l_any };
-string_l_any         = string_l | string_t_l;
-// Escape character
-escape_char          = "\\"
-                     | "\""
-                     | "t"
-                     | "r"
-                     | "s"
-                     | "f"
-                     | "v"
-                     | "n"
-                     ;
+string         = "\"" { string_content } "\"";
+string_l       = "\\" { string_content } "\n";
+string_l_group = string_l { string_l };
+string_content = escape_char
+               | string_t_expr
+               | /[^\n"]/
+               ;
+string_t_expr  = "\\{" basic_expr "}";
+escape_char    = "\\\\"
+               | "\\\""
+               | "\\t"
+               | "\\r"
+               | "\\s"
+               | "\\f"
+               | "\\v"
+               | "\\n"
+               ;
 // Number
 //
 // The following should be hidden in tree-sitter grammar:
 // digit_bin, digit_hex, number_bin, number_dec, number_hex.
-digit_hex            = /[a-fA-F0-9]/;
-digit_bin            = "0" | "1";
-integer              = /[1-9]/;
-number_bin           = ( "0b" | "0B" ) digit_bin { digit_bin };
-number_hex           = ( "0x" | "0X" ) digit_hex { digit_hex };
-number_dec           = "0" | integer [ "." ( "0" | integer ) ];
-number               = number_dec
-                     | number_hex
-                     | number_bin
-                     ;
+digit_hex      = /[a-fA-F0-9]/;
+digit_bin      = "0" | "1";
+integer        = /[1-9]/;
+number_bin     = ( "0b" | "0B" ) digit_bin { digit_bin };
+number_hex     = ( "0x" | "0X" ) digit_hex { digit_hex };
+number_dec     = "0" | integer [ "." ( "0" | integer ) ];
+number         = number_dec
+               | number_hex
+               | number_bin
+               ;
 // Comment
-Comment              = "//" /[^\n]*[\n]/;
+Comment        = "//" /[^\n]*[\n]?/;

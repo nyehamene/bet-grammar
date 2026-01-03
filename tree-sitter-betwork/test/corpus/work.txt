@@ -1,0 +1,73 @@
+==================
+Basic dir statement
+==================
+dir "hello"
+
+---
+(source_file
+  (dir_statement
+    (string)))
+
+==================
+Dir statement with separator
+==================
+dir "hello";
+---
+(source_file
+  (dir_statement
+    (string)))
+
+==================
+Dir statement with member access
+==================
+dir hello.world
+
+---
+(source_file
+  (dir_statement
+    (member_access
+      (identifier)
+      (identifier))))
+
+==================
+Basic var statement
+==================
+my_var :: "hello"
+---
+(source_file
+  (var_statement
+    (identifier)
+    (string)))
+
+==================
+Var statement with number
+==================
+my_var :: 123
+---
+(source_file
+  (var_statement
+    (identifier)
+    (number (number_decimal))))
+
+==================
+Comment
+==================
+// this is a comment
+---
+(source_file
+  (comment))
+
+==================
+Multiple statements
+==================
+dir "hello"
+my_var :: 123
+// comment
+---
+(source_file
+  (dir_statement
+    (string))
+  (var_statement
+    (identifier)
+    (number (number_decimal)))
+  (comment))
