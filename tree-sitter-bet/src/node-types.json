@@ -889,6 +889,10 @@
           "named": true
         },
         {
+          "type": "element",
+          "named": true
+        },
+        {
           "type": "var_declaration",
           "named": true
         }
@@ -1077,10 +1081,6 @@
   },
   {
     "type": "",
-    "named": false
-  },
-  {
-    "type": "\n",
     "named": false
   },
   {

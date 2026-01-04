@@ -1,0 +1,85 @@
+=================
+top-level string element
+=================
+"Hello, World!"
+---
+
+(source_file
+  (string_element
+    (string)))
+
+=================
+top-level simple component element
+=================
+(MyComponent)
+---
+
+(source_file
+  (component_element
+    tag: (identifier)))
+
+=================
+top-level if element
+=================
+(if true (MyComponent) "Fallback")
+---
+
+(source_file
+  (if_element
+    cond: (bool)
+    then: (component_element
+      tag: (identifier))
+    else: (string_element
+      (string))))
+
+=================
+top-level cond element
+=================
+(cond state "A" (CompA) "B" (CompB))
+---
+
+(source_file
+  (cond_element
+    selector: (identifier)
+    (case_list
+      (case
+        match: (string)
+        branch: (component_element
+          tag: (identifier)))
+      (case
+        match: (string)
+        branch: (component_element
+          tag: (identifier))))))
+
+=================
+multiple top-level elements
+=================
+"Title"
+(Header)
+(Content)
+---
+
+(source_file
+  (string_element
+    (string))
+  (component_element
+    tag: (identifier))
+  (component_element
+    tag: (identifier)))
+
+=================
+multiple top-level elements - string line
+=================
+\\ Title
+(Header)
+(Content)
+---
+
+(source_file
+  (string_element
+    (string_line_group
+      (string_line)))
+  (component_element
+    tag: (identifier))
+  (component_element
+    tag: (identifier)))

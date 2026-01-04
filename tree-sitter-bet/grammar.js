@@ -68,6 +68,10 @@ export default grammar({
 
     _declarations: $ => choice(
       $.comment_group,
+      seq($.element,
+        optional($._separator)),
+      seq($.element,
+        repeat1(seq($._separator, $._declarations))),
       seq(
         choice($.const_declaration, $.var_declaration),
         optional($._separator)),
@@ -165,18 +169,23 @@ export default grammar({
       '"'
     ),
 
-    string_line: $ => seq(
-      '\\\\',
-      repeat($._string_content),
-      '\n'
-    ),
-
-    string_line_group: $ => prec.left(repeat1($.string_line)),
-
     _string_content: $ => choice(
       $.escape_char,
       $.string_template_expr,
       token(/[^"\n]/)
+    ),
+
+    string_line: $ => seq(
+      '\\\\',
+      repeat($._string_line_content),
+    ),
+
+    string_line_group: $ => prec.left(repeat1($.string_line)),
+
+    _string_line_content: $ => choice(
+      $.escape_char,
+      $.string_template_expr,
+      token(/[^\n]/)
     ),
 
     escape_char: _ => token.immediate(seq(
