@@ -42,6 +42,7 @@ export default grammar({
     $._css_block,
     $._css_rule,
     $._declarations,
+    $._component_field,
   ],
 
   extras: $ => [
@@ -129,8 +130,16 @@ export default grammar({
     ),
 
     _component_body: $ => seq(
-      repeat($.var_declaration),
+      optional($._component_field),
       repeat1($.element),
+    ),
+
+    _component_field: $ => choice(
+      seq($.var_declaration,
+        optional($._separator)),
+      seq($.var_declaration,
+        repeat1(seq($._separator, $.var_declaration)),
+        optional($._separator)),
     ),
 
     import_builtin: $ => seq(

@@ -3,6 +3,7 @@ empty component declaration
 =================
 MyEmptyComponent : : component{};
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
@@ -17,6 +18,7 @@ MyComplexComponent : : component{
   (Text [content title_text])
 };
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
@@ -44,6 +46,7 @@ MyComplexComponent : : component{
   (Text [content title_text])
 };
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
