@@ -1,0 +1,122 @@
+==================
+Declarations
+==================
+
+// A constant declaration
+my_const : string : "hello";
+// ^^^^^^^^ @variable.constant
+//          ^^^^^^ @type
+//                   ^^^^^^^ @string
+
+my_var : bool = true;
+// ^^^^^^ @variable
+//        ^^^^ @type
+//                ^^^^ @boolean
+
+==================
+Elements
+==================
+
+(MyComponent [prop "value"] {attr: 123})
+// ^^^^^^^^^^^ @tag
+//             ^^^^ @property
+//                    ^^^^^^^ @string
+//                           ^^^^ @attribute
+//                                  ^^^ @number
+
+==================
+Style Expressions
+==================
+
+my_style : : style {
+  color: #ff0000;
+// ^^^^^ @property
+//        ^^^^^^^ @constant.builtin
+  width: calc(100% ^ 10px);
+// ^^^^^ @property
+//      ^^^^ @function.builtin
+//           ^^^ @number
+//                  ^^^ @number
+}
+
+==================
+Control Flow
+==================
+
+(if flag (CompA) "else")
+//^ @keyword.control
+//         ^^^^  @tag
+//               ^^^^^^   @string
+
+==================
+Comments
+==================
+
+// this is a comment
+// ^^^^^^^^^^^^^^^^^^^ @comment
+
+==================
+Escape char
+==================
+
+"fo\noo"
+// ^^ @constant.character.escape
+
+==================
+Escape char - string line
+==================
+
+\\ fo\noo
+//   ^^ @constant.character.escape
+// ^^ string
+//     ^^ string
+
+==================
+String template - variable
+==================
+
+"\{foo}"
+// ^^^ @variable
+
+==================
+String template - string
+==================
+
+"\{"foo"}"
+// ^^^ @string
+
+==================
+String template - escape char
+==================
+
+"\{"foo\n"}"
+//     ^^ @constant.character.escape
+
+==================
+String template - number
+==================
+
+"\{100}"
+// ^^^ @number
+
+==================
+String template - size
+==================
+
+"\{100px}"
+// ^^^ @number
+
+==================
+String template - percentage
+==================
+
+"\{100%}"
+// ^^^ @number
+
+==================
+String template - bool
+==================
+
+"\{true} \{false}"
+// ^^^^ @boolean
+//         ^^^^^ @boolean
