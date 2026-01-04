@@ -160,24 +160,6 @@
     ]
   },
   {
-    "type": "declaration",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "comment_group",
-        "named": true
-      },
-      {
-        "type": "const_declaration",
-        "named": true
-      },
-      {
-        "type": "var_declaration",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "element",
     "named": true,
     "subtypes": [
@@ -899,7 +881,15 @@
       "required": false,
       "types": [
         {
-          "type": "declaration",
+          "type": "comment_group",
+          "named": true
+        },
+        {
+          "type": "const_declaration",
+          "named": true
+        },
+        {
+          "type": "var_declaration",
           "named": true
         }
       ]

@@ -1,0 +1,33 @@
+====================
+semicolon terminator
+====================
+foo : : component{};
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (component)))
+
+====================
+newline terminator
+====================
+foo : : component{}
+
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (component)))
+
+====================
+eof terminator
+====================
+foo : : component{}
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (component)))

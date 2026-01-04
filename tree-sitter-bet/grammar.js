@@ -16,7 +16,7 @@ const PREC = {
   unary: 4,
 }
 
-const terminator = choice("\n", ";", "\0");
+const terminator = choice(/\n/, ";", "\0");
 const hexDigit = /[a-fA-F0-9]/;
 const hexDigits = repeat1(hexDigit);
 const binaryDigits = repeat1(choice('0', '1'));
@@ -41,6 +41,7 @@ export default grammar({
     $._component_attributes,
     $._css_block,
     $._css_rule,
+    $._declarations,
   ],
 
   extras: $ => [
@@ -54,7 +55,6 @@ export default grammar({
   ],
 
   supertypes: $ => [
-    $.declaration,
     $.element,
     $._expression,
     $._type,
@@ -63,12 +63,16 @@ export default grammar({
   ],
 
   rules: {
-    source_file: $ => repeat($.declaration),
+    source_file: $ => optional($._declarations),
 
-    declaration: $ => choice(
-      $.const_declaration,
-      $.var_declaration,
+    _declarations: $ => choice(
       $.comment_group,
+      seq(
+        choice($.const_declaration, $.var_declaration),
+        optional($._separator)),
+      seq(
+        choice($.const_declaration, $.var_declaration),
+        repeat1(seq($._separator, $._declarations))),
     ),
 
     const_declaration: $ => seq(
@@ -77,7 +81,6 @@ export default grammar({
       optional(field("type", $._type)),
       ":",
       $._expression,
-      $._separator,
     ),
 
     var_declaration: $ => choice(
@@ -85,7 +88,6 @@ export default grammar({
         field("name", $.identifier),
         ":",
         field("type", $._type),
-        $._separator,
       ),
       seq(
         field("name", $.identifier),
@@ -93,7 +95,6 @@ export default grammar({
         optional(field("type", $._type)),
         "=",
         $._expression,
-        $._separator,
       ),
     ),
 

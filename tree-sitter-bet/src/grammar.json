@@ -4,26 +4,87 @@
   "word": "identifier",
   "rules": {
     "source_file": {
-      "type": "REPEAT",
-      "content": {
-        "type": "SYMBOL",
-        "name": "declaration"
-      }
-    },
-    "declaration": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "const_declaration"
+          "name": "_declarations"
         },
         {
-          "type": "SYMBOL",
-          "name": "var_declaration"
-        },
+          "type": "BLANK"
+        }
+      ]
+    },
+    "_declarations": {
+      "type": "CHOICE",
+      "members": [
         {
           "type": "SYMBOL",
           "name": "comment_group"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "const_declaration"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "var_declaration"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_separator"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "const_declaration"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "var_declaration"
+                }
+              ]
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_separator"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_declarations"
+                  }
+                ]
+              }
+            }
+          ]
         }
       ]
     },
@@ -65,10 +126,6 @@
         {
           "type": "SYMBOL",
           "name": "_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_separator"
         }
       ]
     },
@@ -97,10 +154,6 @@
                 "type": "SYMBOL",
                 "name": "_type"
               }
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_separator"
             }
           ]
         },
@@ -142,10 +195,6 @@
             {
               "type": "SYMBOL",
               "name": "_expression"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_separator"
             }
           ]
         }
@@ -675,8 +724,8 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "STRING",
-            "value": "\n"
+            "type": "PATTERN",
+            "value": "\\n"
           },
           {
             "type": "STRING",
@@ -2221,10 +2270,10 @@
     "_component_properties",
     "_component_attributes",
     "_css_block",
-    "_css_rule"
+    "_css_rule",
+    "_declarations"
   ],
   "supertypes": [
-    "declaration",
     "element",
     "_expression",
     "_type",
