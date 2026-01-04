@@ -47,12 +47,7 @@ export default grammar({
 
   extras: $ => [
     /\s/,
-  ],
-
-  externals: _ => [
-  ],
-
-  conflicts: $ => [
+    $.comment_group,
   ],
 
   supertypes: $ => [
