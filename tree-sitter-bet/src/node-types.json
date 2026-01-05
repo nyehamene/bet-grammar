@@ -68,11 +68,23 @@
     "named": true,
     "subtypes": [
       {
+        "type": "binary",
+        "named": true
+      },
+      {
         "type": "bool",
         "named": true
       },
       {
+        "type": "color",
+        "named": true
+      },
+      {
         "type": "cond_attribute_expression",
+        "named": true
+      },
+      {
+        "type": "function_call",
         "named": true
       },
       {
@@ -88,6 +100,10 @@
         "named": true
       },
       {
+        "type": "list",
+        "named": true
+      },
+      {
         "type": "member_access",
         "named": true
       },
@@ -96,7 +112,51 @@
         "named": true
       },
       {
+        "type": "percentage",
+        "named": true
+      },
+      {
+        "type": "size",
+        "named": true
+      },
+      {
         "type": "string",
+        "named": true
+      },
+      {
+        "type": "unary",
+        "named": true
+      },
+      {
+        "type": "url",
+        "named": true
+      },
+      {
+        "type": "variable",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "component_attribute_identifier",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "identifier",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "component_identifier",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "member_access",
         "named": true
       }
     ]
@@ -106,10 +166,6 @@
     "named": true,
     "subtypes": [
       {
-        "type": "!important",
-        "named": false
-      },
-      {
         "type": "binary",
         "named": true
       },
@@ -118,11 +174,15 @@
         "named": true
       },
       {
-        "type": "css_identifier",
+        "type": "function_call",
         "named": true
       },
       {
-        "type": "function_call",
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "identifier_dot",
         "named": true
       },
       {
@@ -160,6 +220,34 @@
     ]
   },
   {
+    "type": "css_property_identifier",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "identifier",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "declaration",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "const_declaration",
+        "named": true
+      },
+      {
+        "type": "element",
+        "named": true
+      },
+      {
+        "type": "var_declaration",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "element",
     "named": true,
     "subtypes": [
@@ -190,7 +278,22 @@
       "required": true,
       "types": [
         {
-          "type": "number",
+          "type": "css_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribue_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "component_attribute_expression",
           "named": true
         }
       ]
@@ -205,7 +308,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "component_attribute_identifier",
             "named": true
           }
         ]
@@ -215,7 +318,7 @@
         "required": false,
         "types": [
           {
-            "type": "component_attribute_expression",
+            "type": "attribue_value",
             "named": true
           }
         ]
@@ -323,6 +426,21 @@
     }
   },
   {
+    "type": "children",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "element",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "color",
     "named": true,
     "fields": {}
@@ -361,11 +479,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "member_access",
+            "type": "component_identifier",
             "named": true
           }
         ]
@@ -377,6 +491,10 @@
       "types": [
         {
           "type": "attributes",
+          "named": true
+        },
+        {
+          "type": "children",
           "named": true
         },
         {
@@ -501,34 +619,39 @@
             "named": true
           }
         ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression",
-          "named": true
-        }
-      ]
     }
-  },
-  {
-    "type": "css_identifier",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "css_property_declaration",
     "named": true,
     "fields": {
+      "modifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "!important",
+            "named": false
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "css_identifier",
+            "type": "css_property_identifier",
             "named": true
           }
         ]
@@ -538,30 +661,11 @@
         "required": true,
         "types": [
           {
-            "type": "css_expression",
+            "type": "property_value",
             "named": true
           }
         ]
       }
-    }
-  },
-  {
-    "type": "css_variable",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "css_identifier",
-          "named": true
-        },
-        {
-          "type": "css_variable",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -597,28 +701,24 @@
   {
     "type": "function_call",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "css_property_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "css_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "identifier_dot",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
+          "type": "parameters",
           "named": true
         }
       ]
@@ -752,21 +852,6 @@
     }
   },
   {
-    "type": "list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "css_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "member_access",
     "named": true,
     "fields": {
@@ -794,6 +879,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "css_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -858,6 +958,21 @@
     }
   },
   {
+    "type": "property_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "css_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -867,15 +982,7 @@
       "required": false,
       "types": [
         {
-          "type": "const_declaration",
-          "named": true
-        },
-        {
-          "type": "element",
-          "named": true
-        },
-        {
-          "type": "var_declaration",
+          "type": "declaration",
           "named": true
         }
       ]
@@ -1029,17 +1136,17 @@
             "named": true
           }
         ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "_expression",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -1051,11 +1158,11 @@
       "required": true,
       "types": [
         {
-          "type": "css_identifier",
+          "type": "css_expression",
           "named": true
         },
         {
-          "type": "css_variable",
+          "type": "css_property_identifier",
           "named": true
         }
       ]
@@ -1063,10 +1170,6 @@
   },
   {
     "type": "",
-    "named": false
-  },
-  {
-    "type": " ",
     "named": false
   },
   {
@@ -1087,10 +1190,6 @@
   },
   {
     "type": ",",
-    "named": false
-  },
-  {
-    "type": "--",
     "named": false
   },
   {
@@ -1134,6 +1233,11 @@
     "named": false
   },
   {
+    "type": "block_comment",
+    "named": true,
+    "extra": true
+  },
+  {
     "type": "component",
     "named": false
   },
@@ -1175,6 +1279,10 @@
   },
   {
     "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "identifier_dot",
     "named": true
   },
   {

@@ -3,37 +3,41 @@ const declaration
 =================
 my_val :: "foo";
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
-    (string)))
+    value: (string)))
 
 =================
 const declaration: spaced
 =================
 my_val : : "foo";
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
-    (string)))
+    value: (string)))
 
 =================
 const declaration with type
 =================
 my_val: string: "foo";
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
     type: (identifier)
-    (string)))
+    value: (string)))
 
 =================
 const declaration with member access type
 =================
 my_val: bet.builtin.Type: "foo";
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
@@ -42,13 +46,14 @@ my_val: bet.builtin.Type: "foo";
         object: (identifier)
         member: (identifier))
       member: (identifier))
-    (string)))
+    value: (string)))
 
 =================
 var declaration
 =================
 my_val :string;
 ---
+
 (source_file
   (var_declaration
     name: (identifier)
@@ -59,27 +64,30 @@ var declaration with intializer
 =================
 my_val : = "foo";
 ---
+
 (source_file
   (var_declaration
     name: (identifier)
-    (string)))
+    value: (string)))
 
 =================
 var declaration with type
 =================
 my_val: string = "foo";
 ---
+
 (source_file
   (var_declaration
     name: (identifier)
     type: (identifier)
-    (string)))
+    value: (string)))
 
 =================
 var declaration with member access type
 =================
 my_val: bet.builtin.Type = "foo";
 ---
+
 (source_file
   (var_declaration
     name: (identifier)
@@ -88,34 +96,37 @@ my_val: bet.builtin.Type = "foo";
         object: (identifier)
         member: (identifier))
       member: (identifier))
-    (string)))
+    value: (string)))
 
 ================
 enum declaration
 ================
 my_enum : : enum{};
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
-    (enum)))
+    value: (enum)))
 
 ================
 component declaration
 ================
 my_component : : component{};
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
-    (component)))
+    value: (component)))
 
 ================
 style declaration
 ================
 my_style : : style{};
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
-    (style)))
+    value: (style)))

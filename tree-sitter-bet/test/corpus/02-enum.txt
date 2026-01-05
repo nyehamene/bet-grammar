@@ -3,10 +3,11 @@ empty enum
 =================
 MyEmptyEnum : : enum{};
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
-    (enum)))
+    value: (enum)))
 
 =================
 single member enum
@@ -15,10 +16,11 @@ MySingleEnum : : enum{
   FOO;
 };
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
-    (enum
+    value: (enum
       (enum_member
         (identifier)))))
 
@@ -31,10 +33,11 @@ MyMultiEnum : : enum{
   BAZ;
 };
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
-    (enum
+    value: (enum
       (enum_member
         (identifier))
       (enum_member
@@ -51,10 +54,11 @@ MyMultiEnum : : enum{
   BAZ
 };
 ---
+
 (source_file
   (const_declaration
     name: (identifier)
-    (enum
+    value: (enum
       (enum_member
         (identifier))
       (enum_member

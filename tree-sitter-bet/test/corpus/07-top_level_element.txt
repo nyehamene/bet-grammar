@@ -125,11 +125,9 @@ multiple top-level elements - 2 string lines
 (source_file
   (string_element
     (string_line_group
+      (string_line)
       (string_line)))
-  (string_element
-    (string_line_group
-      (string_line)))
-  (component_element
+    (component_element
     tag: (identifier))
    (component_element
     tag: (identifier)))
@@ -158,6 +156,5 @@ multiple top-level elements - 2 string lines
 (source_file
   (string_element
     (string_line_group
-      (string_line))
-    (string_line_group
+      (string_line)
       (string_line))))

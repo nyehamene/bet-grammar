@@ -23,7 +23,7 @@ const binaryDigits = repeat1(choice('0', '1'));
 
 const decimalLiteral = choice(
   '0',
-  seq(/[1-9]/, repeat(/[0-9]/), optional(seq('.', repeat(/[0-9]/))))
+  seq(/[0-9]/, repeat(/[0-9]/), optional(seq('.', repeat(/[0-9]/))))
 );
 
 const hexadecimalLiteral = seq(choice('0x', '0X'), hexDigits);
@@ -35,58 +35,55 @@ export default grammar({
   word: $ => $.identifier,
 
   inline: $ => [
-    $.if_cond_expression,
     $._basic_expression,
-    $._component_properties,
-    $._component_attributes,
     $._css_block,
-    $._css_rule,
-    $._component_field,
+    $._css_function_parameters,
+    $.if_cond_expression,
     $.declaration,
+    $.css_list,
+  ],
+
+  conflicts: $ => [
+    [$.css_expression],
+    [$.css_expression, $._color_rgb],
+    [$.css_expression, $._color_hsl],
+    [$.css_expression, $.css_function_call],
   ],
 
   extras: $ => [
     /\s/,
     $.comment,
+    $.block_comment,
   ],
 
   supertypes: $ => [
-    $.element,
     $._expression,
     $._type,
+    $.element,
     $.component_attribute_expression,
+    $.component_attribute_identifier,
+    $.component_identifier,
     $.css_expression,
+    $.declaration,
+    $.css_property_identifier,
   ],
 
   rules: {
-    // source_file: $ => optional($._declarations),
     source_file: $ => repeat($.declaration),
 
     declaration: $ => choice(
       $.element,
-      seq($.const_declaration, $._separator),
-      seq($.var_declaration, $._separator),
+      $.const_declaration,
+      $.var_declaration,
     ),
-
-    // _declarations: $ => choice(
-    //   seq($.element,
-    //     optional($._separator)),
-    //   seq($.element,
-    //     repeat1(seq($._separator, $._declarations))),
-    //   seq(
-    //     choice($.const_declaration, $.var_declaration),
-    //     optional($._separator)),
-    //   seq(
-    //     choice($.const_declaration, $.var_declaration),
-    //     repeat1(seq($._separator, $._declarations))),
-    // ),
 
     const_declaration: $ => seq(
       field("name", $.identifier),
       ":",
       optional(field("type", $._type)),
       ":",
-      $._expression,
+      field("value", $._expression),
+      $._separator,
     ),
 
     var_declaration: $ => choice(
@@ -94,13 +91,15 @@ export default grammar({
         field("name", $.identifier),
         ":",
         field("type", $._type),
+        $._separator,
       ),
       seq(
         field("name", $.identifier),
         ":",
         optional(field("type", $._type)),
         "=",
-        $._expression,
+        field("value", $._expression),
+        $._separator,
       ),
     ),
 
@@ -135,16 +134,8 @@ export default grammar({
     ),
 
     _component_body: $ => seq(
-      optional($._component_field),
+      repeat($.var_declaration),
       repeat1($.element),
-    ),
-
-    _component_field: $ => choice(
-      seq($.var_declaration,
-        optional($._separator)),
-      seq($.var_declaration,
-        repeat1(seq($._separator, $.var_declaration)),
-        optional($._separator)),
     ),
 
     import_builtin: $ => seq(
@@ -176,13 +167,13 @@ export default grammar({
       token(/[^"\\\n]+?/)
     ),
 
+    string_line_group: $ => prec.right(repeat1($.string_line)),
+
     string_line: $ => seq(
       '\\\\',
       repeat($._string_line_content),
-      // optional(/\n/),
+      optional(token.immediate(/\n/)),
     ),
-
-    string_line_group: $ => prec.right(repeat1($.string_line)),
 
     _string_line_content: $ => prec.left(choice(
       $.escape_char,
@@ -205,9 +196,15 @@ export default grammar({
       binaryLiteral,
     )),
 
-    identifier: _ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    identifier: _ => token(/[a-zA-Z_][a-zA-Z0-9_]*/),
 
-    identifier_dot: $ => seq(token(prec(2, ".")), $.identifier),
+    identifier_dot: _ => token(
+      /\.[a-zA-Z_-][a-zA-Z0-9_-]*/,
+    ),
+
+    identifier_dash: _ => token(
+      /(--)?[a-zA-Z_-][a-zA-Z0-9_-]*/,
+    ),
 
     member_access: $ => prec.left(seq(
       field("object", choice($.identifier, $.member_access)),
@@ -265,57 +262,70 @@ export default grammar({
 
     component_element: $ => seq(
       "(",
-      field("tag", choice($.identifier, $.member_access)),
+      field("tag", $.component_identifier),
       optional(alias($.component_property_list, $.properties)),
       repeat(alias($.component_attribute_list, $.attributes)),
+      alias(repeat($.element), $.children),
       ")",
     ),
 
-    component_property_list: $ => seq(
-      "[",
-      optional($._component_properties),
-      "]",
+    component_identifier: $ => choice(
+      $.identifier,
+      alias($.identifier_dash, $.identifier),
+      $.member_access,
     ),
 
-    _component_properties: $ => choice(
-      seq(
-        alias($.component_property, $.property),
-        optional(",")),
-      seq(
-        alias($.component_property, $.property),
-        repeat1(seq(",", alias($.component_property, $.property))),
-        optional(",")),
-    ),
+    component_property_list: $ => {
+      const property = alias($.component_property, $.property);
+      return seq(
+        "[",
+        optional(seq(property, repeat(seq(";", property)))),
+        "]",
+      )
+    },
 
     component_property: $ => seq(
       field("name", $.identifier),
       field("value", $._basic_expression),
     ),
 
-    component_attribute_list: $ => seq(
-      "{",
-      optional($._component_attributes),
-      "}",
-    ),
-
-    _component_attributes: $ => choice(
-      seq(
-        alias($.component_attribute, $.attribute), optional(",")),
-      seq(
-        alias($.component_attribute, $.attribute),
-        repeat1(seq(",", alias($.component_attribute, $.attribute))),
-        optional(","))
-    ),
+    component_attribute_list: $ => {
+      const attribute = alias($.component_attribute, $.attribute);
+      return seq(
+        "{",
+        optional(seq(attribute, repeat(seq(";", attribute)))),
+        "}",
+      )
+    },
 
     component_attribute: $ => seq(
-      field("name", $.identifier),
-      optional(field("value", $.component_attribute_expression)),
+      field("name", $.component_attribute_identifier),
+      field("value", alias(optional($._component_attribute_expression_list), $.attribue_value)),
+    ),
+
+    component_attribute_identifier: $ => choice(
+      $.identifier,
+      alias($.identifier_dash, $.identifier),
+    ),
+
+    _component_attribute_expression_list: $ => seq(
+      $.component_attribute_expression,
+      repeat($.component_attribute_expression),
     ),
 
     component_attribute_expression: $ => choice(
       $._basic_expression,
       $.if_attribute_expression,
       $.cond_attribute_expression,
+      alias($.css_size, $.size),
+      alias($.css_percentage, $.percentage),
+      alias($.css_function_call, $.function_call),
+      alias($.css_variable, $.variable),
+      alias($.css_url, $.url),
+      alias($.css_unary, $.unary),
+      alias($.css_binary, $.binary),
+      alias($.css_color, $.color),
+      alias($.css_list, $.list),
     ),
 
     if_attribute_expression: $ => seq(
@@ -349,32 +359,31 @@ export default grammar({
 
     _css_block: $ => seq(
       "{",
-      repeat(prec.left($._css_rule)),
+      repeat($.css_property_declaration),
       "}",
     ),
 
-    _css_rule: $ => choice(
-      alias($.css_comment, ""),
-      seq($.css_property_declaration, optional(";")),
-      seq($.css_property_declaration, repeat1(
-        seq(";", $._css_rule),
-      )),
-    ),
-
     css_property_declaration: $ => seq(
-      field("name", $.css_identifier),
+      field("name", $.css_property_identifier),
       ":",
-      field("value", $.css_expression),
+      field("value", alias($._css_expression_list, $.property_value)),
+      field("modifier", optional("!important")),
+      token(";"),
     ),
 
-    css_identifier: $ => seq(
-      optional("--"),
-      alias($.identifier, ""),
-      repeat(/[a-zA-Z0-9_-]/),
+    css_property_identifier: $ => choice(
+      $.identifier,
+      alias($.identifier_dash, $.identifier),
+    ),
+
+    _css_expression_list: $ => seq(
+      $.css_expression,
+      repeat($.css_expression),
     ),
 
     css_expression: $ => choice(
-      $.css_identifier,
+      $.identifier,
+      $.identifier_dot,
       $.string,
       $.number,
       alias($.css_size, $.size),
@@ -384,19 +393,18 @@ export default grammar({
       alias($.css_url, $.url),
       alias($.css_unary, $.unary),
       alias($.css_binary, $.binary),
-      alias($.css_list, $.list),
       alias($.css_color, $.color),
-      "!important", // cheating
+      alias($.css_list, $.list),
     ),
 
     css_size: _ => token(seq(
       decimalLiteral,
-      repeat1(/[a-zA-Z]/),
+      token.immediate(prec.left(2, repeat1(/[a-zA-Z]/))),
     )),
 
     css_percentage: _ => token(seq(
       decimalLiteral,
-      "%",
+      token.immediate("%"),
     )),
 
     css_color: $ => choice(
@@ -409,41 +417,46 @@ export default grammar({
     _color_rgb: $ => seq(
       choice("rgb", "rgba"),
       "(",
-      $.number,
+      $.css_expression,
       ",",
-      $.number,
+      $.css_expression,
       ",",
-      $.number,
-      optional(seq(",", $.number, optional(","))),
+      $.css_expression,
+      optional(seq(",", $.css_expression)),
       ")",
     ),
 
     _color_hsl: $ => seq(
       choice("hsl", "hsla"),
       "(",
-      $.number,
+      $.css_expression,
       ",",
-      $.number,
+      $.css_expression,
       ",",
-      $.number,
-      optional(seq(",", $.number, optional(","))),
+      $.css_expression,
+      optional(seq(",", $.css_expression)),
       ")",
     ),
 
     _color_hex: _ => token(seq("#", hexDigits)),
 
     css_function_call: $ => seq(
-      $.css_identifier,
-      "(",
-      $.css_expression,
+      field("name", $.css_property_identifier),
+      token(prec.left(3, "(")),
+      alias(
+        seq($._css_function_parameters,
+          repeat(seq(",", $._css_function_parameters))),
+        $.parameters),
       ")",
     ),
+
+    _css_function_parameters: $ => $.css_expression,
 
     css_variable: $ => seq(
       "var",
       "(",
-      choice($.css_identifier),
-      optional(choice($.css_identifier, $.css_variable)),
+      choice($.css_property_identifier),
+      optional($.css_expression),
       ")",
     ),
 
@@ -462,19 +475,15 @@ export default grammar({
     css_binary: $ => prec.left(PREC.binary,
       seq(
         $.css_expression,
-        repeat1(prec.left(seq(
-          token(choice("*", "/", "+", "-")),
-          $.css_expression)))),
+        token(choice("*", "/", "+", "-")),
+        $.css_expression),
     ),
 
     css_list: $ => prec.left(seq(
       $.css_expression,
-      repeat1(
-        prec.left(seq(choice(",", "/", " "),
-          $.css_expression))),
-    )),
+      repeat1(seq(choice(",", "/"), $.css_expression)))),
 
-    css_comment: _ => token(prec(PREC.comment,
+    block_comment: _ => token(prec(PREC.comment,
       seq(
         '/*',
         /[^*]*\*+([^/*][^*]*\*+)*/,

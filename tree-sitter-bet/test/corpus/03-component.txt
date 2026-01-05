@@ -7,7 +7,7 @@ MyEmptyComponent : : component{};
 (source_file
   (const_declaration
     name: (identifier)
-    (component)))
+    value: (component)))
 
 =================
 component with variables and elements
@@ -22,11 +22,11 @@ MyComplexComponent : : component{
 (source_file
   (const_declaration
     name: (identifier)
-    (component
+    value: (component
       (var_declaration
         name: (identifier)
         type: (identifier)
-        (string))
+        value: (string))
       (component_element
         tag: (identifier))
       (component_element
@@ -50,15 +50,15 @@ MyComplexComponent : : component{
 (source_file
   (const_declaration
     name: (identifier)
-    (component
+    value: (component
       (var_declaration
         name: (identifier)
         type: (identifier)
-        (string))
+        value: (string))
       (var_declaration
         name: (identifier)
         type: (identifier)
-        (bool))
+        value: (bool))
       (component_element
         tag: (identifier))
       (component_element

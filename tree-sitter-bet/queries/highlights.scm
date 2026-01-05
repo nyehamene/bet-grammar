@@ -8,9 +8,9 @@
 [
   "if"
   "cond"
-] @keyword.control
+] @keyword.control.conditional
 
-"@import" @include
+"@import" @keyword
 
 ; Literals
 (string) @string
@@ -54,6 +54,8 @@
 
 ; Elements and Components
 (component_element
+  tag: (_) @tag)
+(component_element
   tag: (identifier) @tag)
 (component_element
   tag: (member_access) @tag)
@@ -70,18 +72,19 @@
 
 ; CSS / Style
 (css_property_declaration
-  name: (css_identifier) @property)
+  name: (identifier) @property)
 
 (function_call
-  (css_identifier) @function.builtin)
+  (identifier) @function.builtin)
 
 (url) @string.special.uri
 
 (variable
-  (css_identifier) @variable)
+  (identifier) @variable)
 
 (string_template_expr
   (identifier) @variable)
 
 ; Comments
 (comment) @comment
+(block_comment) @comment
