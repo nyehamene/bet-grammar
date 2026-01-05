@@ -1,0 +1,27 @@
+================
+Terminator: multiple top level declaration
+================
+my_var :: "foo"
+my_num :: 100
+// comment
+
+my_bar :: "bar"
+
+my_star :: "foo"
+
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (string))
+  (const_declaration
+    (identifier)
+    (number))
+  (comment)
+  (const_declaration
+    (identifier)
+    (string))
+  (const_declaration
+    (identifier)
+    (string)))

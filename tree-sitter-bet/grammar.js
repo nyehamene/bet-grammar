@@ -41,8 +41,8 @@ export default grammar({
     $._component_attributes,
     $._css_block,
     $._css_rule,
-    $._declarations,
     $._component_field,
+    $.declaration,
   ],
 
   extras: $ => [
@@ -59,20 +59,27 @@ export default grammar({
   ],
 
   rules: {
-    source_file: $ => optional($._declarations),
+    // source_file: $ => optional($._declarations),
+    source_file: $ => repeat($.declaration),
 
-    _declarations: $ => choice(
-      seq($.element,
-        optional($._separator)),
-      seq($.element,
-        repeat1(seq($._separator, $._declarations))),
-      seq(
-        choice($.const_declaration, $.var_declaration),
-        optional($._separator)),
-      seq(
-        choice($.const_declaration, $.var_declaration),
-        repeat1(seq($._separator, $._declarations))),
+    declaration: $ => choice(
+      $.element,
+      seq($.const_declaration, $._separator),
+      seq($.var_declaration, $._separator),
     ),
+
+    // _declarations: $ => choice(
+    //   seq($.element,
+    //     optional($._separator)),
+    //   seq($.element,
+    //     repeat1(seq($._separator, $._declarations))),
+    //   seq(
+    //     choice($.const_declaration, $.var_declaration),
+    //     optional($._separator)),
+    //   seq(
+    //     choice($.const_declaration, $.var_declaration),
+    //     repeat1(seq($._separator, $._declarations))),
+    // ),
 
     const_declaration: $ => seq(
       field("name", $.identifier),
@@ -166,21 +173,22 @@ export default grammar({
     _string_content: $ => choice(
       $.escape_char,
       $.string_template_expr,
-      token(/[^"\n]/)
+      token(/[^"\\\n]+?/)
     ),
 
     string_line: $ => seq(
       '\\\\',
       repeat($._string_line_content),
+      // optional(/\n/),
     ),
 
-    string_line_group: $ => prec.left(repeat1($.string_line)),
+    string_line_group: $ => prec.right(repeat1($.string_line)),
 
-    _string_line_content: $ => choice(
+    _string_line_content: $ => prec.left(choice(
       $.escape_char,
       $.string_template_expr,
-      token(/[^\n]/)
-    ),
+      token.immediate(/[^\\\n]+?/),
+    )),
 
     escape_char: _ => token.immediate(seq(
       '\\',
@@ -209,7 +217,7 @@ export default grammar({
 
     _separator: _ => token(terminator),
 
-    comment: _ => prec(PREC.comment, token(seq('//', /[^\n]*/, optional('\n')))),
+    comment: _ => prec(PREC.comment, token(seq('//', /[^\n]*/))),
 
     comment_group: $ => prec.left(repeat1(
       $.comment

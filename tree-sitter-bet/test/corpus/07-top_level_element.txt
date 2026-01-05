@@ -68,6 +68,33 @@ multiple top-level elements
     tag: (identifier)))
 
 =================
+2 top-level strings
+=================
+"Title"
+"Subtitle"
+---
+
+(source_file
+  (string_element
+    (string))
+  (string_element
+    (string)))
+
+=================
+2 top-level strings separated
+=================
+"Title"
+
+"Subtitle"
+---
+
+(source_file
+  (string_element
+    (string))
+  (string_element
+    (string)))
+
+=================
 multiple top-level elements - string line
 =================
 \\ Title
@@ -81,5 +108,56 @@ multiple top-level elements - string line
       (string_line)))
   (component_element
     tag: (identifier))
-  (component_element
+   (component_element
     tag: (identifier)))
+
+=================
+multiple top-level elements - 2 string lines
+=================
+\\ Title
+
+\\ foo
+
+(Header)
+(Content)
+---
+
+(source_file
+  (string_element
+    (string_line_group
+      (string_line)))
+  (string_element
+    (string_line_group
+      (string_line)))
+  (component_element
+    tag: (identifier))
+   (component_element
+    tag: (identifier)))
+
+=================
+multiple top-level elements - multi string line
+=================
+\\ Title
+\\ Subtile
+---
+
+(source_file
+  (string_element
+    (string_line_group
+      (string_line)
+      (string_line))))
+
+=================
+multiple top-level elements - 2 string lines
+=================
+\\ Title
+
+\\ Subtile
+---
+
+(source_file
+  (string_element
+    (string_line_group
+      (string_line))
+    (string_line_group
+      (string_line))))
