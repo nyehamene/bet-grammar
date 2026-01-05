@@ -84,4 +84,4 @@
   (identifier) @variable)
 
 ; Comments
-(comment_group) @comment
+(comment) @comment

@@ -47,7 +47,7 @@ export default grammar({
 
   extras: $ => [
     /\s/,
-    $.comment_group,
+    $.comment,
   ],
 
   supertypes: $ => [
@@ -62,7 +62,6 @@ export default grammar({
     source_file: $ => optional($._declarations),
 
     _declarations: $ => choice(
-      $.comment_group,
       seq($.element,
         optional($._separator)),
       seq($.element,

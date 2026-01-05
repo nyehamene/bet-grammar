@@ -330,22 +330,8 @@
   {
     "type": "comment",
     "named": true,
+    "extra": true,
     "fields": {}
-  },
-  {
-    "type": "comment_group",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "comment",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "component",
@@ -880,10 +866,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "comment_group",
-          "named": true
-        },
         {
           "type": "const_declaration",
           "named": true
