@@ -138,7 +138,7 @@ my_comp : : component {
 component with attribute and value
 =================
 my_comp : : component {
-  (MyComponent {class "my-class"})
+  (MyComponent {class: "my-class"})
 };
 ---
 
@@ -161,9 +161,9 @@ my_comp : : component {
   (MyComponent [ prop1 1
                ; prop2 "2"
                ]
-               { class "my-class"
+               { class: "my-class"
                ; disabled
-               ; id my_id
+               ; id: my_id
                })
 };
 ---

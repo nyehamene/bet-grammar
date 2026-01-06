@@ -23,7 +23,6 @@
 (color) @constant.builtin
 (identifier) @variable
 (identifier_dot) @variable
-(identifier_dash) @variable
 
 ; Punctuation
 [
@@ -60,8 +59,6 @@
   tag: (_) @tag)
 (component_element
   tag: (identifier) @tag)
-(component_element
-  tag: (identifier_dash) @tag)
 (component_element
   tag: (member_access) @tag)
 

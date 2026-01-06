@@ -300,7 +300,9 @@ export default grammar({
 
     component_attribute: $ => seq(
       field("name", $.component_attribute_identifier),
-      field("value", alias(optional($._component_attribute_expression_list), $.attribue_value)),
+      optional(seq(
+        ":",
+        field("value", alias($._component_attribute_expression_list, $.attribue_value)))),
     ),
 
     component_attribute_identifier: $ => choice(
