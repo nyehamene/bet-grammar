@@ -44,7 +44,7 @@ my_style : : style {
 // ==================
 
 (if flag (CompA) "else")
-//^ @keyword.control.conditional
+//^ @keyword.directive
 //         ^^^^  @tag
 //               ^^^^^^   @string
 
@@ -143,6 +143,6 @@ my_kw :: 'foo
 // document builtin
 // ===================
 my_doc :: @document("[state]/[city]")
-//        ^^^^^^^^^ keyword.directive
+//        ^^^^^^^^^ keyword
 //                    ^^^^ variable
 //                            ^^^^ variable

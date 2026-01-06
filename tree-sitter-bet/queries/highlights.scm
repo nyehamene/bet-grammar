@@ -8,12 +8,12 @@
 [
   "@import"
   "@document"
-] @keyword.directive
+] @keyword
 
 [
   "if"
   "cond"
-] @keyword.control.conditional
+] @keyword.directive
 
 ; Punctuation
 [
