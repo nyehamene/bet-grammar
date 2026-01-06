@@ -20,7 +20,10 @@
 (size) @number
 (percentage) @number
 (bool) @boolean
-(color) @constant.builtin ; Using constant.builtin for color literals like #ff0000
+(color) @constant.builtin
+(identifier) @variable
+(identifier_dot) @variable
+(identifier_dash) @variable
 
 ; Punctuation
 [
@@ -58,10 +61,12 @@
 (component_element
   tag: (identifier) @tag)
 (component_element
+  tag: (identifier_dash) @tag)
+(component_element
   tag: (member_access) @tag)
 
 (property
-  name: (identifier) @property)
+  name: (identifier) @variable.other.member)
 
 (attribute
   name: (identifier) @attribute)
@@ -72,7 +77,7 @@
 
 ; CSS / Style
 (css_property_declaration
-  name: (identifier) @property)
+  name: (identifier) @variable.other.member)
 
 (function_call
   (identifier) @function.builtin)
