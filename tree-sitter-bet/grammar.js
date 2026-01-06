@@ -109,6 +109,7 @@ export default grammar({
       $._basic_expression,
       $.string_line_group,
       $.import_builtin,
+      $.document_builtin,
       $.enum,
       $.component,
       $.style,
@@ -144,6 +145,21 @@ export default grammar({
       choice($.string, "package"),
       ")",
     ),
+
+    document_builtin: $ => seq(
+      "@document",
+      "(",
+      alias('"', $.string),
+      repeat($._document_path_expression),
+      alias('"', $.string),
+      ")",
+    ),
+
+    _document_path_expression: $ => choice(
+      seq("[", $.identifier, "]"),
+      alias(/[^\["]/, $.string)
+    ),
+
 
     _basic_expression: $ => prec(PREC.top_level_expression,
       choice(

@@ -134,3 +134,11 @@ my_kw :: 'foo
 
 (div {border: 1px \{solid} black})
 //                  ^^^^^  @variable
+
+// ===================
+// document builtin
+// ===================
+my_doc :: @document("[state]/[city]")
+//        ^^^^^^^^^ keyword.directive
+//                    ^^^^ variable
+//                            ^^^^ variable

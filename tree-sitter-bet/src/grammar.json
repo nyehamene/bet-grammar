@@ -189,6 +189,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "document_builtin"
+        },
+        {
+          "type": "SYMBOL",
           "name": "enum"
         },
         {
@@ -313,6 +317,79 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "document_builtin": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@document"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "\""
+          },
+          "named": true,
+          "value": "string"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_document_path_expression"
+          }
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "\""
+          },
+          "named": true,
+          "value": "string"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "_document_path_expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "["
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "STRING",
+              "value": "]"
+            }
+          ]
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^\\[\"]"
+          },
+          "named": true,
+          "value": "string"
         }
       ]
     },

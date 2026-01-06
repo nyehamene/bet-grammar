@@ -12,6 +12,10 @@
         "named": true
       },
       {
+        "type": "document_builtin",
+        "named": true
+      },
+      {
         "type": "enum",
         "named": true
       },
@@ -697,6 +701,25 @@
     }
   },
   {
+    "type": "document_builtin",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "enum",
     "named": true,
     "fields": {},
@@ -1265,6 +1288,10 @@
   },
   {
     "type": "=",
+    "named": false
+  },
+  {
+    "type": "@document",
     "named": false
   },
   {

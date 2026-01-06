@@ -6,24 +6,14 @@
 ] @keyword
 
 [
+  "@import"
+  "@document"
+] @keyword.directive
+
+[
   "if"
   "cond"
 ] @keyword.control.conditional
-
-"@import" @keyword
-
-; Literals
-(string) @string
-(string_line) @string
-(escape_char) @constant.character.escape
-(number) @number
-(size) @number
-(percentage) @number
-(bool) @boolean
-(color) @constant.builtin
-(identifier) @variable
-(identifier_dot) @variable
-(keyword) @constant.character
 
 ; Punctuation
 [
@@ -41,6 +31,20 @@
   ","
   ";"
 ] @punctuation.delimiter
+
+
+; Literals
+(string) @string
+(string_line) @string
+(escape_char) @constant.character.escape
+(number) @number
+(size) @number
+(percentage) @number
+(bool) @boolean
+(color) @constant.builtin
+(identifier) @variable
+(identifier_dot) @variable
+(keyword) @constant.character
 
 ; Variables and Constants
 (const_declaration
