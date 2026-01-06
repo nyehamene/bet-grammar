@@ -28,6 +28,10 @@
         "named": true
       },
       {
+        "type": "keyword",
+        "named": true
+      },
+      {
         "type": "member_access",
         "named": true
       },
@@ -97,6 +101,10 @@
       },
       {
         "type": "if_attribute_expression",
+        "named": true
+      },
+      {
+        "type": "keyword",
         "named": true
       },
       {
@@ -403,6 +411,10 @@
             "named": true
           },
           {
+            "type": "keyword",
+            "named": true
+          },
+          {
             "type": "member_access",
             "named": true
           },
@@ -533,6 +545,10 @@
             "named": true
           },
           {
+            "type": "keyword",
+            "named": true
+          },
+          {
             "type": "member_access",
             "named": true
           },
@@ -576,6 +592,10 @@
           },
           {
             "type": "identifier_dot",
+            "named": true
+          },
+          {
+            "type": "keyword",
             "named": true
           },
           {
@@ -753,6 +773,10 @@
             "named": true
           },
           {
+            "type": "keyword",
+            "named": true
+          },
+          {
             "type": "member_access",
             "named": true
           },
@@ -806,6 +830,10 @@
           },
           {
             "type": "identifier_dot",
+            "named": true
+          },
+          {
+            "type": "keyword",
             "named": true
           },
           {
@@ -947,6 +975,10 @@
           },
           {
             "type": "identifier_dot",
+            "named": true
+          },
+          {
+            "type": "keyword",
             "named": true
           },
           {
@@ -1311,6 +1343,10 @@
   {
     "type": "if",
     "named": false
+  },
+  {
+    "type": "keyword",
+    "named": true
   },
   {
     "type": "number",

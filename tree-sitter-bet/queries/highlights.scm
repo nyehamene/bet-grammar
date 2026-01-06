@@ -23,6 +23,7 @@
 (color) @constant.builtin
 (identifier) @variable
 (identifier_dot) @variable
+(keyword) @constant.character
 
 ; Punctuation
 [

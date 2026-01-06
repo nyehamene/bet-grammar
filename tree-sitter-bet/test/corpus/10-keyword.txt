@@ -1,0 +1,56 @@
+===================
+const with keyword value
+===================
+
+my_kw :: 'border-color
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (keyword)))
+
+===================
+var with keyword value
+===================
+
+my_kw := '--my-property
+---
+
+(source_file
+  (var_declaration
+    (identifier)
+    (keyword)))
+
+===================
+attribute with keyword value
+===================
+
+(div {display: 1px 'solid black})
+---
+
+(source_file
+  (component_element
+    (identifier)
+    (attributes
+      (attribute
+        (identifier)
+        (attribue_value
+          (size)
+          (keyword)
+          (identifier))))))
+
+===================
+property with keyword value
+===================
+
+(Button [type: 'Reset])
+---
+
+(source_file
+  (component_element
+    (identifier)
+    (properties
+      (property
+        (identifier)
+        (keyword)))))

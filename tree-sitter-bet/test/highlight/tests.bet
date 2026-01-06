@@ -120,3 +120,17 @@ my_style : : style {
 "\{true} \{false}"
 // ^^^^ @boolean
 //         ^^^^^ @boolean
+
+// ===================
+// keyword
+// ===================
+
+my_kw :: 'foo
+//       ^^^^ @constant.character
+
+// ===================
+// template expression
+// ===================
+
+(div {border: 1px \{solid} black})
+//                  ^^^^^  @variable

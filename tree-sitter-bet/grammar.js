@@ -153,7 +153,16 @@ export default grammar({
         $.identifier,
         $.identifier_dot,
         $.member_access,
+        $.keyword,
       )),
+
+    keyword: _ => token(seq(
+      "'",
+      choice(
+        /[a-zA-Z_][a-zA-Z0-9_-]*/,
+        /(--)?[a-zA-Z_-][a-zA-Z0-9_-]*/,
+      ),
+    )),
 
     string: $ => seq(
       '"',
