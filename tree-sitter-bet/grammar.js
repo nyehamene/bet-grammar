@@ -186,7 +186,9 @@ export default grammar({
       choice('\\', '"', 't', 'r', 's', 'f', 'v', 'n')
     )),
 
-    string_template_expr: $ => seq('\\{', $._expression, '}'),
+    string_template_expr: $ => $._template_expression,
+
+    _template_expression: $ => seq('\\{', $._expression, '}'),
 
     bool: () => choice("true", "false"),
 
@@ -330,6 +332,7 @@ export default grammar({
       alias($.css_binary, $.binary),
       alias($.css_color, $.color),
       alias($.css_list, $.list),
+      alias($._template_expression, $.template_expression),
     ),
 
     if_attribute_expression: $ => seq(
@@ -399,6 +402,7 @@ export default grammar({
       alias($.css_binary, $.binary),
       alias($.css_color, $.color),
       alias($.css_list, $.list),
+      alias($._template_expression, $.template_expression),
     ),
 
     css_size: _ => token(seq(

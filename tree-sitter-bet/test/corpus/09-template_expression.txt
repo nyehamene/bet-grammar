@@ -1,0 +1,47 @@
+===================
+attribute template expression
+===================
+
+borderColor :: "black"
+(div {border: 1px solid \{borderColor}})
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (string))
+  (component_element
+    (identifier)
+    (attributes
+      (attribute
+        (identifier)
+        (attribue_value
+          (size)
+          (identifier)
+          (template_expression
+            (identifier)))))))
+
+===================
+css declaration template expression
+===================
+
+borderColor :: "black"
+my_style :: style {
+  border: 1px solid \{borderColor};
+}
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (string))
+  (const_declaration
+    (identifier)
+    (style
+      (css_property_declaration
+        (identifier)
+        (property_value
+          (size)
+          (identifier)
+          (template_expression
+            (identifier)))))))

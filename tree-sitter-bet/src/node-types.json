@@ -124,6 +124,10 @@
         "named": true
       },
       {
+        "type": "template_expression",
+        "named": true
+      },
+      {
         "type": "unary",
         "named": true
       },
@@ -203,6 +207,10 @@
       },
       {
         "type": "string",
+        "named": true
+      },
+      {
+        "type": "template_expression",
         "named": true
       },
       {
@@ -1085,6 +1093,21 @@
       "types": [
         {
           "type": "css_property_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "template_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
           "named": true
         }
       ]
