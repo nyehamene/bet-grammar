@@ -211,9 +211,11 @@ export default grammar({
       choice('\\', '"', 't', 'r', 's', 'f', 'v', 'n')
     )),
 
-    string_template_expr: $ => $._template_expression,
+    string_template_expr: $ => $.template_expression,
 
-    _template_expression: $ => seq('\\{', $._expression, '}'),
+    template_expression: $ => seq(
+      field("open", '\\{'), $._expression,
+      field("close", '}')),
 
     bool: () => choice("true", "false"),
 
@@ -348,6 +350,7 @@ export default grammar({
       $._basic_expression,
       $.if_attribute_expression,
       $.cond_attribute_expression,
+      $.template_expression,
       alias($.css_size, $.size),
       alias($.css_percentage, $.percentage),
       alias($.css_function_call, $.function_call),
@@ -357,7 +360,6 @@ export default grammar({
       alias($.css_binary, $.binary),
       alias($.css_color, $.color),
       alias($.css_list, $.list),
-      alias($._template_expression, $.template_expression),
     ),
 
     if_attribute_expression: $ => seq(
@@ -418,6 +420,7 @@ export default grammar({
       $.identifier_dot,
       $.string,
       $.number,
+      $.template_expression,
       alias($.css_size, $.size),
       alias($.css_percentage, $.percentage),
       alias($.css_function_call, $.function_call),
@@ -427,7 +430,6 @@ export default grammar({
       alias($.css_binary, $.binary),
       alias($.css_color, $.color),
       alias($.css_list, $.list),
-      alias($._template_expression, $.template_expression),
     ),
 
     css_size: _ => token(seq(

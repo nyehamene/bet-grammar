@@ -120,6 +120,8 @@ my_style : : style {
 "\{true} \{false}"
 // ^^^^ @boolean
 //         ^^^^^ @boolean
+//       ^^ @punctuation.delimiter
+//              ^ @punctuation.delimiter
 
 // ===================
 // keyword
@@ -134,6 +136,8 @@ my_kw :: 'foo
 
 (div {border: 1px \{solid} black})
 //                  ^^^^^  @variable
+//                 ^ @punctuation.delimiter
+//                       ^ @punctuation.delimiter
 
 // ===================
 // document builtin

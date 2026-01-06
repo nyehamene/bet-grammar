@@ -33,6 +33,8 @@
 ] @punctuation.delimiter
 
 
+"\\{" @none
+
 ; Literals
 (string) @string
 (string_line) @string
@@ -89,8 +91,10 @@
 (variable
   (identifier) @variable)
 
-(string_template_expr
-  (identifier) @variable)
+(template_expression
+  open: "\\{" @punctuation.delimiter)
+(template_expression
+  close: "}" @punctuation.delimiter)
 
 ; Comments
 (comment) @comment

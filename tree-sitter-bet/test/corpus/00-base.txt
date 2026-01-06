@@ -36,4 +36,5 @@ template_string: string: "value is \{my_var}";
     type: (identifier)
     value: (string
       (string_template_expr
-        (identifier)))))
+        (template_expression
+          (identifier))))))

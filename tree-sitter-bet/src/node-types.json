@@ -1132,7 +1132,7 @@
       "required": true,
       "types": [
         {
-          "type": "_expression",
+          "type": "template_expression",
           "named": true
         }
       ]
@@ -1156,7 +1156,28 @@
   {
     "type": "template_expression",
     "named": true,
-    "fields": {},
+    "fields": {
+      "close": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "}",
+            "named": false
+          }
+        ]
+      },
+      "open": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "\\{",
+            "named": false
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
