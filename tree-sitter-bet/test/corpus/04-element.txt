@@ -29,10 +29,10 @@ my_comp : : component {
         tag: (identifier)))))
 
 =================
-component with component element with properties
+component with component element with nameless properties
 =================
 my_comp : : component {
-  (MyComponent [prop1 1; prop2 "two"])
+  (MyComponent [prop1; prop2: "two"])
 };
 ---
 
@@ -44,8 +44,7 @@ my_comp : : component {
         tag: (identifier)
         (properties
           (property
-            name: (identifier)
-            value: (number))
+            name: (identifier))
           (property
             name: (identifier)
             value: (string)))))))
@@ -158,8 +157,8 @@ my_comp : : component {
 component with properties and attributes
 =================
 my_comp : : component {
-  (MyComponent [ prop1 1
-               ; prop2 "2"
+  (MyComponent [ prop1: 1
+               ; prop2: "2"
                ]
                { class: "my-class"
                ; disabled

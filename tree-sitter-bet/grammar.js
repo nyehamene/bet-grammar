@@ -286,7 +286,9 @@ export default grammar({
 
     component_property: $ => seq(
       field("name", $.identifier),
-      field("value", $._basic_expression),
+      optional(seq(
+        ":",
+        field("value", $._basic_expression))),
     ),
 
     component_attribute_list: $ => {

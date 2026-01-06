@@ -15,7 +15,7 @@ component with variables and elements
 MyComplexComponent : : component{
   title_text: string = "Hello";
   (Header)
-  (Text [content title_text])
+  (Text [content: title_text])
 };
 ---
 
@@ -43,7 +43,7 @@ MyComplexComponent : : component{
   title_text: string = "Hello";
   show_header: bool = true;
   (Header)
-  (Text [content title_text])
+  (Text [content: title_text])
 };
 ---
 
