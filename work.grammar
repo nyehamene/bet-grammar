@@ -1,24 +1,12 @@
-literal = @import("util/literals.grammar");
+comment       = @import("util/comment.grammar");
+literal       = @import("util/literals.grammar");
 //
-Work    = { ( stmt | comment ) };
-stmt    = decl { sep decl };
-decl    = ( dir | var ) [ sep ];
-// Ex:
-// dir "."
-// dir "component"
-// dir "another/component"
-// dir "yet/another/component"
-dir     = "@dir" "(" expr ")" sep;
-var     = ident "::" expr;
-expr    = string
-        | literal.number
-        | ident
-        | literal.member_access
-        | literal.bool
-        ;
-ident   = literal.ident;
-string  = literal.string
-        | literal.string_l_group
-        ;
-comment = literal.Comment;
-sep     = ";" | "\n";
+Work          = { stmt | cmt };
+stmt          = ( dir | var ) sep;
+dir           = "@dir" "(" expr ")";
+var           = ident ":" [ member_access ] ":" expr;
+expr          = literal.Expr;
+ident         = literal.ident;
+member_access = literal.member_access;
+sep           = ";" | "\n" | $eof;
+cmt           = comment.Line;

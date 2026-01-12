@@ -1,3 +1,5 @@
+// Expression
+Expr           = basic_expr;
 // Basic expression
 basic_expr     = string
                | string_l_group
@@ -6,6 +8,7 @@ basic_expr     = string
                | ident
                | ident_d
                | member_access
+               | builtin
                ;
 // Keyword
 bool           = "true" | "false";
@@ -53,5 +56,5 @@ number         = number_dec
                | number_hex
                | number_bin
                ;
-// Comment
-Comment        = "//" /[^\n]*[\n]?/;
+// Builtin
+builtin        = "@" ident "(" { Expr } ")";
