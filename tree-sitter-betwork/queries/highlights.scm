@@ -1,6 +1,6 @@
 ; Keywords
 "@dir" @keyword
-"::" @operator
+":" @operator
 
 ; Literals
 (string) @string
@@ -13,3 +13,5 @@
 (identifier) @identifier
 (member_access (identifier) @identifier)
 (var_statement (identifier) @variable)
+(var_statement
+  type: (identifier) @type)

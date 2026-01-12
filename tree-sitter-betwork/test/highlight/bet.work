@@ -35,9 +35,13 @@ my_var :: 123
 @dir("hello")
 // <- keyword
 //   ^ string
-my_var :: 123
+
+my_var: number: 123
 //^ variable
-//      ^ operator
-//         ^ number
+//    ^ operator
+//      ^^^^^^ type
+//            ^ operator
+//              ^ number
+
 // this is a comment
 // ^ comment

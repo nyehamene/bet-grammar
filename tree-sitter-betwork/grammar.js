@@ -21,10 +21,13 @@ export default grammar({
     $.comment
   ],
 
+  conflicts: $ => [
+  ],
+
   rules: {
     source_file: $ => repeat($._stmt),
 
-    _stmts: $ => choice(seq($._stmt, repeat(seq($._separator, $._stmt)))),
+    // _stmts: $ => choice(seq($._stmt, repeat(seq($._separator, $._stmt)))),
 
     _stmt: $ => seq(choice(
       $.dir_statement,
@@ -41,9 +44,11 @@ export default grammar({
     ),
 
     var_statement: $ => seq(
-      $.identifier,
-      "::",
-      $._expression,
+      field("name", $.identifier),
+      ":",
+      field("type", optional(choice($.identifier, $.member_access))),
+      ":",
+      field("value", $._expression),
     ),
 
     _expression: $ => choice(
@@ -67,7 +72,12 @@ export default grammar({
     number_hexadecimal: $ => token(seq(choice('0x', '0X'), repeat1(/[a-fA-F0-9]/))),
     number_binary: $ => token(seq(choice('0b', '0B'), repeat1(choice('0', '1')))),
 
-    member_access: $ => seq($.identifier, repeat(seq(".", $.identifier))),
+    member_access: $ => prec.left(seq(
+      field("object", choice($.identifier, $.member_access)),
+      ".",
+      field("member", $.identifier),
+    )),
+
     boolean: $ => choice("true", "false"),
 
     string: $ => seq(

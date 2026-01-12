@@ -1,0 +1,44 @@
+==============
+var with inferred type
+==============
+
+name :: "expresion"
+
+---
+
+(source_file
+  (var_statement
+    (identifier)
+    (string)))
+
+==============
+var with type
+==============
+
+name: type: "expresion"
+
+---
+
+(source_file
+  (var_statement
+    (identifier)
+    (identifier)
+    (string)))
+
+==============
+var with qualified type
+==============
+
+name: foo.bar.type: "expresion"
+
+---
+
+(source_file
+  (var_statement
+    name: (identifier)
+    type: (member_access
+      object: (member_access
+        object: (identifier)
+        member: (identifier))
+      member: (identifier))
+    value: (string)))
