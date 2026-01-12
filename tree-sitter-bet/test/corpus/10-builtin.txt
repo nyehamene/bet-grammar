@@ -1,0 +1,26 @@
+=====================
+builtin with one argument
+=====================
+foo :: @bar("foo")
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (builtin
+      (identifier_builtin)
+      (string))))
+
+=====================
+builtin with many arguments
+=====================
+foo :: @bar("one", 2)
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (builtin
+      (identifier_builtin)
+      (string)
+      (number))))

@@ -8,6 +8,10 @@
         "named": true
       },
       {
+        "type": "builtin",
+        "named": true
+      },
+      {
         "type": "component",
         "named": true
       },
@@ -379,6 +383,25 @@
     "type": "bool",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "builtin",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "identifier_builtin",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "case",
@@ -1382,6 +1405,10 @@
   },
   {
     "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "identifier_builtin",
     "named": true
   },
   {

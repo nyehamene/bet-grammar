@@ -46,6 +46,7 @@
 (color) @constant.builtin
 (identifier) @variable
 (identifier_dot) @variable
+(identifier_builtin) @keyword
 (keyword) @constant.character
 
 ; Variables and Constants

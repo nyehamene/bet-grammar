@@ -110,6 +110,7 @@ export default grammar({
       $.string_line_group,
       $.import_builtin,
       $.document_builtin,
+      $.builtin,
       $.enum,
       $.component,
       $.style,
@@ -137,6 +138,13 @@ export default grammar({
     _component_body: $ => seq(
       repeat($.var_declaration),
       repeat1($.element),
+    ),
+
+    builtin: $ => seq(
+      $.identifier_builtin,
+      "(",
+      repeat(seq($._expression, repeat(seq(",", $._expression)))),
+      ")",
     ),
 
     import_builtin: $ => seq(
@@ -215,7 +223,8 @@ export default grammar({
 
     template_expression: $ => seq(
       field("open", '\\{'), $._expression,
-      field("close", '}')),
+      field("close", '}')
+    ),
 
     bool: () => choice("true", "false"),
 
@@ -233,6 +242,10 @@ export default grammar({
 
     identifier_dash: _ => token(
       /(--)?[a-zA-Z_-][a-zA-Z0-9_-]*/,
+    ),
+
+    identifier_builtin: _ => token(
+      /@[a-zA-Z_][a-zA-Z0-9_-]*/,
     ),
 
     member_access: $ => prec.left(seq(
