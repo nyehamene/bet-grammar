@@ -8,7 +8,6 @@ basic_expr     = string
                | ident
                | ident_d
                | member_access
-               | builtin
                ;
 // Keyword
 bool           = "true" | "false";
@@ -56,5 +55,7 @@ number         = number_dec
                | number_hex
                | number_bin
                ;
-// Builtin
-builtin        = "@" ident "(" { Expr } ")";
+Separator      = ";" | "\n" | $eof;
+// Comment
+CommentLine    = "//" /[^\n]*[\n]?/;
+CommentBlock   = $__TBD__;

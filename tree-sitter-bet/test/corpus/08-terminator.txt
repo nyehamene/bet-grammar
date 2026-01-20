@@ -18,7 +18,7 @@ my_star :: "foo"
   (const_declaration
     (identifier)
     (number))
-  (comment)
+  (comment_line)
   (const_declaration
     (identifier)
     (string))

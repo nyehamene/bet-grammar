@@ -11,7 +11,9 @@
       ],
       "injection-regex": "^betmod$",
       "class-name": "TreeSitterBetmod",
-      "highlights": "queries/highlights.scm"
+      "highlights": "../tree-sitter-bet-common/queries/highlights.scm",
+      "locals": "../tree-sitter-bet-common/queries/locals.scm",
+      "tags": "../tree-sitter-bet-common/queries/tags.scm"
     }
   ],
   "metadata": {

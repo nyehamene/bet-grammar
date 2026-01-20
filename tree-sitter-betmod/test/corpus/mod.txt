@@ -1,18 +1,32 @@
 ==================
-Basic const declaration
+Const declaration
 ==================
-my_const : : "value"
+my_const :: "value"
 ---
+
 (source_file
   (const_declaration
     (identifier)
     (string)))
 
 ==================
-Const declaration with member access
+Const declaration with simple type
 ==================
-my_const : parent.child : 123
+my_const: string: "value"
 ---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    type: (type_identifier)
+    value: (string)))
+
+==================
+Const declaration with member access type
+==================
+my_const: parent.child: 123
+---
+
 (source_file
   (const_declaration
     (identifier)
@@ -26,8 +40,10 @@ Package builtin
 ==================
 @package("my-package")
 ---
+
 (source_file
-  (package_builtin
+  (call
+    (identifier_builtin)
     (string)))
 
 ==================
@@ -35,8 +51,10 @@ Version builtin
 ==================
 @version("0.1.2")
 ---
+
 (source_file
-  (version_builtin
+  (call
+    (identifier_builtin)
     (string)))
 
 ==================
@@ -46,8 +64,10 @@ Version builtin multiline
   "0.1.2"
 )
 ---
+
 (source_file
-  (version_builtin
+  (call
+    (identifier_builtin)
     (string)))
 
 ==================
@@ -55,109 +75,92 @@ Require builtin with single argument
 ==================
 @require(pkg.foo)
 ---
+
 (source_file
-  (require_builtin
-      (member_access
-        (identifier)
-        (identifier))))
+  (call
+    (identifier_builtin)
+    (member_access
+      (identifier)
+      (identifier))))
 
 ==================
 Require builtin with single string argument
 ==================
 @require("pkg.foo")
 ---
+
 (source_file
-  (require_builtin
-     (string)))
+  (call
+    (identifier_builtin)
+    (string)))
 
 ==================
 Require builtin with multiple arguments
 ==================
-@require(pkg.foo; pkg.bar)
+@require(pkg.foo, pkg.bar)
 ---
+
 (source_file
-  (require_builtin
-    (argument_list
-       (member_access
-         (identifier)
-         (identifier))
-       (member_access
-         (identifier)
-         (identifier)))))
+  (call
+    (identifier_builtin)
+    (member_access
+      (identifier)
+      (identifier))
+    (member_access
+      (identifier)
+      (identifier))))
 
 ==================
 Export builtin with multiple arguments separated
 ==================
 @export(
-  pkg.foo;
-  pkg.baz;
+  pkg.foo,
+  pkg.baz,
 )
 ---
-(source_file
-  (export_builtin
-    (argument_list
-       (member_access
-         (identifier)
-         (identifier))
-       (member_access
-         (identifier)
-         (identifier)))))
 
+(source_file
+  (call
+    (identifier_builtin)
+    (member_access
+      (identifier)
+      (identifier))
+    (member_access
+      (identifier)
+      (identifier))))
 
 ==================
 Export builtin with multiple arguments
 ==================
 @export(
-  pkg.foo;
-  pkg.baz;
+  pkg.foo,
+  pkg.baz,
 )
 ---
+
 (source_file
-  (export_builtin
-    (argument_list
-       (member_access
-         (identifier)
-         (identifier))
-       (member_access
-         (identifier)
-         (identifier)))))
+  (call
+    (identifier_builtin)
+    (member_access
+      (identifier)
+      (identifier))
+    (member_access
+      (identifier)
+      (identifier))))
 
 ==================
 Multiple declarations and comments
 ==================
-my_const : : "hello"
+my_const :: "hello"
 // a comment
 @package("my-app")
 ---
+
 (source_file
   (const_declaration
     (identifier)
     (string))
-  (comment)
-  (package_builtin
+  (comment_line)
+  (call
+    (identifier_builtin)
     (string)))
-
-==================
-escape char
-:skip
-==================
-my_str :: "foo\nbar"
----
-(source_file
-  (const_declaration
-    (identifier)
-    (string
-      (escape_char))))
-
-==================
-string template expression
-:skip
-==================
-my_str :: "foo\{bar}"
----
-(source_file
-  (const_declaration
-    (identifier)
-    (string
-      (string_template_expr
-        (identifier)))))

@@ -8,20 +8,28 @@
 //---------------------------------
 @dir(hello.world)
 // <- keyword
-//   ^ identifier
-//         ^ identifier
+//   ^ variable
+//         ^ variable
 
 // Basic var statement
 //--------------------
 my_var :: "hello"
-//^ variable
+//^ variable.constant
 //      ^ operator
 //         ^ string
 
 // Var statement with number
 //--------------------------
-my_var :: 123
+my_var := 123
 // ^ variable
+//     ^ operator
+//      ^ operator
+//         ^ number
+
+// Const statement with number
+//--------------------------
+my_var :: 123
+// ^ variable.constant
 //      ^ operator
 //         ^ number
 
@@ -37,11 +45,29 @@ my_var :: 123
 //   ^ string
 
 my_var: number: 123
-//^ variable
+//^ variable.constant
 //    ^ operator
 //      ^^^^^^ type
 //            ^ operator
 //              ^ number
+
+my_var: my.number: 123
+//^ variable.constant
+//      ^^ variable
+//    ^ operator
+//         ^^^^^^ type
+//        ^ operator
+//                 ^^^ number
+
+my_var: my.other.number: 123
+//^ variable.constant
+//      ^^ variable
+//         ^^^^^ variable
+//    ^ operator
+//               ^^^^^^ type
+//        ^ operator
+//              ^ operator
+//                       ^^^ number
 
 // this is a comment
 // ^ comment

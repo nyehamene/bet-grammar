@@ -25,7 +25,7 @@ MyComplexComponent : : component{
     value: (component
       (var_declaration
         name: (identifier)
-        type: (identifier)
+        type: (type_identifier)
         value: (string))
       (component_element
         tag: (identifier))
@@ -53,11 +53,11 @@ MyComplexComponent : : component{
     value: (component
       (var_declaration
         name: (identifier)
-        type: (identifier)
+        type: (type_identifier)
         value: (string))
       (var_declaration
         name: (identifier)
-        type: (identifier)
+        type: (type_identifier)
         value: (bool))
       (component_element
         tag: (identifier))

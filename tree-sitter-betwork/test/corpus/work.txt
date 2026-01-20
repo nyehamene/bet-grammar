@@ -2,10 +2,11 @@
 Basic dir statement
 ==================
 @dir("hello")
-
 ---
+
 (source_file
-  (dir_statement
+  (call
+    (identifier_builtin)
     (string)))
 
 ==================
@@ -13,61 +14,70 @@ Dir statement with separator
 ==================
 @dir("hello");
 ---
+
 (source_file
-  (dir_statement
+  (call
+    (identifier_builtin)
     (string)))
 
 ==================
 Dir statement with member access
 ==================
 @dir(hello.world)
-
 ---
+
 (source_file
-  (dir_statement
+  (call
+    (identifier_builtin)
     (member_access
       (identifier)
       (identifier))))
 
 ==================
-Basic var statement
+Const statement
 ==================
-my_var :: "hello"
+my_const :: "hello"
 ---
+
 (source_file
-  (var_statement
+  (const_declaration
     (identifier)
     (string)))
 
 ==================
-Var statement with number
+Const statement with type
 ==================
-my_var :: 123
+my_const : number : 123
 ---
+
 (source_file
-  (var_statement
+  (const_declaration
     (identifier)
-    (number (number_decimal))))
+    (type_identifier)
+    (number)))
 
 ==================
 Comment
 ==================
 // this is a comment
 ---
+
 (source_file
-  (comment))
+  (comment_line))
 
 ==================
 Multiple statements
 ==================
-@dir("hello")
-my_var :: 123
 // comment
+@dir("hello")
+my_const :: 123
 ---
+
 (source_file
-  (dir_statement
+  (comment_line)
+  (call
+    (identifier_builtin)
     (string))
-  (var_statement
+  (const_declaration
     (identifier)
-    (number (number_decimal)))
-  (comment))
+    (number)))

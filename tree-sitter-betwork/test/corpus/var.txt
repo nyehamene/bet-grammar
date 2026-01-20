@@ -1,40 +1,34 @@
 ==============
-var with inferred type
+const with inferred type
 ==============
-
 name :: "expresion"
-
 ---
 
 (source_file
-  (var_statement
+  (const_declaration
     (identifier)
     (string)))
 
 ==============
-var with type
+const with type
 ==============
-
 name: type: "expresion"
-
 ---
 
 (source_file
-  (var_statement
+  (const_declaration
     (identifier)
-    (identifier)
+    (type_identifier)
     (string)))
 
 ==============
-var with qualified type
+const with qualified type
 ==============
-
 name: foo.bar.type: "expresion"
-
 ---
 
 (source_file
-  (var_statement
+  (const_declaration
     name: (identifier)
     type: (member_access
       object: (member_access

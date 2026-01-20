@@ -7,7 +7,7 @@ foo :: @bar("foo")
 (source_file
   (const_declaration
     (identifier)
-    (builtin
+    (call
       (identifier_builtin)
       (string))))
 
@@ -20,7 +20,7 @@ foo :: @bar("one", 2)
 (source_file
   (const_declaration
     (identifier)
-    (builtin
+    (call
       (identifier_builtin)
       (string)
       (number))))

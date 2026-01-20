@@ -7,8 +7,9 @@ my_import: import_builtin: @import("package");
 (source_file
   (const_declaration
     name: (identifier)
-    type: (identifier)
-    value: (import_builtin
+    type: (type_identifier)
+    value: (call
+      name: (identifier_builtin)
       (string))))
 
 ==================
@@ -20,7 +21,7 @@ escaped_string: string: "hello\nworld";
 (source_file
   (const_declaration
     name: (identifier)
-    type: (identifier)
+    type: (type_identifier)
     value: (string
       (escape_char))))
 
@@ -33,8 +34,7 @@ template_string: string: "value is \{my_var}";
 (source_file
   (const_declaration
     name: (identifier)
-    type: (identifier)
+    type: (type_identifier)
     value: (string
-      (string_template_expr
-        (template_expression
-          (identifier))))))
+      (template_expression
+        (identifier)))))

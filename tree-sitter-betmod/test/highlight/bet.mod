@@ -1,18 +1,13 @@
-// Basic const declaration
-//--------------------
-my_const : : "value"
-// ^ variable
-//            ^ string
+my_const : string : "value"
+// ^ variable.constant
+//         ^^^^^^ type
+//                  ^ string
 
-// Const declaration with member access
-//---------------------------------
 my_const : parent.child : 123
-// ^ variable
-//             ^ type
+// < variable
+//                ^^^^^ type
 //                        ^ number
 
-// Built-ins
-//----------
 @package("my-package")
 // ^ keyword
 @version("1.0.0")
@@ -22,7 +17,5 @@ my_const : parent.child : 123
 @export(pkg.bar)
 // ^ keyword
 
-// Comment
-//--------
 // this is a comment
 // ^ comment

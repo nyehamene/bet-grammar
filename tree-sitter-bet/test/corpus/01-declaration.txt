@@ -29,7 +29,7 @@ my_val: string: "foo";
 (source_file
   (const_declaration
     name: (identifier)
-    type: (identifier)
+    type: (type_identifier)
     value: (string)))
 
 =================
@@ -57,7 +57,7 @@ my_val :string;
 (source_file
   (var_declaration
     name: (identifier)
-    type: (identifier)))
+    type: (type_identifier)))
 
 =================
 var declaration with intializer
@@ -79,7 +79,7 @@ my_val: string = "foo";
 (source_file
   (var_declaration
     name: (identifier)
-    type: (identifier)
+    type: (type_identifier)
     value: (string)))
 
 =================

@@ -1,12 +1,11 @@
-comment       = @import("util/comment.grammar");
 literal       = @import("util/literals.grammar");
 //
-Work          = { stmt | cmt };
-stmt          = ( dir | var ) sep;
+Work          = { stmt | comment };
+stmt          = ( dir | const ) sep;
 dir           = "@dir" "(" expr ")";
-var           = ident ":" [ member_access ] ":" expr;
+const         = ident ":" [ member_access ] ":" expr;
 expr          = literal.Expr;
 ident         = literal.ident;
 member_access = literal.member_access;
-sep           = ";" | "\n" | $eof;
-cmt           = comment.Line;
+sep           = literal.Separator;
+comment       = literal.CommentLine;

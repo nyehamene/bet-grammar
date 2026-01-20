@@ -1,38 +1,29 @@
 literal         = @import("util/literals.grammar");
-//
-Mod             = { decl | comment };
+// Module Grammar
+Mod             = { decl | cmt };
 decl            = decl { sep decl }
                 | const
                 | builtin
                 ;
-// Variable
 const           = ident ":" [ member_access ] ":" expr;
+// Expression
+expr            = literal.Expr
+                | builtin
+                ;
 // Builtin
+package_builtin = "@package" "(" expr ")";
+version_builtin = "@version" "(" expr ")";
+require_builtin = "@require" "(" argument_list ")";
+export_builtin  = "@export" "(" argument_list ")";
 builtin         = package_builtin
                 | version_builtin
                 | require_builtin
                 | export_builtin
                 ;
-// Expression
-expr            = string
-                | literal.number
-                | literal.bool
-                | ident
-                | member_access
-                | builtin
-                ;
-package_builtin = "@package" "(" expr ")";
-version_builtin = "@version" "(" expr ")";
-require_builtin = "@require" "(" argument_list ")";
-export_builtin  = "@export" "(" argument_list ")";
-argument_list   = expr { sep expr };
 // Alias
-// pkg.foo.*
-// pkg.bar.decl
 member_access   = literal.member_access [ "." "*" ];
 ident           = literal.ident;
-string          = literal.string
-                | literal.string_l_group
-                ;
-sep             = ";" | "\n";
-comment         = literal.Comment;
+sep             = literal.Separator;
+cmt             = literal.CommentLine;
+// Util
+argument_list   = expr { sep expr };

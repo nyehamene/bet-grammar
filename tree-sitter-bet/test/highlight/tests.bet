@@ -14,41 +14,6 @@ my_var : bool = true;
 //              ^^^^ @boolean
 
 // ==================
-// Elements
-// ==================
-
-(MyComponent [prop "value"] {attr 123})
-// ^^^^^^^^^ @tag
-//            ^^^^ @variable.other.member
-//                 ^^^^^^^ @string
-//                           ^^^^ @attribute
-//                                ^^^ @number
-
-// ==================
-// Style Expressions
-// ==================
-
-my_style : : style {
-  color: #ff0000;
-// ^^^^^ @variable.other.member
-//       ^^^^^^^ @constant.builtin
-  width: calc(100% + 10px);
-// ^^^^^ @variable.other.member
-//       ^^^^ @function.builtin
-//            ^^^ @number
-//                   ^^^ @number
-}
-
-// ==================
-// Control Flow
-// ==================
-
-(if flag (CompA) "else")
-//^ @keyword.directive
-//         ^^^^  @tag
-//               ^^^^^^   @string
-
-// ==================
 // Comments
 // ==================
 
@@ -65,11 +30,6 @@ my_style : : style {
 // ==================
 // Escape char - string line
 // ==================
-
-\\ fo\noo
-//   ^^ @constant.character.escape
-// ^^ string
-//     ^^ string
 
 // ==================
 // String template - variable
@@ -134,15 +94,10 @@ my_kw :: 'foo
 // template expression
 // ===================
 
-(div {border: 1px \{solid} black})
-//                  ^^^^^  @variable
-//                 ^ @punctuation.delimiter
-//                       ^ @punctuation.delimiter
-
 // ===================
 // document builtin
 // ===================
 my_doc :: @document("[state]/[city]")
 //        ^^^^^^^^^ keyword
-//                    ^^^^ variable
-//                            ^^^^ variable
+//                    ^^^^ string
+//                            ^^^^ string

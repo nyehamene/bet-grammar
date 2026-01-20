@@ -98,7 +98,7 @@ my_style : : style{
       (css_property_declaration
         name: (identifier)
         value: (property_value
-          (function_call
+          (css_function_call
             name: (identifier)
             (parameters
               (size))))))))
@@ -118,7 +118,7 @@ my_style : : style{
       (css_property_declaration
         name: (identifier)
         value: (property_value
-          (url))))))
+          (css_url))))))
 
 =================
 style with css variable
@@ -135,8 +135,8 @@ my_style : : style{
       (css_property_declaration
         name: (identifier)
         value: (property_value
-          (variable
-            (identifier)))))))
+          (css_variable
+            name: (identifier)))))))
 
 =================
 style with unary expression
@@ -171,7 +171,7 @@ my_style : : style{
       (css_property_declaration
         name: (identifier)
         value: (property_value
-          (function_call
+          (css_function_call
             name: (identifier)
             (parameters
               (binary

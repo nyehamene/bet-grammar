@@ -77,7 +77,7 @@ my_style :: style {
   (const_declaration
     name: (identifier)
     value: (style
-      (block_comment))))
+      (comment_block))))
 
 =================
 style comment before declaration
@@ -92,7 +92,7 @@ my_style :: style {
   (const_declaration
     name: (identifier)
     value: (style
-      (block_comment)
+      (comment_block)
       (css_property_declaration
         name: (identifier)
         value: (property_value
@@ -115,7 +115,7 @@ my_style :: style {
         name: (identifier)
         value: (property_value
           (string)))
-      (block_comment))))
+      (comment_block))))
 
 =================
 style comment between declarations
@@ -135,7 +135,7 @@ my_style :: style {
         name: (identifier)
         value: (property_value
           (string)))
-      (block_comment)
+      (comment_block)
       (css_property_declaration
         name: (identifier)
         value: (property_value

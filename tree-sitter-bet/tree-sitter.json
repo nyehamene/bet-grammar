@@ -10,7 +10,10 @@
         "bet"
       ],
       "injection-regex": "^bet$",
-      "class-name": "TreeSitterBet"
+      "class-name": "TreeSitterBet",
+      "highlights": "../tree-sitter-bet-common/queries/highlights.scm",
+      "locals": "../tree-sitter-bet-common/queries/locals.scm",
+      "tags": "../tree-sitter-bet-common/queries/tags.scm"
     }
   ],
   "metadata": {
