@@ -39,13 +39,33 @@
 (bool) @boolean
 (color) @constant.builtin
 (identifier) @variable
-(identifier_dot) @variable
+(identifier_dot) @variable.other.member
+(identifier_dash) @variable
 (identifier_blank) @variable
 (identifier_builtin) @keyword
 (keyword) @constant.character
 
+(call
+  name: (identifier) @function)
+
+(call
+  name: (identifier_dot) @function.builtin)
+
+(call
+  name: (identifier_dash) @ERROR)
+
+; (call
+;   name: (identifier_builtin) @function.builtin)
+
 (member_access
    "." @operator)
+
+(member_access
+  member: (identifier) @variable.other.member)
+
+(member_access
+  member: (call
+    name: (identifier) @function.method))
 
 ; Variables and Constants
 (const_declaration
@@ -78,9 +98,6 @@
 ; Enum members
 (enum_member
   (identifier) @constant)
-
-(call
-  name: (identifier) @function)
 
 (template_expression
   open: "\\{" @punctuation.delimiter)

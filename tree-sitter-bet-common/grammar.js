@@ -64,6 +64,9 @@ export function defineGrammar(dialect) {
       [$.css_expression, $.css_function_call],
       [$._identifier_any, $._basic_expression],
       [$.declaration, $.expression],
+      [$.component_identifier, $._identifier_any],
+      [$._identifier_any, $.member_access],
+      [$._identifier_any, $._type],
     ],
 
     rules: {
@@ -120,9 +123,9 @@ export function defineGrammar(dialect) {
       ),
 
       member_access: $ => prec.left(seq(
-        field("object", choice($.identifier, $.member_access)),
+        field("object", $.expression),
         ".",
-        field("member", choice($.identifier, "*")),
+        field("member", choice($.identifier, "*", $.call)),
       )),
 
       string: $ => seq(

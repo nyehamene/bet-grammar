@@ -1,0 +1,165 @@
+// ==================
+// Declarations
+// ==================
+
+// A constant declaration
+my_const : string : "hello";
+// ^^^^^    variable.constant
+//         ^^^^^^ type
+//                   ^^^^^^  string
+
+my_var : bool = true;
+// ^^^ variable
+//       ^^^^ type
+//              ^^^^ boolean
+
+// ==================
+// Comments
+// ==================
+
+// this is a comment
+// ^^^^^^^^^^^^^^^^^^^ comment
+
+// ==================
+// Escape char
+// ==================
+
+"fo\noo"
+// ^^ constant.character.escape
+
+// ==================
+// Escape char - string line
+// ==================
+
+// ==================
+// String template - variable
+// ==================
+
+"\{foo}"
+// ^^^ variable
+
+// ==================
+// String template - string
+// ==================
+
+"\{"foo"}"
+// ^^^ string
+
+// ==================
+// String template - escape char
+// ==================
+
+"\{"foo\n"}"
+//     ^^ constant.character.escape
+
+// ==================
+// String template - number
+// ==================
+
+"\{100}"
+// ^^^ number
+
+// ==================
+// String template - size
+// ==================
+
+"\{100px}"
+// ^^^ number
+
+// ==================
+// String template - percentage
+// ==================
+
+"\{100%}"
+// ^^^ number
+
+// ==================
+// String template - bool
+// ==================
+
+"\{true} \{false}"
+// ^^^^ boolean
+//         ^^^^^ boolean
+//       ^^ punctuation.delimiter
+//              ^ punctuation.delimiter
+
+// ===================
+// keyword
+// ===================
+
+my_kw :: 'foo
+//       ^^^^ constant.character
+
+// ===================
+// member access
+// ===================
+
+pkg.require.add(foo)
+// <- variable
+//  ^^^^^^^ variable.other.member
+//          ^^^ function.method
+//              ^^^ variable
+
+// ===================
+// member access
+// ===================
+
+pkg.require.add(foo).bar
+//          ^^^ function.method
+//                   ^^^ variable.other.member
+
+// ===================
+// document builtin
+// ===================
+my_doc :: @document("[state]/[city]")
+//        ^^^^^^^^^ keyword
+//                    ^^^^ string
+//                            ^^^^ string
+
+// ==================
+// Elements
+// ==================
+
+(MyComponent [prop "value"] {attr 123})
+// ^^^^^^^^^ tag
+//            ^^^^ variable.other.member
+//                 ^^^^^^^ string
+//                           ^^^^ attribute
+//                                ^^^ number
+
+// ==================
+// Style Expressions
+// ==================
+
+my_style : : style {
+  color: #ff0000;
+// ^^^^^ variable.other.member
+//       ^^^^^^^ constant.builtin
+  width: calc(100% + 10px);
+// ^^^^^ variable.other.member
+//       ^^^^ function.builtin
+//            ^^^ number
+//                   ^^^ number
+}
+
+(div {border: 1px \{solid} black})
+//                  ^^^^^  variable
+//                 ^ punctuation.delimiter
+//                       ^ punctuation.delimiter
+
+// ==================
+// Control Flow
+// ==================
+
+(if flag (CompA) "else")
+//^ keyword.directive
+//         ^^^^  tag
+//               ^^^^^^   string
+
+(cond flag .foo "foo" .bar "bar")
+//^ keyword.directive
+//         ^^^^  variable.other.member
+//                    ^^^^  variable.other.member
+//               ^^^^   string
+//                         ^^^^   string
+

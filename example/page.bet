@@ -19,11 +19,11 @@
 // 1. component
 //
 
-pkg    :: document("page", "[author]/[?book]")
-author :: param(:author)
-book   :: param("book")
+pkg    :: @document("page", "[author]/[?book]")
+author :: pkg.author
+book   :: pkg.book
 
-html :: import("html")
+html :: @import("html")
 Tag  :: html.buildin.Tag
 
 head   :: html.head

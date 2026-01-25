@@ -993,6 +993,10 @@
             "named": false
           },
           {
+            "type": "call",
+            "named": true
+          },
+          {
             "type": "identifier",
             "named": true
           }
@@ -1003,11 +1007,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "member_access",
+            "type": "expression",
             "named": true
           }
         ]

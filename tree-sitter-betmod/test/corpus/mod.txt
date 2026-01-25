@@ -164,3 +164,31 @@ my_const :: "hello"
   (call
     (identifier_builtin)
     (string)))
+
+==================
+Member function call
+==================
+pkg.add_require("foo")
+---
+
+(source_file
+  (member_access
+    object: (identifier)
+    member: (call
+      name: (identifier)
+      (string))))
+
+==================
+Member function call - nested
+==================
+pkg.require.add_package_from_url("foo")
+---
+
+(source_file
+  (member_access
+    object: (member_access
+      object: (identifier)
+      member: (identifier))
+    member: (call
+      name: (identifier)
+      (string))))

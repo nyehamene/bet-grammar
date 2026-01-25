@@ -1,7 +1,7 @@
-pkg :: package("example")
+pkg :: @import(".")
 
-html :: import("html")
-lib  :: import("path/to/lib")
+html :: @import("html")
+lib  :: @import("path/to/lib")
 
 p       :: html.element.p
 div     :: html.element.div

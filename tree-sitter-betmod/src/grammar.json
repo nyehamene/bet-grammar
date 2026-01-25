@@ -1757,17 +1757,8 @@
             "type": "FIELD",
             "name": "object",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "identifier"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "member_access"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "expression"
             }
           },
           {
@@ -1787,6 +1778,10 @@
                 {
                   "type": "STRING",
                   "value": "*"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "call"
                 }
               ]
             }
@@ -2438,6 +2433,18 @@
     [
       "declaration",
       "expression"
+    ],
+    [
+      "component_identifier",
+      "_identifier_any"
+    ],
+    [
+      "_identifier_any",
+      "member_access"
+    ],
+    [
+      "_identifier_any",
+      "_type"
     ]
   ],
   "precedences": [],
