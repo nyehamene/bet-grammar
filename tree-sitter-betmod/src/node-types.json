@@ -190,6 +190,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "comment_documentation",
+        "named": true
+      },
+      {
         "type": "const_declaration",
         "named": true
       },
@@ -514,6 +518,33 @@
     "fields": {}
   },
   {
+    "type": "comment_documentation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "doc_line",
+          "named": true
+        },
+        {
+          "type": "doc_string",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "identifier_blank",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "component",
     "named": true,
     "fields": {},
@@ -812,6 +843,25 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "doc_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_char",
+          "named": true
+        },
+        {
+          "type": "template_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -1412,6 +1462,10 @@
   {
     "type": "currentcolor",
     "named": false
+  },
+  {
+    "type": "doc_line",
+    "named": true
   },
   {
     "type": "enum",

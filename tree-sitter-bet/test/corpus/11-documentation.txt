@@ -1,0 +1,34 @@
+==============
+documentation
+==============
+foo: "documenatation here"
+---
+
+(source_file
+  (comment_documentation
+    name: (documentation_identifier)
+    (documentation_string)))
+
+==============
+documentation - single line
+==============
+foo: \\documenatation here
+---
+
+(source_file
+  (comment_documentation
+    name: (documentation_identifier)
+    (documentation_string_line)))
+
+==============
+documentation - multi line
+==============
+foo: \\documenatation here
+\\ another line here
+---
+
+(source_file
+  (comment_documentation
+    name: (documentation_identifier)
+    (documentation_string_line)
+    (documentation_string_line)))

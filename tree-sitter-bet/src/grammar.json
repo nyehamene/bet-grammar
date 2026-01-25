@@ -2209,6 +2209,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "comment_documentation"
+        },
+        {
+          "type": "SYMBOL",
           "name": "expression"
         }
       ]
@@ -2394,6 +2398,88 @@
           }
         ]
       }
+    },
+    "comment_documentation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "documentation_identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "string"
+              },
+              "named": true,
+              "value": "documentation_string"
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "documentation_string_line"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "\n"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "documentation_string_line"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "\n"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "documentation_string_line": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "string_line"
+      },
+      "named": false,
+      "value": ""
     }
   },
   "extras": [
@@ -2445,6 +2531,10 @@
     [
       "_identifier_any",
       "_type"
+    ],
+    [
+      "_variable_identifier",
+      "comment_documentation"
     ]
   ],
   "precedences": [],

@@ -67,6 +67,7 @@ export function defineGrammar(dialect) {
       [$.component_identifier, $._identifier_any],
       [$._identifier_any, $.member_access],
       [$._identifier_any, $._type],
+      [$._variable_identifier, $.comment_documentation],
     ],
 
     rules: {
@@ -210,6 +211,7 @@ export function defineGrammar(dialect) {
         $.const_declaration,
         $.var_declaration,
         $.enum,
+        $.comment_documentation,
         // allow expression to enable
         // parsing partial code snippets
         $.expression,
@@ -254,6 +256,25 @@ export function defineGrammar(dialect) {
           '/',
         ),
       ),
+
+      comment_documentation: $ => seq(
+        field("name", alias($.identifier, $.documentation_identifier)),
+        ":",
+        choice(
+          alias($.string, $.documentation_string),
+          seq(
+            $.documentation_string_line,
+            repeat(seq("\n", $.documentation_string_line)),
+            optional("\n"),
+          ),
+        ),
+      ),
+
+      documentation_string_line: $ => {
+        const document_string = alias($.string_line, "");
+        return document_string;
+      },
+
     }
   })
 }

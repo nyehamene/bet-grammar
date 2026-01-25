@@ -23,16 +23,20 @@ pkg    :: @document("page", "[author]/[?book]")
 author :: pkg.author
 book   :: pkg.book
 
+html: "html documentation"
 html :: @import("html")
 Tag  :: html.buildin.Tag
 
+head: \\
+\\head element documentation
+\\spanning multiple lines
 head   :: html.head
 body   :: html.body
 div    :: html.div
 h1     :: html.h1
 button :: html.button
 
-(html.html {en "lang"}
+(html.html {en: "lang"}
 	(head
 		(title "Home"))
 	(body

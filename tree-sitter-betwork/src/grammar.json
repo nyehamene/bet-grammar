@@ -1757,17 +1757,8 @@
             "type": "FIELD",
             "name": "object",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "identifier"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "member_access"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "expression"
             }
           },
           {
@@ -1778,8 +1769,21 @@
             "type": "FIELD",
             "name": "member",
             "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "STRING",
+                  "value": "*"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "call"
+                }
+              ]
             }
           }
         ]
@@ -2205,6 +2209,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "comment_documentation"
+        },
+        {
+          "type": "SYMBOL",
           "name": "expression"
         }
       ]
@@ -2390,6 +2398,42 @@
           }
         ]
       }
+    },
+    "comment_documentation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_variable_identifier"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "string"
+              },
+              "named": true,
+              "value": "doc_string"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "string_line"
+              },
+              "named": true,
+              "value": "doc_line"
+            }
+          ]
+        }
+      ]
     }
   },
   "extras": [
@@ -2429,6 +2473,18 @@
     [
       "declaration",
       "expression"
+    ],
+    [
+      "component_identifier",
+      "_identifier_any"
+    ],
+    [
+      "_identifier_any",
+      "member_access"
+    ],
+    [
+      "_identifier_any",
+      "_type"
     ]
   ],
   "precedences": [],

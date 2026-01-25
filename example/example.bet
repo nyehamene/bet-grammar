@@ -26,7 +26,7 @@ Page :: component {
 	container: Tag = html.tag.div
 
     (container
-	    100000000000001
+	    "100000000000001"
 
 	    "Hello, World!"
 
@@ -35,7 +35,7 @@ Page :: component {
 
 	    (title)
 
-	    (heading {color (rgba 127, 127, 255, 0.6)})
+	    (heading {color: rgba(127, 127, 255, 0.6)})
 
 	    (if error
 		    (div "fail to load content"))
@@ -49,7 +49,7 @@ Page :: component {
 		        .failed    (p "Failed")
 		        .cancelled (p "Cancelled")))
 
-	    (Button [id "mainbutton"] "Click"))
+	    (Button [id: "mainbutton"] "Click"))
 }
 
 Page :: style {

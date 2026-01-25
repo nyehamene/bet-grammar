@@ -9,7 +9,7 @@
 @dir(hello.world)
 // <- keyword
 //   ^ variable
-//         ^ variable
+//         ^ variable.other.member
 
 // Basic var statement
 //--------------------
@@ -62,7 +62,7 @@ my_var: my.number: 123
 my_var: my.other.number: 123
 //^ variable.constant
 //      ^^ variable
-//         ^^^^^ variable
+//         ^^^^^ variable.other.member
 //    ^ operator
 //               ^^^^^^ type
 //        ^ operator

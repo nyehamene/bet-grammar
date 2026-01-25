@@ -190,6 +190,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "comment_documentation",
+        "named": true
+      },
+      {
         "type": "const_declaration",
         "named": true
       },
@@ -514,6 +518,36 @@
     "fields": {}
   },
   {
+    "type": "comment_documentation",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "documentation_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "documentation_string",
+          "named": true
+        },
+        {
+          "type": "documentation_string_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "component",
     "named": true,
     "fields": {},
@@ -813,6 +847,30 @@
         ]
       }
     }
+  },
+  {
+    "type": "documentation_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_char",
+          "named": true
+        },
+        {
+          "type": "template_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "documentation_string_line",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "enum",
@@ -1324,6 +1382,10 @@
     "named": false
   },
   {
+    "type": "\n",
+    "named": false
+  },
+  {
     "type": "!important",
     "named": false
   },
@@ -1412,6 +1474,10 @@
   {
     "type": "currentcolor",
     "named": false
+  },
+  {
+    "type": "documentation_identifier",
+    "named": true
   },
   {
     "type": "enum",

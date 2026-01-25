@@ -2209,6 +2209,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "comment_documentation"
+        },
+        {
+          "type": "SYMBOL",
           "name": "expression"
         }
       ]
@@ -2394,6 +2398,42 @@
           }
         ]
       }
+    },
+    "comment_documentation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_variable_identifier"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "string"
+              },
+              "named": true,
+              "value": "doc_string"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "string_line"
+              },
+              "named": true,
+              "value": "doc_line"
+            }
+          ]
+        }
+      ]
     }
   },
   "extras": [

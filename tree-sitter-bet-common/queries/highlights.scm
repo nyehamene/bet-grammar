@@ -107,7 +107,20 @@
 
 ; Comments
 (comment_line) @comment
+
 (comment_block) @comment.block
+
+(comment_documentation
+  ":" @operator)
+
+(comment_documentation
+  name: (documentation_identifier) @variable)
+
+(comment_documentation
+  (documentation_string) @comment.line.documentation)
+
+(comment_documentation
+  (documentation_string_line) @comment.block.documentation)
 
 ; Elements and Components
 

@@ -116,6 +116,20 @@ my_doc :: @document("[state]/[city]")
 //                    ^^^^ string
 //                            ^^^^ string
 
+// ===================
+// documentation
+// ===================
+
+my_foo: "a documentation"
+// <- variable
+//    ^ operator
+//      ^^^^^^^^^^^^^^^^^  comment.line.documentation
+
+my_foo: \\a documentation
+// <- variable
+//    ^ operator
+//      ^^^^^^^^^^^^^^^^^ comment.block.documentation
+
 // ==================
 // Elements
 // ==================
