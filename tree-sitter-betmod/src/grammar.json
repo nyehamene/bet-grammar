@@ -2403,8 +2403,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_variable_identifier"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            "named": true,
+            "value": "documentation_identifier"
+          }
         },
         {
           "type": "STRING",
@@ -2420,20 +2429,57 @@
                 "name": "string"
               },
               "named": true,
-              "value": "doc_string"
+              "value": "documentation_string"
             },
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "SYMBOL",
-                "name": "string_line"
-              },
-              "named": true,
-              "value": "doc_line"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "documentation_string_line"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "\n"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "documentation_string_line"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "\n"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         }
       ]
+    },
+    "documentation_string_line": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "string_line"
+      },
+      "named": false,
+      "value": ""
     }
   },
   "extras": [
@@ -2485,6 +2531,10 @@
     [
       "_identifier_any",
       "_type"
+    ],
+    [
+      "_variable_identifier",
+      "comment_documentation"
     ]
   ],
   "precedences": [],

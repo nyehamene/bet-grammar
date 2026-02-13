@@ -10,15 +10,13 @@ const PREC = {
 }
 
 const hexDigit = /[a-fA-F0-9]/;
-
 const hexDigits = repeat1(hexDigit);
+const binaryDigits = repeat1(choice('0', '1'));
 
 const decimalLiteral = choice(
   '0',
   seq(/[0-9]/, repeat(/[0-9]/), optional(seq('.', repeat(/[0-9]/))))
 );
-
-const binaryDigits = repeat1(choice('0', '1'));
 
 const hexadecimalLiteral = seq(choice('0x', '0X'), hexDigits);
 const binaryLiteral = seq(choice('0b', '0B'), binaryDigits);

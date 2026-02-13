@@ -520,25 +520,28 @@
   {
     "type": "comment_documentation",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "documentation_identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "doc_line",
+          "type": "documentation_string",
           "named": true
         },
         {
-          "type": "doc_string",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "identifier_blank",
+          "type": "documentation_string_line",
           "named": true
         }
       ]
@@ -846,7 +849,7 @@
     }
   },
   {
-    "type": "doc_string",
+    "type": "documentation_string",
     "named": true,
     "fields": {},
     "children": {
@@ -863,6 +866,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "documentation_string_line",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "enum",
@@ -1374,6 +1382,10 @@
     "named": false
   },
   {
+    "type": "\n",
+    "named": false
+  },
+  {
     "type": "!important",
     "named": false
   },
@@ -1464,7 +1476,7 @@
     "named": false
   },
   {
-    "type": "doc_line",
+    "type": "documentation_identifier",
     "named": true
   },
   {

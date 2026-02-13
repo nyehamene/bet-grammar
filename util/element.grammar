@@ -7,7 +7,7 @@ Element           = string_element
                   ;
 // String element
 string_element    = literal.string
-                  | literal.string_l_group
+                  | literal.string_line_group
                   ;
 // If element
 if_element        = "(" "if" expr Element [ Element ] ")";
@@ -27,7 +27,7 @@ attr              = ident [ attr_value ];
 attr_value        = expr;
 // Expression
 expr              = basic_expr
-                  | literal.string_l_group
+                  | literal.string_line_group
                   | if_expr
                   | cond_expr
                   ;
@@ -37,7 +37,7 @@ cond_expr_case    = basic_expr expr;
 ident             = literal.ident;
 member_access     = literal.member_access;
 basic_expr        = literal.string
-                  | literal.ident_d
+                  | literal.ident_dot
                   | literal.number
                   | literal.bool
                   ;

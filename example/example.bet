@@ -40,6 +40,10 @@ Page :: component {
 	    (if error
 		    (div "fail to load content"))
 
+			(if (if true false true)
+				"true"
+				"false")
+
 	    (section
 	        (cond state
 		        .pending   (p "Pending")

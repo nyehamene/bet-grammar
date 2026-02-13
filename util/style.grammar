@@ -32,7 +32,7 @@ simple_selector         = type_selector
                         | nesting_selector
                         ;
 type_selector           = ident;
-class_selector          = literals.ident_d;
+class_selector          = literals.ident_dot;
 id_selector             = "#" ident;
 nesting_selector        = "&";
 attr_selector           = "[" attr_selector_value "]";

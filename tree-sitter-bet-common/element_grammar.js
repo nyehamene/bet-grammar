@@ -1,6 +1,14 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+/**
+ * @param {Object<string, Rule>} options
+ * @returns {GrammarSymbols<any>}
+ */
+const defineGrammar = (options) => {
+  return {}
+}
+
 export default {
   element: $ => choice(
     $.string_element,

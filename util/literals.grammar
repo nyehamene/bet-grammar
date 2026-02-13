@@ -1,61 +1,65 @@
 // Expression
-Expr           = basic_expr;
+Expr                 = basic_expr;
 // Basic expression
-basic_expr     = string
-               | string_l_group
-               | bool
-               | number
-               | ident
-               | ident_d
-               | member_access
-               ;
+basic_expr           = string
+                     | string_line_group
+                     | bool
+                     | number
+                     | ident
+                     | ident_dot
+                     | ident_blank
+                     | ident_dash
+                     | member_access
+                     ;
 // Keyword
-bool           = "true" | "false";
+bool                 = "true" | "false";
 //
 // Identifier
 //
-ident          = /[a-zA-Z_][a-zA-Z0-9_]*/;
-ident_d        = "." ident;
+ident                = /[a-zA-Z_][a-zA-Z0-9_]*/;
+ident_dot            = "." ident;
+ident_blank          = "_";
+ident_dash           = /(--)?[a-zA-Z_-][a-zA-Z0-9_-]*/;
 // member_access is left-associative
-member_access  = ident "." ident { "." ident };
+member_access        = ident "." ident { "." ident };
 //
 // String and String line
 // ===============================
 // Rename string_l to string_line.
 // Rename string_t_* to string_template_*
 // Tree-sitter: use external scanner to scan string_content.
-string         = "\"" { string_content } "\"";
-string_l       = "\\" { string_content } "\n";
-string_l_group = string_l { string_l };
-string_content = escape_char
-               | string_t_expr
-               | /[^\n"]/
-               ;
-string_t_expr  = "\\{" basic_expr "}";
-escape_char    = "\\\\"
-               | "\\\""
-               | "\\t"
-               | "\\r"
-               | "\\s"
-               | "\\f"
-               | "\\v"
-               | "\\n"
-               ;
+string               = "\"" { string_content } "\"";
+string_line          = "\\" { string_content } "\n";
+string_line_group    = string_line { string_line };
+string_content       = escape_char
+                     | string_template_expr
+                     | /[^\n"]/
+                     ;
+string_template_expr = "\\{" basic_expr "}";
+escape_char          = "\\\\"
+                     | "\\\""
+                     | "\\t"
+                     | "\\r"
+                     | "\\s"
+                     | "\\f"
+                     | "\\v"
+                     | "\\n"
+                     ;
 // Number
 //
 // The following should be hidden in tree-sitter grammar:
 // digit_bin, digit_hex, number_bin, number_dec, number_hex.
-digit_hex      = /[a-fA-F0-9]/;
-digit_bin      = "0" | "1";
-integer        = /[1-9]/;
-number_bin     = ( "0b" | "0B" ) digit_bin { digit_bin };
-number_hex     = ( "0x" | "0X" ) digit_hex { digit_hex };
-number_dec     = "0" | integer [ "." ( "0" | integer ) ];
-number         = number_dec
-               | number_hex
-               | number_bin
-               ;
-Separator      = ";" | "\n" | $eof;
+digit_hex            = /[a-fA-F0-9]/;
+digit_bin            = "0" | "1";
+integer              = /[1-9]/;
+number_bin           = ( "0b" | "0B" ) digit_bin { digit_bin };
+number_hex           = ( "0x" | "0X" ) digit_hex { digit_hex };
+number_dec           = "0" | integer [ "." ( "0" | integer ) ];
+number               = number_dec
+                     | number_hex
+                     | number_bin
+                     ;
+Separator            = ";" | "\n" | $EOF;
 // Comment
-CommentLine    = "//" /[^\n]*[\n]?/;
-CommentBlock   = $__TBD__;
+CommentLine          = "//" /[^\n]*[\n]?/;
+CommentBlock         = "/*" /.*/ "*/";
