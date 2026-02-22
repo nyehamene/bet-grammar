@@ -2,7 +2,7 @@
 const with keyword value
 ===================
 
-my_kw :: 'border-color
+my_kw :: 'border-color'
 ---
 
 (source_file
@@ -14,7 +14,7 @@ my_kw :: 'border-color
 var with keyword value
 ===================
 
-my_kw := '--my-property
+my_kw := '--my-property'
 ---
 
 (source_file
@@ -26,7 +26,7 @@ my_kw := '--my-property
 attribute with keyword value
 ===================
 
-(div {display: 1px 'solid black})
+(div {display: 1px 'solid' 'black'})
 ---
 
 (source_file
@@ -38,13 +38,13 @@ attribute with keyword value
         (attribue_value
           (size)
           (keyword)
-          (identifier))))))
+          (keyword))))))
 
 ===================
 property with keyword value
 ===================
 
-(Button [type: 'Reset])
+(Button [type: 'Reset'])
 ---
 
 (source_file

@@ -3,7 +3,7 @@ attribute template expression
 ===================
 
 borderColor :: "black"
-(div {border: 1px solid \{borderColor}})
+(div {border: 1px 'solid' borderColor})
 ---
 
 (source_file
@@ -17,9 +17,8 @@ borderColor :: "black"
         (identifier)
         (attribue_value
           (size)
-          (identifier)
-          (template_expression
-            (identifier)))))))
+          (keyword)
+          (identifier))))))
 
 ===================
 css declaration template expression

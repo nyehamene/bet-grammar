@@ -39,6 +39,16 @@ const identifier_builtin = () => token(
   /@[a-zA-Z_][a-zA-Z0-9_-]*/,
 );
 
+
+const keyword = () => token(seq(
+  "'",
+  choice(
+    /[a-zA-Z_][a-zA-Z0-9_-]*/,
+    /(--)?[a-zA-Z_-][a-zA-Z0-9_-]*/,
+  ),
+  "'",
+));
+
 const escape_char = () => token(/\\[^\{]/);
 
 
@@ -57,6 +67,7 @@ export {
   identifier_dot,
   identifier_dash,
   identifier_builtin,
+  keyword,
   escape_char,
   _separator,
 }

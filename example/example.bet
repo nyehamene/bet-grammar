@@ -19,11 +19,11 @@ State :: enum {
 }
 
 Page :: component {
-	title:     String
+	title:     String = "My Fancy Component"
 	heading:   Tag
 	state:     State
 	error:     Bool
-	container: Tag = html.tag.div
+	container: Tag:  html.tag.div
 
     (container
 	    "100000000000001"

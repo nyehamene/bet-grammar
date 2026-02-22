@@ -8,15 +8,7 @@
         "named": true
       },
       {
-        "type": "bool",
-        "named": true
-      },
-      {
         "type": "color",
-        "named": true
-      },
-      {
-        "type": "cond_attribute_expression",
         "named": true
       },
       {
@@ -24,35 +16,11 @@
         "named": true
       },
       {
-        "type": "identifier",
-        "named": true
-      },
-      {
-        "type": "identifier_blank",
-        "named": true
-      },
-      {
-        "type": "identifier_dot",
-        "named": true
-      },
-      {
-        "type": "if_attribute_expression",
-        "named": true
-      },
-      {
-        "type": "keyword",
+        "type": "expression",
         "named": true
       },
       {
         "type": "list",
-        "named": true
-      },
-      {
-        "type": "member_access",
-        "named": true
-      },
-      {
-        "type": "number",
         "named": true
       },
       {
@@ -61,18 +29,6 @@
       },
       {
         "type": "size",
-        "named": true
-      },
-      {
-        "type": "string",
-        "named": true
-      },
-      {
-        "type": "string_line",
-        "named": true
-      },
-      {
-        "type": "template_expression",
         "named": true
       },
       {
@@ -194,6 +150,10 @@
         "named": true
       },
       {
+        "type": "component",
+        "named": true
+      },
+      {
         "type": "const_declaration",
         "named": true
       },
@@ -203,6 +163,10 @@
       },
       {
         "type": "expression",
+        "named": true
+      },
+      {
+        "type": "style",
         "named": true
       },
       {
@@ -246,11 +210,7 @@
         "named": true
       },
       {
-        "type": "component",
-        "named": true
-      },
-      {
-        "type": "enum",
+        "type": "cond_expression",
         "named": true
       },
       {
@@ -263,6 +223,10 @@
       },
       {
         "type": "identifier_dot",
+        "named": true
+      },
+      {
+        "type": "if_expression",
         "named": true
       },
       {
@@ -283,10 +247,6 @@
       },
       {
         "type": "string_line",
-        "named": true
-      },
-      {
-        "type": "style",
         "named": true
       }
     ]
@@ -433,7 +393,7 @@
             "named": true
           },
           {
-            "type": "if_attribute_expression",
+            "type": "expression",
             "named": true
           }
         ]
@@ -443,39 +403,7 @@
         "required": true,
         "types": [
           {
-            "type": "bool",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "identifier_blank",
-            "named": true
-          },
-          {
-            "type": "identifier_dot",
-            "named": true
-          },
-          {
-            "type": "keyword",
-            "named": true
-          },
-          {
-            "type": "member_access",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "string_line",
+            "type": "expression",
             "named": true
           }
         ]
@@ -556,6 +484,10 @@
       "required": false,
       "types": [
         {
+          "type": "const_declaration",
+          "named": true
+        },
+        {
           "type": "element",
           "named": true
         },
@@ -601,7 +533,7 @@
     }
   },
   {
-    "type": "cond_attribute_expression",
+    "type": "cond_element",
     "named": true,
     "fields": {
       "selector": {
@@ -609,39 +541,7 @@
         "required": true,
         "types": [
           {
-            "type": "bool",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "identifier_blank",
-            "named": true
-          },
-          {
-            "type": "identifier_dot",
-            "named": true
-          },
-          {
-            "type": "keyword",
-            "named": true
-          },
-          {
-            "type": "member_access",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "string_line",
+            "type": "expression",
             "named": true
           }
         ]
@@ -659,7 +559,7 @@
     }
   },
   {
-    "type": "cond_element",
+    "type": "cond_expression",
     "named": true,
     "fields": {
       "selector": {
@@ -667,39 +567,7 @@
         "required": true,
         "types": [
           {
-            "type": "bool",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "identifier_blank",
-            "named": true
-          },
-          {
-            "type": "identifier_dot",
-            "named": true
-          },
-          {
-            "type": "keyword",
-            "named": true
-          },
-          {
-            "type": "member_access",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "string_line",
+            "type": "expression",
             "named": true
           }
         ]
@@ -753,7 +621,19 @@
         "required": true,
         "types": [
           {
+            "type": "component",
+            "named": true
+          },
+          {
+            "type": "enum",
+            "named": true
+          },
+          {
             "type": "expression",
+            "named": true
+          },
+          {
+            "type": "style",
             "named": true
           }
         ]
@@ -903,74 +783,6 @@
     }
   },
   {
-    "type": "if_attribute_expression",
-    "named": true,
-    "fields": {
-      "cond": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "bool",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "identifier_blank",
-            "named": true
-          },
-          {
-            "type": "identifier_dot",
-            "named": true
-          },
-          {
-            "type": "keyword",
-            "named": true
-          },
-          {
-            "type": "member_access",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "string_line",
-            "named": true
-          }
-        ]
-      },
-      "else": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "if_attribute_expression",
-            "named": true
-          }
-        ]
-      },
-      "then": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "if_attribute_expression",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "if_element",
     "named": true,
     "fields": {
@@ -979,39 +791,7 @@
         "required": true,
         "types": [
           {
-            "type": "bool",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "identifier_blank",
-            "named": true
-          },
-          {
-            "type": "identifier_dot",
-            "named": true
-          },
-          {
-            "type": "keyword",
-            "named": true
-          },
-          {
-            "type": "member_access",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "string_line",
+            "type": "expression",
             "named": true
           }
         ]
@@ -1032,6 +812,42 @@
         "types": [
           {
             "type": "element",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "if_expression",
+    "named": true,
+    "fields": {
+      "cond": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "else": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "then": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
             "named": true
           }
         ]
@@ -1344,7 +1160,19 @@
         "required": false,
         "types": [
           {
+            "type": "component",
+            "named": true
+          },
+          {
+            "type": "enum",
+            "named": true
+          },
+          {
             "type": "expression",
+            "named": true
+          },
+          {
+            "type": "style",
             "named": true
           }
         ]

@@ -67,3 +67,35 @@ MyComplexComponent : : component{
           (property
             name: (identifier)
             value: (identifier)))))))
+
+=================
+component with immutable and mutable property and elements
+=================
+MyComplexComponent : : component{
+  title_text: string = "Hello";
+  show_header: bool: true;
+  (Header)
+  (Text [content: title_text])
+};
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (component
+      (var_declaration
+        (identifier)
+        (type_identifier)
+        (string))
+      (const_declaration
+        (identifier)
+        (type_identifier)
+        (bool))
+      (component_element
+        (identifier))
+      (component_element
+        (identifier)
+        (properties
+          (property
+            (identifier)
+            (identifier)))))))

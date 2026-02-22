@@ -87,7 +87,7 @@ my_var : bool = true;
 // keyword
 // ===================
 
-my_kw :: 'foo
+my_kw :: 'foo'
 //       ^^^^ constant.character
 
 // ===================

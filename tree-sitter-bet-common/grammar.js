@@ -15,6 +15,7 @@ import {
   identifier_dash,
   identifier_blank,
   identifier_builtin,
+  keyword,
   decimalLiteral,
   hexadecimalLiteral,
   binaryLiteral,
@@ -53,7 +54,6 @@ export function defineGrammar(dialect) {
     inline: $ => [
       $._css_block,
       $._css_function_parameters,
-      $.if_cond_expression,
       $.css_list,
     ],
 
@@ -63,11 +63,11 @@ export function defineGrammar(dialect) {
       [$.css_expression, $._color_hsl],
       [$.css_expression, $.css_function_call],
       [$._identifier_any, $._basic_expression],
-      [$.declaration, $.expression],
       [$.component_identifier, $._identifier_any],
       [$._identifier_any, $.member_access],
       [$._identifier_any, $._type],
       [$._variable_identifier, $.comment_documentation],
+      [$.cond_element, $.cond_expression],
     ],
 
     rules: {
@@ -86,6 +86,7 @@ export function defineGrammar(dialect) {
       identifier_dash,
       identifier_builtin,
       identifier_blank,
+      keyword,
       _separator,
 
       ...elementGrammar,
@@ -156,14 +157,6 @@ export function defineGrammar(dialect) {
         binaryLiteral,
       )),
 
-      keyword: $ => token(seq(
-        "'",
-        choice(
-          /[a-zA-Z_][a-zA-Z0-9_-]*/,
-          /(--)?[a-zA-Z_-][a-zA-Z0-9_-]*/,
-        ),
-      )),
-
       _variable_identifier: $ => choice($.identifier, $.identifier_blank),
 
       call: $ => prec(5, seq(field("name", $._identifier_any), $._argument_list)),
@@ -193,28 +186,59 @@ export function defineGrammar(dialect) {
       ),
 
       _component_property_list: $ => seq(
-        $.var_declaration,
-        repeat(seq($._separator, $.var_declaration)),
+        choice($.const_declaration, $.var_declaration),
+        repeat(seq($._separator, choice($.const_declaration, $.var_declaration))),
         optional($._separator)
       ),
 
       expression: $ =>
         choice(
           $._basic_expression,
+          $.if_expression,
+          $.cond_expression,
           $.call,
-          $.enum,
-          $.component,
-          $.style,
         ),
+
+      _top_level_expression: $ => choice(
+        $.expression,
+        $.enum,
+        $.component,
+        $.style,
+      ),
+
+      if_expression: $ => seq(
+        "(",
+        "if",
+        field("cond", $.expression),
+        field("then", $.expression),
+        field("else", $.expression),
+        ")",
+      ),
+
+      cond_expression: $ => seq(
+        "(",
+        "cond",
+        field("selector", $.expression),
+        optional(alias($.cond_case_expression_list, $.case_list)),
+        ")",
+      ),
+
+      cond_case_expression_list: $ => repeat1(
+        alias($.cond_case_expression, $.case),
+      ),
+
+      cond_case_expression: $ => seq(
+        field("match", $.expression),
+        field("branch", $.expression),
+      ),
 
       declaration: $ => choice(
         $.const_declaration,
         $.var_declaration,
-        $.enum,
         $.comment_documentation,
         // allow expression to enable
         // parsing partial code snippets
-        $.expression,
+        $._top_level_expression,
       ),
 
       var_declaration: $ => choice(
@@ -228,7 +252,7 @@ export function defineGrammar(dialect) {
           ":",
           optional(field("type", $._type)),
           "=",
-          field("value", $.expression),
+          field("value", $._top_level_expression),
         ),
       ),
 
@@ -237,7 +261,7 @@ export function defineGrammar(dialect) {
         ":",
         optional(field("type", $._type)),
         ":",
-        field("value", $.expression),
+        field("value", $._top_level_expression),
       ),
 
       comment_line: $ => token(
