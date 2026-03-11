@@ -29,10 +29,27 @@ my_comp : : component {
         tag: (identifier)))))
 
 =================
+const component with member access tag
+=================
+my_comp : : component {
+  (foo.MyComponent)
+};
+---
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    value: (component
+      (component_element
+        tag: (member_access
+          object: (identifier)
+          member: (identifier))))))
+
+=================
 component with component element with properties
 =================
 my_comp : : component {
-  (MyComponent [prop1: 1; prop2: "two"])
+  (MyComponent [prop1=1, prop2="two"])
 };
 ---
 
@@ -45,10 +62,12 @@ my_comp : : component {
         (properties
           (property
             name: (identifier)
-            value: (number))
+            value: (expression
+              (number)))
           (property
             name: (identifier)
-            value: (string)))))))
+            value: (expression
+              (string))))))))
 
 =================
 component with if element

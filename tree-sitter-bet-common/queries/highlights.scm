@@ -43,7 +43,6 @@
 (identifier_dash) @variable
 (identifier_blank) @variable
 (identifier_builtin) @keyword
-(keyword) @constant.character
 
 (call
   name: (identifier) @function)
@@ -125,8 +124,8 @@
 ; Elements and Components
 
 (component_element
-  tag: (member_access
-    member: (identifier)) @tag)
+  tag: (_
+    member: (identifier) @tag))
 
 (component_element
   tag: (identifier) @tag)
@@ -139,12 +138,14 @@
 
 ; CSS / Style
 
+(color_hex) @constant.builtin
+
+(css_percentage) @number
+
+(css_size) @number
+
 (css_property_declaration
   name: (identifier) @variable.other.member)
 
 (css_function_call
   (identifier) @function.builtin)
-
-(css_variable
-  (identifier) @variable)
-

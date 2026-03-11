@@ -15,7 +15,7 @@ component with variables and elements
 MyComplexComponent : : component{
   title_text: string = "Hello";
   (Header)
-  (Text [content: title_text])
+  (Text [content=title_text])
 };
 ---
 
@@ -34,7 +34,8 @@ MyComplexComponent : : component{
         (properties
           (property
             name: (identifier)
-            value: (identifier)))))))
+            value: (expression
+              (identifier))))))))
 
 =================
 component with multiple variables and elements
@@ -43,7 +44,7 @@ MyComplexComponent : : component{
   title_text: string = "Hello";
   show_header: bool = true;
   (Header)
-  (Text [content: title_text])
+  (Text [content=title_text])
 };
 ---
 
@@ -66,7 +67,8 @@ MyComplexComponent : : component{
         (properties
           (property
             name: (identifier)
-            value: (identifier)))))))
+            value: (expression
+              (identifier))))))))
 
 =================
 component with immutable and mutable property and elements
@@ -75,7 +77,7 @@ MyComplexComponent : : component{
   title_text: string = "Hello";
   show_header: bool: true;
   (Header)
-  (Text [content: title_text])
+  (Text [content=title_text])
 };
 ---
 
@@ -98,4 +100,5 @@ MyComplexComponent : : component{
         (properties
           (property
             (identifier)
-            (identifier)))))))
+            (expression
+              (identifier))))))))

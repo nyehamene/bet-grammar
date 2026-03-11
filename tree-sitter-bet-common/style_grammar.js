@@ -4,20 +4,59 @@
 import { decimalLiteral, hexDigits, PREC } from "./literal_grammar.js"
 
 export default {
-  style: $ => seq("style", $._css_block),
+  style: $ => seq(
+    "style",
+    optional($._style_params),
+    $._css_block
+  ),
+
+  _style_params: $ => seq(
+    "(",
+    optional(
+      seq(
+        $.style_param,
+        repeat(seq(",", $.style_param)),
+        optional(","),
+      )
+    ),
+    ")",
+  ),
+
+  style_param: $ => seq(
+    $.identifier,
+    ":",
+    choice($.identifier, $.member_access),
+    optional(seq("=", alias($.component_attribute_expression, $.expression))),
+    optional($.style_param_tag)
+  ),
+
+  style_param_tag: $ => seq("@", "var", "(", $.string, repeat(seq(",", $.string)), optional(","), ")"),
 
   _css_block: $ => seq(
     "{",
-    repeat($.css_property_declaration),
+    optional($._style_rules),
     "}",
+  ),
+
+  _style_rules: $ => seq(
+    $.style_rule,
+    repeat(seq(";", $.style_rule)),
+    optional(";")
+  ),
+
+  style_rule: $ => $._css_declaration,
+
+  _css_declaration: $ => choice(
+    $.css_property_declaration,
+    // $.css_at_rule,
+    // $.css_nesting,
   ),
 
   css_property_declaration: $ => seq(
     field("name", $.css_property_identifier),
     ":",
-    field("value", alias($._css_expression_list, $.property_value)),
-    field("modifier", optional("!important")),
-    token(";"),
+    field("value", $.property_value),
+    optional(field("modifier", "!important")),
   ),
 
   css_property_identifier: $ => choice(
@@ -25,26 +64,50 @@ export default {
     alias($.identifier_dash, $.identifier),
   ),
 
-  _css_expression_list: $ => seq(
+  property_value: $ => seq(
     $.css_expression,
     repeat($.css_expression),
   ),
 
   css_expression: $ => choice(
     $.identifier,
-    $.identifier_dot,
     $.string,
     $.number,
-    $.template_expression,
-    $.css_variable,
+    $.bool,
+    $.css_size,
+    $.color_hex,
+    $.css_unary_expr,
+    $.css_binary_expr,
+    $.css_percentage,
     $.css_function_call,
-    $.css_url,
-    alias($.css_size, $.size),
-    alias($.css_percentage, $.percentage),
-    alias($.css_unary, $.unary),
-    alias($.css_binary, $.binary),
-    alias($.css_color, $.color),
-    alias($.css_list, $.list),
+    $.css_expression_list,
+    seq("(", $.css_expression, ")"),
+    alias($.identifier_dash, $.identifier),
+  ),
+
+  css_calc_expr: $ => choice(
+    $.css_unary_expr,
+    $.css_binary_expr,
+  ),
+
+  css_unary_expr: $ => seq(
+    token(prec.right(PREC.unary, choice("+", "-"))),
+    $.css_expression,
+  ),
+
+  css_binary_expr: $ => prec.left(PREC.binary,
+    seq(
+      $.css_expression,
+      token(choice("*", "/", "+", "-")),
+      $.css_expression),
+  ),
+
+  css_function_call: $ => seq(
+    choice($.identifier, $.identifier_dash),
+    "(",
+    repeat(choice($.css_calc_expr, $.css_expression)),
+    optional(","),
+    ")",
   ),
 
   css_size: $ => token(seq(
@@ -57,80 +120,12 @@ export default {
     token.immediate("%"),
   )),
 
-  css_color: $ => choice(
-    alias($._color_hex, ""),
-    alias($._color_rgb, ""),
-    alias($._color_hsl, ""),
-    "currentcolor",
-  ),
+  color_hex: _ => token(seq("#", hexDigits)),
 
-  _color_rgb: $ => seq(
-    choice("rgb", "rgba"),
-    "(",
-    $.css_expression,
-    ",",
-    $.css_expression,
-    ",",
-    $.css_expression,
-    optional(seq(",", $.css_expression)),
-    ")",
-  ),
-
-  _color_hsl: $ => seq(
-    choice("hsl", "hsla"),
-    "(",
-    $.css_expression,
-    ",",
-    $.css_expression,
-    ",",
-    $.css_expression,
-    optional(seq(",", $.css_expression)),
-    ")",
-  ),
-
-  _color_hex: _ => token(seq("#", hexDigits)),
-
-  css_function_call: $ => seq(
-    field("name", $.css_property_identifier),
-    token(prec.left(3, "(")),
-    alias(
-      seq($._css_function_parameters,
-        repeat(seq(",", $._css_function_parameters))),
-      $.parameters),
-    ")",
-  ),
-
-  _css_function_parameters: $ => $.css_expression,
-
-  css_variable: $ => seq(
-    "var",
-    "(",
-    field("name", choice($.css_property_identifier)),
-    optional(field("fallback", $.css_expression)),
-    ")",
-  ),
-
-  css_url: $ => token(seq(
-    "url",
-    "(",
-    repeat(/[^\)\n]/),
-    ")",
-  )),
-
-  css_unary: $ => seq(
-    token(prec.right(PREC.unary, choice("+", "-"))),
-    choice($.number, $.css_size, $.css_percentage),
-  ),
-
-  css_binary: $ => prec.left(PREC.binary,
+  css_expression_list: $ => prec.left(
     seq(
       $.css_expression,
-      token(choice("*", "/", "+", "-")),
-      $.css_expression),
-  ),
-
-  css_list: $ => prec.left(seq(
-    $.css_expression,
-    repeat1(seq(choice(",", "/"), $.css_expression)))
+      repeat1(seq(choice(",", "/"), $.css_expression))
+    )
   ),
 }

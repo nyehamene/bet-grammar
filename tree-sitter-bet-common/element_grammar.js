@@ -17,7 +17,7 @@ export default {
     $.component_element,
   ),
 
-  string_element: $ => prec(15, choice(
+  string_element: $ => prec(2, choice(
     $.string,
     $.string_line,
   )),
@@ -52,8 +52,10 @@ export default {
     "(",
     field("tag", $.component_identifier),
     optional(alias($.component_property_list, $.properties)),
-    repeat(alias($.component_attribute_list, $.attributes)),
-    alias(repeat($.element), $.children),
+    repeat(choice(
+      alias($.component_attribute_list, $.attributes),
+      $.element,
+    )),
     ")",
   ),
 
@@ -67,7 +69,14 @@ export default {
     const property = alias($.component_property, $.property)
     return seq(
       "[",
-      optional(seq(property, repeat(seq(";", property)))),
+      // optional(seq(property, repeat(seq(";", property)))),
+      optional(
+        seq(
+          property,
+          repeat(seq(optional(","), property)),
+          optional(","),
+        )
+      ),
       "]",
     )
   },
@@ -75,46 +84,56 @@ export default {
   component_property: $ => seq(
     field("name", $.identifier),
     optional(seq(
-      ":",
-      field("value", $._basic_expression))),
+      "=",
+      field("value", alias($.component_attribute_expression, $.expression))
+    )),
   ),
 
   component_attribute_list: $ => {
     const attribute = alias($.component_attribute, $.attribute)
     return seq(
       "{",
-      optional(seq(attribute, repeat(seq(";", attribute)))),
+      optional(
+        seq(
+          attribute,
+          repeat(seq(optional(","), attribute)),
+          optional(","),
+        )
+      ),
       "}",
     )
   },
 
   component_attribute: $ => seq(
-    field("name", $.component_attribute_identifier),
-    optional(seq(
-      ":",
-      field("value", alias($._component_attribute_expression_list, $.attribue_value)))),
+    field("name", $._component_attribute_identifier),
+    optional(
+      seq(
+        "=",
+        field("value", alias($.component_attribute_expression, $.attribue_value))
+      )
+    ),
   ),
 
-  component_attribute_identifier: $ => choice(
+  _component_attribute_identifier: $ => choice(
+    $.string,
     $.identifier,
     alias($.identifier_dash, $.identifier),
-  ),
-
-  _component_attribute_expression_list: $ => seq(
-    $.component_attribute_expression,
-    repeat($.component_attribute_expression),
+    seq($.identifier, ":", $._component_attribute_identifier),
   ),
 
   component_attribute_expression: $ => choice(
-    $.expression,
-    $.css_function_call,
+    $.identifier,
+    $.string,
+    $.string_line_group,
+    $.member_access,
+    $.number,
+    $.bool,
+    $.call,
+    $.if_expression,
+    $.cond_expression,
+    alias($.identifier_dash, $.identifier),
     alias($.css_size, $.size),
     alias($.css_percentage, $.percentage),
-    alias($.css_variable, $.variable),
-    alias($.css_url, $.url),
-    alias($.css_unary, $.unary),
-    alias($.css_binary, $.binary),
-    alias($.css_color, $.color),
-    alias($.css_list, $.list),
+    alias($.color_hex, $.color),
   ),
 }

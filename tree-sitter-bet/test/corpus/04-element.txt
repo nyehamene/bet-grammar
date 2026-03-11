@@ -32,7 +32,7 @@ my_comp : : component {
 component with component element with nameless properties
 =================
 my_comp : : component {
-  (MyComponent [prop1; prop2: "two"])
+  (MyComponent [prop1, prop2="two"])
 };
 ---
 
@@ -47,7 +47,8 @@ my_comp : : component {
             name: (identifier))
           (property
             name: (identifier)
-            value: (string)))))))
+            value: (expression
+              (string))))))))
 
 =================
 component with if element
@@ -150,19 +151,18 @@ my_comp : : component {
         (attributes
           (attribute
             name: (identifier)
-            value: (attribue_value
-              (string))))))))
+            name: (string)))))))
 
 =================
 component with properties and attributes
 =================
 my_comp : : component {
-  (MyComponent [ prop1: 1
-               ; prop2: "2"
+  (MyComponent [ prop1=1
+               , prop2="2"
                ]
-               { class: "my-class"
-               ; disabled
-               ; id: my_id
+               { class="my-class"
+               , disabled
+               , id=my_id
                })
 };
 ---
@@ -176,10 +176,12 @@ my_comp : : component {
         (properties
           (property
             name: (identifier)
-            value: (number))
+            value: (expression
+              (number)))
           (property
             name: (identifier)
-            value: (string)))
+            value: (expression
+              (string))))
         (attributes
           (attribute
             name: (identifier)

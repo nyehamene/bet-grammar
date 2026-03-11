@@ -15,7 +15,6 @@ import {
   identifier_dash,
   identifier_blank,
   identifier_builtin,
-  keyword,
   decimalLiteral,
   hexadecimalLiteral,
   binaryLiteral,
@@ -44,30 +43,27 @@ export function defineGrammar(dialect) {
       $.expression,
       $.element,
       $.component_attribute_expression,
-      $.component_attribute_identifier,
       $.component_identifier,
-      $.css_expression,
       $.declaration,
       $.css_property_identifier,
     ],
 
     inline: $ => [
       $._css_block,
-      $._css_function_parameters,
-      $.css_list,
+      $.css_expression_list,
     ],
 
     conflicts: $ => [
       [$.css_expression],
-      [$.css_expression, $._color_rgb],
-      [$.css_expression, $._color_hsl],
+      [$.css_expression, $.css_unary_expr],
+      [$.css_expression, $.css_calc_expr],
       [$.css_expression, $.css_function_call],
       [$._identifier_any, $._basic_expression],
-      [$.component_identifier, $._identifier_any],
       [$._identifier_any, $.member_access],
       [$._identifier_any, $._type],
       [$._variable_identifier, $.comment_documentation],
       [$.cond_element, $.cond_expression],
+      [$.component_identifier, $._identifier_any],
     ],
 
     rules: {
@@ -79,39 +75,97 @@ export function defineGrammar(dialect) {
         optional($.declaration),
       ),
 
-      bool,
-      escape_char,
-      identifier,
-      identifier_dot,
-      identifier_dash,
-      identifier_builtin,
-      identifier_blank,
-      keyword,
-      _separator,
-
-      ...elementGrammar,
-      ...styleGrammar,
-
-      _identifier_any: $ => choice(
-        $.identifier,
-        $.identifier_dot,
-        $.identifier_dash,
-        $.identifier_builtin,
+      declaration: $ => choice(
+        $.const_declaration,
+        $.var_declaration,
+        $.comment_documentation,
+        // allow expression to enable
+        // parsing partial code snippets
+        $._top_level_expression,
       ),
+
+      const_declaration: $ => seq(
+        field("name", $._variable_identifier),
+        ":",
+        optional(field("type", $._type)),
+        ":",
+        field("value", $._top_level_expression),
+      ),
+
+      var_declaration: $ => choice(
+        seq(
+          field("name", $._variable_identifier),
+          ":",
+          field("type", $._type),
+        ),
+        seq(
+          field("name", $._variable_identifier),
+          ":",
+          optional(field("type", $._type)),
+          "=",
+          field("value", $._top_level_expression),
+        ),
+      ),
+
+      _variable_identifier: $ => choice($.identifier, $.identifier_blank),
 
       _type: $ => choice($.member_access, alias($.identifier, $.type_identifier)),
 
-      _basic_expression: $ => choice(
-        $.string,
-        $.string_line,
-        $.bool,
-        $.number,
-        $.identifier,
-        $.identifier_dot,
-        $.identifier_blank,
-        $.member_access,
-        $.keyword,
+      comment_documentation: $ => seq(
+        field("name", alias($.identifier, $.documentation_identifier)),
+        ":",
+        choice(
+          alias($.string, $.documentation_string),
+          seq(
+            $.documentation_string_line,
+            repeat(seq("\n", $.documentation_string_line)),
+            optional("\n"),
+          ),
+        ),
       ),
+
+      _top_level_expression: $ => choice(
+        $.expression,
+        $.enum,
+        $.component,
+        $.style,
+      ),
+
+      expression: $ =>
+        choice(
+          $._basic_expression,
+          $.if_expression,
+          $.cond_expression,
+          $.call,
+        ),
+
+      if_expression: $ => seq(
+        "(",
+        "if",
+        field("cond", $.expression),
+        field("then", $.expression),
+        optional(field("else", $.expression)),
+        ")",
+      ),
+
+      cond_expression: $ => seq(
+        "(",
+        "cond",
+        field("selector", $.expression),
+        optional(alias($.cond_case_expression_list, $.case_list)),
+        ")",
+      ),
+
+      cond_case_expression_list: $ => repeat1(
+        alias($.cond_case_expression, $.case),
+      ),
+
+      cond_case_expression: $ => seq(
+        field("match", $.expression),
+        field("branch", $.expression),
+      ),
+
+      call: $ => prec(5, seq(field("name", $._identifier_any), $._argument_list)),
 
       _argument_list: $ => seq(
         "(",
@@ -123,43 +177,6 @@ export function defineGrammar(dialect) {
           )),
         ")",
       ),
-
-      member_access: $ => prec.left(seq(
-        field("object", $.expression),
-        ".",
-        field("member", choice($.identifier, "*", $.call)),
-      )),
-
-      string: $ => seq(
-        '"',
-        repeat(choice(
-          $._string_content,
-          $.escape_char,
-          $.template_expression,
-        )),
-        '"'
-      ),
-
-      _string_content: $ => token(prec(12, /[^"\\\n]/)),
-
-      string_line: $ => token(
-        /\\\\[^\n]*/
-      ),
-
-      template_expression: $ => seq(
-        field("open", '\\{'), $.expression,
-        field("close", '}')
-      ),
-
-      number: $ => token(choice(
-        decimalLiteral,
-        hexadecimalLiteral,
-        binaryLiteral,
-      )),
-
-      _variable_identifier: $ => choice($.identifier, $.identifier_blank),
-
-      call: $ => prec(5, seq(field("name", $._identifier_any), $._argument_list)),
 
       enum: $ => seq(
         "enum",
@@ -191,78 +208,70 @@ export function defineGrammar(dialect) {
         optional($._separator)
       ),
 
-      expression: $ =>
-        choice(
-          $._basic_expression,
-          $.if_expression,
-          $.cond_expression,
-          $.call,
-        ),
+      bool,
+      escape_char,
+      identifier,
+      identifier_dot,
+      identifier_dash,
+      identifier_builtin,
+      identifier_blank,
+      _separator,
 
-      _top_level_expression: $ => choice(
-        $.expression,
-        $.enum,
-        $.component,
-        $.style,
+      ...elementGrammar,
+      ...styleGrammar,
+
+      _identifier_any: $ => choice(
+        $.identifier,
+        $.identifier_dot,
+        $.identifier_dash,
+        $.identifier_builtin,
       ),
 
-      if_expression: $ => seq(
-        "(",
-        "if",
-        field("cond", $.expression),
-        field("then", $.expression),
-        field("else", $.expression),
-        ")",
+      _basic_expression: $ => choice(
+        $.string,
+        $.string_line,
+        $.bool,
+        $.number,
+        $.identifier,
+        $.identifier_dot,
+        $.identifier_blank,
+        $.member_access,
       ),
 
-      cond_expression: $ => seq(
-        "(",
-        "cond",
-        field("selector", $.expression),
-        optional(alias($.cond_case_expression_list, $.case_list)),
-        ")",
+      member_access: $ => prec.left(seq(
+        field("object", $.expression),
+        ".",
+        field("member", choice($.identifier, "*", $.call)),
+      )),
+
+      string: $ => seq(
+        '"',
+        repeat(choice(
+          $._string_content,
+          $.escape_char,
+          $.template_expression,
+        )),
+        '"'
       ),
 
-      cond_case_expression_list: $ => repeat1(
-        alias($.cond_case_expression, $.case),
+      _string_content: $ => token(prec(12, /[^"\\\n]/)),
+
+      string_line: $ => token(
+        /\\\\[^\n]*/
       ),
 
-      cond_case_expression: $ => seq(
-        field("match", $.expression),
-        field("branch", $.expression),
+      string_line_group: $ => repeat1($.string_line),
+
+      template_expression: $ => seq(
+        field("open", '\\{'), $.expression,
+        field("close", '}')
       ),
 
-      declaration: $ => choice(
-        $.const_declaration,
-        $.var_declaration,
-        $.comment_documentation,
-        // allow expression to enable
-        // parsing partial code snippets
-        $._top_level_expression,
-      ),
-
-      var_declaration: $ => choice(
-        seq(
-          field("name", $._variable_identifier),
-          ":",
-          field("type", $._type),
-        ),
-        seq(
-          field("name", $._variable_identifier),
-          ":",
-          optional(field("type", $._type)),
-          "=",
-          field("value", $._top_level_expression),
-        ),
-      ),
-
-      const_declaration: $ => seq(
-        field("name", $._variable_identifier),
-        ":",
-        optional(field("type", $._type)),
-        ":",
-        field("value", $._top_level_expression),
-      ),
+      number: $ => token(choice(
+        decimalLiteral,
+        hexadecimalLiteral,
+        binaryLiteral,
+      )),
 
       comment_line: $ => token(
         seq('//', /[^\n]*/)
@@ -278,19 +287,6 @@ export function defineGrammar(dialect) {
           '/*',
           /[^*]*\*+([^/*][^*]*\*+)*/,
           '/',
-        ),
-      ),
-
-      comment_documentation: $ => seq(
-        field("name", alias($.identifier, $.documentation_identifier)),
-        ":",
-        choice(
-          alias($.string, $.documentation_string),
-          seq(
-            $.documentation_string_line,
-            repeat(seq("\n", $.documentation_string_line)),
-            optional("\n"),
-          ),
         ),
       ),
 

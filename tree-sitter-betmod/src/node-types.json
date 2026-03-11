@@ -4,7 +4,11 @@
     "named": true,
     "subtypes": [
       {
-        "type": "binary",
+        "type": "bool",
+        "named": true
+      },
+      {
+        "type": "call",
         "named": true
       },
       {
@@ -12,97 +16,19 @@
         "named": true
       },
       {
-        "type": "css_function_call",
+        "type": "cond_expression",
         "named": true
       },
-      {
-        "type": "expression",
-        "named": true
-      },
-      {
-        "type": "list",
-        "named": true
-      },
-      {
-        "type": "percentage",
-        "named": true
-      },
-      {
-        "type": "size",
-        "named": true
-      },
-      {
-        "type": "unary",
-        "named": true
-      },
-      {
-        "type": "url",
-        "named": true
-      },
-      {
-        "type": "variable",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "component_attribute_identifier",
-    "named": true,
-    "subtypes": [
       {
         "type": "identifier",
         "named": true
-      }
-    ]
-  },
-  {
-    "type": "component_identifier",
-    "named": true,
-    "subtypes": [
+      },
       {
-        "type": "identifier",
+        "type": "if_expression",
         "named": true
       },
       {
         "type": "member_access",
-        "named": true
-      }
-    ]
-  },
-  {
-    "type": "css_expression",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "binary",
-        "named": true
-      },
-      {
-        "type": "color",
-        "named": true
-      },
-      {
-        "type": "css_function_call",
-        "named": true
-      },
-      {
-        "type": "css_url",
-        "named": true
-      },
-      {
-        "type": "css_variable",
-        "named": true
-      },
-      {
-        "type": "identifier",
-        "named": true
-      },
-      {
-        "type": "identifier_dot",
-        "named": true
-      },
-      {
-        "type": "list",
         "named": true
       },
       {
@@ -122,11 +48,21 @@
         "named": true
       },
       {
-        "type": "template_expression",
+        "type": "string_line_group",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "component_identifier",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "identifier",
         "named": true
       },
       {
-        "type": "unary",
+        "type": "member_access",
         "named": true
       }
     ]
@@ -230,10 +166,6 @@
         "named": true
       },
       {
-        "type": "keyword",
-        "named": true
-      },
-      {
         "type": "member_access",
         "named": true
       },
@@ -252,45 +184,23 @@
     ]
   },
   {
-    "type": "",
-    "named": false,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "css_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "attribue_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "component_attribute_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "attribute",
     "named": true,
     "fields": {
       "name": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
-            "type": "component_attribute_identifier",
+            "type": ":",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "string",
             "named": true
           }
         ]
@@ -317,21 +227,6 @@
       "types": [
         {
           "type": "attribute",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "binary",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "css_expression",
           "named": true
         }
       ]
@@ -426,26 +321,6 @@
     }
   },
   {
-    "type": "children",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "element",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "color",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "comment_documentation",
     "named": true,
     "fields": {
@@ -522,7 +397,7 @@
           "named": true
         },
         {
-          "type": "children",
+          "type": "element",
           "named": true
         },
         {
@@ -641,26 +516,116 @@
     }
   },
   {
-    "type": "css_function_call",
+    "type": "css_binary_expr",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "css_property_identifier",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "parameters",
+          "type": "css_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "css_calc_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "css_binary_expr",
+          "named": true
+        },
+        {
+          "type": "css_unary_expr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "css_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bool",
+          "named": true
+        },
+        {
+          "type": "color_hex",
+          "named": true
+        },
+        {
+          "type": "css_binary_expr",
+          "named": true
+        },
+        {
+          "type": "css_expression",
+          "named": true
+        },
+        {
+          "type": "css_function_call",
+          "named": true
+        },
+        {
+          "type": "css_percentage",
+          "named": true
+        },
+        {
+          "type": "css_size",
+          "named": true
+        },
+        {
+          "type": "css_unary_expr",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "css_function_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "css_calc_expr",
+          "named": true
+        },
+        {
+          "type": "css_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "identifier_dash",
           "named": true
         }
       ]
@@ -703,29 +668,18 @@
     }
   },
   {
-    "type": "css_variable",
+    "type": "css_unary_expr",
     "named": true,
-    "fields": {
-      "fallback": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "css_expression",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "css_property_identifier",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "css_expression",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -834,7 +788,7 @@
       },
       "else": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "expression",
@@ -889,21 +843,6 @@
     }
   },
   {
-    "type": "parameters",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "css_expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "properties",
     "named": true,
     "fields": {},
@@ -937,39 +876,7 @@
         "required": false,
         "types": [
           {
-            "type": "bool",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "identifier_blank",
-            "named": true
-          },
-          {
-            "type": "identifier_dot",
-            "named": true
-          },
-          {
-            "type": "keyword",
-            "named": true
-          },
-          {
-            "type": "member_access",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "string_line",
+            "type": "expression",
             "named": true
           }
         ]
@@ -1050,12 +957,80 @@
     }
   },
   {
+    "type": "string_line_group",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "string_line",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "style",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
       "required": false,
+      "types": [
+        {
+          "type": "style_param",
+          "named": true
+        },
+        {
+          "type": "style_rule",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "style_param",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "style_param_tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "style_param_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "style_rule",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
       "types": [
         {
           "type": "css_property_declaration",
@@ -1095,29 +1070,6 @@
       "types": [
         {
           "type": "expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "unary",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "css_percentage",
-          "named": true
-        },
-        {
-          "type": "css_size",
-          "named": true
-        },
-        {
-          "type": "number",
           "named": true
         }
       ]
@@ -1180,32 +1132,6 @@
     }
   },
   {
-    "type": "variable",
-    "named": true,
-    "fields": {
-      "fallback": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "css_expression",
-            "named": true
-          }
-        ]
-      },
-      "name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "css_property_identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "",
     "named": false
   },
@@ -1258,6 +1184,10 @@
     "named": false
   },
   {
+    "type": "@",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -1268,6 +1198,14 @@
   {
     "type": "]",
     "named": false
+  },
+  {
+    "type": "color",
+    "named": true
+  },
+  {
+    "type": "color_hex",
+    "named": true
   },
   {
     "type": "comment_block",
@@ -1296,14 +1234,6 @@
     "named": true
   },
   {
-    "type": "css_url",
-    "named": true
-  },
-  {
-    "type": "currentcolor",
-    "named": false
-  },
-  {
     "type": "documentation_identifier",
     "named": true
   },
@@ -1317,14 +1247,6 @@
   },
   {
     "type": "false",
-    "named": false
-  },
-  {
-    "type": "hsl",
-    "named": false
-  },
-  {
-    "type": "hsla",
     "named": false
   },
   {
@@ -1352,24 +1274,12 @@
     "named": false
   },
   {
-    "type": "keyword",
-    "named": true
-  },
-  {
     "type": "number",
     "named": true
   },
   {
     "type": "percentage",
     "named": true
-  },
-  {
-    "type": "rgb",
-    "named": false
-  },
-  {
-    "type": "rgba",
-    "named": false
   },
   {
     "type": "size",
@@ -1389,10 +1299,6 @@
   },
   {
     "type": "type_identifier",
-    "named": true
-  },
-  {
-    "type": "url",
     "named": true
   },
   {

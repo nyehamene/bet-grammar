@@ -84,13 +84,6 @@ my_var : bool = true;
 //              ^ punctuation.delimiter
 
 // ===================
-// keyword
-// ===================
-
-my_kw :: 'foo'
-//       ^^^^ constant.character
-
-// ===================
 // member access
 // ===================
 
@@ -134,12 +127,21 @@ my_foo: \\a documentation
 // Elements
 // ==================
 
-(MyComponent [prop "value"] {attr 123})
+(MyComponent [prop="value"] {attr=123})
 // ^^^^^^^^^ tag
 //            ^^^^ variable.other.member
 //                 ^^^^^^^ string
 //                           ^^^^ attribute
 //                                ^^^ number
+
+
+(My.Component [prop="value"] {attr=123})
+//^ variable
+//   ^^^^^^^^ tag
+//             ^^^^ variable.other.member
+//                  ^^^^^^^ string
+//                            ^^^^ attribute
+//                                 ^^^ number
 
 // ==================
 // Style Expressions
@@ -156,10 +158,9 @@ my_style : : style {
 //                   ^^^ number
 }
 
-(div {border: 1px \{solid} black})
-//                  ^^^^^  variable
-//                 ^ punctuation.delimiter
-//                       ^ punctuation.delimiter
+(div {border="1px solid black"})
+//    ^^^^^^ attribute
+//                  ^^^^^  string
 
 // ==================
 // Control Flow

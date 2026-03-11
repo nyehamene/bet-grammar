@@ -21,10 +21,12 @@ my_style : : style{
   (const_declaration
     name: (identifier)
     value: (style
-      (css_property_declaration
-        name: (identifier)
-        value: (property_value
-          (string))))))
+      (style_rule
+        (css_property_declaration
+          name: (identifier)
+          value: (property_value
+            (css_expression
+              (string))))))))
 
 =================
 style property declaration - terminator
@@ -38,10 +40,12 @@ my_style : : style{
   (const_declaration
     name: (identifier)
     value: (style
-      (css_property_declaration
-        name: (identifier)
-        value: (property_value
-          (string))))))
+      (style_rule
+        (css_property_declaration
+          name: (identifier)
+          value: (property_value
+            (css_expression
+              (string))))))))
 
 =================
 style with multiple property declarations
@@ -56,14 +60,18 @@ my_style : : style{
   (const_declaration
     name: (identifier)
     value: (style
-      (css_property_declaration
-        name: (identifier)
-        value: (property_value
-          (string)))
-      (css_property_declaration
-        name: (identifier)
-        value: (property_value
-          (string))))))
+      (style_rule
+        (css_property_declaration
+          name: (identifier)
+          value: (property_value
+            (css_expression
+              (string)))))
+      (style_rule
+        (css_property_declaration
+          name: (identifier)
+          value: (property_value
+            (css_expression
+              (string))))))))
 
 =================
 style comment
@@ -93,10 +101,12 @@ my_style :: style {
     name: (identifier)
     value: (style
       (comment_block)
-      (css_property_declaration
-        name: (identifier)
-        value: (property_value
-          (string))))))
+      (style_rule
+        (css_property_declaration
+          name: (identifier)
+          value: (property_value
+            (css_expression
+              (string))))))))
 
 =================
 style comment after declaration
@@ -111,10 +121,12 @@ my_style :: style {
   (const_declaration
     name: (identifier)
     value: (style
-      (css_property_declaration
-        name: (identifier)
-        value: (property_value
-          (string)))
+      (style_rule
+        (css_property_declaration
+          name: (identifier)
+          value: (property_value
+            (css_expression
+              (string)))))
       (comment_block))))
 
 =================
@@ -131,12 +143,132 @@ my_style :: style {
   (const_declaration
     name: (identifier)
     value: (style
-      (css_property_declaration
-        name: (identifier)
-        value: (property_value
-          (string)))
+      (style_rule
+        (css_property_declaration
+          name: (identifier)
+          value: (property_value
+            (css_expression
+              (string)))))
       (comment_block)
-      (css_property_declaration
-        name: (identifier)
-        value: (property_value
-          (string))))))
+      (style_rule
+        (css_property_declaration
+          name: (identifier)
+          value: (property_value
+            (css_expression
+              (string))))))))
+
+=================
+style parameters
+=================
+my_style : : style(bg_color: Color, width: Size) {
+  --bar: "bar";
+  foo: "bar";
+};
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (style
+      (style_param
+        (identifier)
+        (identifier))
+      (style_param
+        (identifier)
+        (identifier))
+      (style_rule
+        (css_property_declaration
+          (identifier)
+          (property_value
+            (css_expression
+              (string)))))
+      (style_rule
+        (css_property_declaration
+          (identifier)
+          (property_value
+            (css_expression
+              (string))))))))
+
+=================
+style parameter tag
+=================
+my_style : : style(
+  bg_color: Color @var("--bg-color"),
+  width:    Size  @var("--width", "--_width"),
+) {
+  --bar: "bar";
+  foo: "bar";
+};
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (style
+      (style_param
+        (identifier)
+        (identifier)
+        (style_param_tag
+          (string)))
+      (style_param
+        (identifier)
+        (identifier)
+        (style_param_tag
+          (string)
+          (string)))
+      (style_rule
+        (css_property_declaration
+          (identifier)
+          (property_value
+            (css_expression
+              (string)))))
+      (style_rule
+        (css_property_declaration
+          (identifier)
+          (property_value
+            (css_expression
+              (string))))))))
+
+=================
+style parameter with value and tag
+=================
+my_style : : style(
+  bg_color: Color = #ff00ff @var("--bg-color"),
+  width:    Size  = 100px   @var("--width", "--_width"),
+) {
+  --bar: "bar";
+  foo: "bar";
+};
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (style
+      (style_param
+        (identifier)
+        (identifier)
+        (expression
+          (color))
+        (style_param_tag
+          (string)))
+      (style_param
+        (identifier)
+        (identifier)
+        (expression
+          (size))
+        (style_param_tag
+          (string)
+          (string)))
+      (style_rule
+        (css_property_declaration
+          (identifier)
+          (property_value
+            (css_expression
+              (string)))))
+      (style_rule
+        (css_property_declaration
+          (identifier)
+          (property_value
+            (css_expression
+              (string))))))))
