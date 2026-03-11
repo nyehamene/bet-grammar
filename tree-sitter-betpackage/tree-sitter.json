@@ -2,15 +2,16 @@
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
   "grammars": [
     {
-      "name": "betmod",
-      "camelcase": "BetMod",
-      "title": "BetMod",
-      "scope": "source.betmod",
+      "name": "betpackage",
+      "camelcase": "BetPackage",
+      "title": "Betpackage",
+      "scope": "source.betpackage",
       "file-types": [
-        "bet.mod"
+        "bet.mod",
+        "bet.package"
       ],
-      "injection-regex": "^betmod$",
-      "class-name": "TreeSitterBetmod",
+      "injection-regex": "^betpackage$",
+      "class-name": "TreeSitterBetpackage",
       "highlights": "../tree-sitter-bet-common/queries/highlights.scm",
       "locals": "../tree-sitter-bet-common/queries/locals.scm",
       "tags": "../tree-sitter-bet-common/queries/tags.scm"
@@ -19,7 +20,7 @@
   "metadata": {
     "version": "0.1.0",
     "license": "MIT",
-    "description": "Betmod grammar for tree-sitter",
+    "description": "Betpackage grammar for tree-sitter",
     "authors": [
       {
         "name": "nyehamene",
@@ -28,7 +29,7 @@
       }
     ],
     "links": {
-      "repository": "https://github.com/tree-sitter/tree-sitter-betmod",
+      "repository": "https://github.com/tree-sitter/tree-sitter-betpackage",
       "funding": ""
     }
   },

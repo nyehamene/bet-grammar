@@ -10,6 +10,6 @@
 
 import { defineGrammar } from "../tree-sitter-bet-common/grammar.js";
 
-const name = "betmod"
+const name = "betpackage"
 
 export default defineGrammar(name);

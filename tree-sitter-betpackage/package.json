@@ -1,11 +1,11 @@
 {
-  "name": "tree-sitter-betmod",
+  "name": "tree-sitter-betpackage",
   "version": "0.1.0",
-  "description": "Betmod grammar for tree-sitter",
+  "description": "Betpackage grammar for tree-sitter",
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tree-sitter/tree-sitter-betmod.git"
+    "url": "git+https://github.com/tree-sitter/tree-sitter-betpackage.git"
   },
   "funding": "",
   "license": "MIT",
@@ -20,6 +20,7 @@
     "incremental",
     "parsing",
     "tree-sitter",
+    "betpackage",
     "betmod"
   ],
   "files": [
