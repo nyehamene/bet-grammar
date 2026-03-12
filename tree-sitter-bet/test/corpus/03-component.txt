@@ -56,10 +56,11 @@ MyComplexComponent : : component{
         name: (identifier)
         type: (type_identifier)
         value: (string))
-      (var_declaration
-        name: (identifier)
-        type: (type_identifier)
-        value: (bool))
+      (property
+        (var_declaration
+          name: (identifier)
+          type: (type_identifier)
+          value: (bool)))
       (component_element
         tag: (identifier))
       (component_element
@@ -89,10 +90,54 @@ MyComplexComponent : : component{
         (identifier)
         (type_identifier)
         (string))
-      (const_declaration
+      (property
+        (const_declaration
+          (identifier)
+          (type_identifier)
+          (bool)))
+      (component_element
+        (identifier))
+      (component_element
+        (identifier)
+        (properties
+          (property
+            (identifier)
+            (expression
+              (identifier))))))))
+
+=================
+component with tag
+=================
+MyComplexComponent : : component{
+  title_text:  string = "Hello" @tag("--title");
+  show_header: bool   : true    @tag("--show-header", "--_show-header");
+  (Header)
+  (Text [content=title_text])
+};
+---
+
+(source_file
+  (const_declaration
+    (identifier)
+    (component
+      (var_declaration
         (identifier)
         (type_identifier)
-        (bool))
+        (string))
+      (property_tag
+        (call
+          (identifier)
+          (string)))
+      (property
+        (const_declaration
+          (identifier)
+          (type_identifier)
+          (bool))
+        (property_tag
+          (call
+            (identifier)
+            (string)
+            (string))))
       (component_element
         (identifier))
       (component_element

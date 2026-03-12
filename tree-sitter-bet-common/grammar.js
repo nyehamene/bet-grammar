@@ -203,10 +203,16 @@ export function defineGrammar(dialect) {
       ),
 
       _component_property_list: $ => seq(
-        choice($.const_declaration, $.var_declaration),
-        repeat(seq($._separator, choice($.const_declaration, $.var_declaration))),
+        $._component_property,
+        repeat(seq($._separator, alias($._component_property, $.property))),
         optional($._separator)
       ),
+
+      _component_property: $ => seq(
+        choice($.const_declaration, $.var_declaration),
+        optional(alias($._component_property_tag, $.property_tag)),
+      ),
+      _component_property_tag: $ => seq("@", $.call),
 
       bool,
       escape_char,

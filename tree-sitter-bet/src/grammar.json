@@ -629,17 +629,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "const_declaration"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "var_declaration"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "_component_property"
         },
         {
           "type": "REPEAT",
@@ -651,17 +642,13 @@
                 "name": "_separator"
               },
               {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "const_declaration"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "var_declaration"
-                  }
-                ]
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_component_property"
+                },
+                "named": true,
+                "value": "property"
               }
             ]
           }
@@ -677,6 +664,54 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "_component_property": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "const_declaration"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "var_declaration"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_component_property_tag"
+              },
+              "named": true,
+              "value": "property_tag"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_component_property_tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "call"
         }
       ]
     },
